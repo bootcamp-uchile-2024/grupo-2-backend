@@ -36,7 +36,7 @@ export class EquipoService {
         ];
 
         this.michis = [
-            new LosMichis("Los Michis", " Lider", this.personas, "UxUi,Frontend,AppMobile,Backend")
+            new LosMichis("Los Michis", " a definir", this.personas, "UxUi,Frontend,AppMobile,Backend")
         ]
     }
 
@@ -55,13 +55,21 @@ export class EquipoService {
     }
 
 
+    //listaSubgrupos
 
-//Datos ecommerce
-obtenerDatosGenerales():string {
-       
-        return texto;
+    listaSubgrupos() {
+        return `áreas:  UxUi: Alejandra Pantoja, Carolina Deck, Marcela Díaz, Sofía Pérez, Paula Vivallos.
+                        Frontend: Jorge Mulchi, David Manríquez, Carlos Vega.
+                        App Mobile: Nicolás Núñez, Rodrigo Carrasco.
+                        Backend: Andrés Fariña, Karla Reyes, Esteban Riquelme, Cindy da Silva`;
+    }
+
+    //Datos ecommerce
+    obtenerDatosGenerales(): string {
       
-}
+        return texto;
+
+    }
 
 
 }

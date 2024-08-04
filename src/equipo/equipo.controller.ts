@@ -27,20 +27,26 @@ export class EquipoController {
     }
   }
 
-  // La lista de todas las áreas con la información indicada anteriormente.?
-
+  // La lista de todas las áreas con la información indicada anteriormente.
+  @Get('/lista')
+  listaSubgrupos(@Res() response: Response) {
+    const lista = this.equipoService.listaSubgrupos();
+    if (lista) {
+      response.status(200).send(lista);
+    } else {
+      response.status(404).send({ error: 'No se encontraron subgrupos' });
+    }
+  }
 
   // Proporcionar los datos del ecommerce (nombre, descripción breve, tipo
   //   de ecommerce, objetivo general y objetivos específicos).
-
-  
-  @Get('/cervezarioNacional')
+  @Get('/cervezarionacional')
   obtenerDatosGenerales(@Res() response: Response) {
     const datos = this.equipoService.obtenerDatosGenerales();
     if (datos) {
       response.status(200).send(datos);
     } else {
-      response.status(404).send({ error: 'Datos no encontrados' });
+      response.status(404).send({ error: 'use /cervezarionacional' });
     }
     
   }

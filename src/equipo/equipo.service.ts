@@ -13,30 +13,30 @@ export class EquipoService {
     constructor() {
         this.personas = [
             //UX/UI
-            new Persona(1, 'Alejandra Pantoja', 'gmail', 'UxUi', 'Lider'),
-            new Persona(2, 'Carolina Deck', 'gmail', 'UxUi', ''),
-            new Persona(3, 'Marcela Díaz', 'gmail', 'UxUi', ''),
-            new Persona(4, 'Sofía Pérez', 'gmail', 'UxUi', ''),
-            new Persona(5, 'Paula Vivallos', 'gmail', 'UxUi', ''),
+            new Persona(1, 'Alejandra Pantoja', 'pantoja.ale@gmail.com', 'UxUi', 'Lider'),
+            new Persona(2, 'Carolina Deck', 'deckcarolina@gmail.com', 'UxUi', ''),
+            new Persona(3, 'Marcela Díaz', 'marcelaalejandradc@gmail.com', 'UxUi', ''),
+            new Persona(4, 'Sofía Pérez', 'sofiperezxvii@gmail.com', 'UxUi', ''),
+            new Persona(5, 'Paula Vivallos', 'vivallospaula@gmail.com', 'UxUi', ''),
 
             //Frontend
-            new Persona(6, 'Jorge Mulchi', 'gmail', 'Frontend', 'Lider'),
-            new Persona(7, 'David Manríquez', 'gmail', 'Frontend', ''),
-            new Persona(8, 'Carlos Vega', 'gmail', 'Frontend', ''),
+            new Persona(6, 'Jorge Mulchi', 'jorge.mulchi@gmail.com', 'Frontend', 'Lider'),
+            new Persona(7, 'David Manríquez', 'david.mankekez@gmail.com', 'Frontend', ''),
+            new Persona(8, 'Carlos Vega', 'calvegh@gmail.com', 'Frontend', ''),
 
             //Apps móviles:
-            new Persona(9, 'Nicolás Núñez', 'gmail', 'AppMobile', 'Lider'),
-            new Persona(10, 'Rodrigo Carrasco', 'gmail', 'AppMobile', ''),
+            new Persona(9, 'Nicolás Núñez', 'jnicolasnunezm@gmail.com', 'AppMobile', 'Lider'),
+            new Persona(10, 'Rodrigo Carrasco', 'rodrigo.carrasco.ra@gmail.com', 'AppMobile', ''),
 
             //Backend
             new Persona(11, 'Cindy da Silva', 'cindyluanadasilva@gmail.com', 'Backend', 'Lider'),
-            new Persona(12, 'Andrés Fariña', 'gmail', 'Backend', ''),
-            new Persona(13, 'Karla Reyes', 'gmail', 'Backend', ''),
-            new Persona(14, 'Esteban Riquelme', 'gmail', 'Backend', ''),
+            new Persona(12, 'Andrés Fariña', 'farinavaldivia@gmail.com', 'Backend', ''),
+            new Persona(13, 'Karla Reyes', 'karla.reyeslillo7@gmail.com', 'Backend', ''),
+            new Persona(14, 'Esteban Riquelme', 'esteban11riquelme@gmail.com', 'Backend', ''),
         ];
 
         this.michis = [
-            new LosMichis("Los Michis", " a definir", this.personas, "UxUi,Frontend,AppMobile,Backend")
+            new LosMichis("Los Michis", "Alejandra Pantoja", this.personas, "UxUi,Frontend,AppMobile,Backend")
         ]
     }
 

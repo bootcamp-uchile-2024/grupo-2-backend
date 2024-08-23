@@ -1,0 +1,18 @@
+export enum Region{
+    AP = 'Región de Arica y Parinacota',
+    TA = 'Región de Tarapacá',
+    AN = 'Región de Antofagasta',
+    AT = 'Región de Atacama',
+    CO = 'Región de Coquimbo',
+    VA = 'Región de Valparaíso',	
+    RM = 'Región Metropolitana',
+    OH = 'Región del Libertador General Bernardo O´Higgins',
+    MA = 'Región del Maule',
+    NB = 'Región de Ñuble',
+    BI = 'Región del Biobío',
+    AR = 'Región de La Araucanía',
+    LR = 'Región de Los Ríos',
+    LL = 'Región de Los Lagos',
+    AI = 'Región de Aysén del General Carlos Ibáñez del Campo',
+    MG = 'Región de Magallanes y de la Antártica Chilena',
+}

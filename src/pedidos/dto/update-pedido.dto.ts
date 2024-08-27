@@ -1,7 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
+import { CreatePedidoDto } from './create-pedido.dto';
 
-export class UpdatePedidoDto {
+export class UpdatePedidoDto extends PartialType(CreatePedidoDto) {
     @ApiProperty({description:'lista de cervezas a comprar'})
     public items: Cerveza[]
     @ApiProperty({default:'Dirección de entrega del pedido'})

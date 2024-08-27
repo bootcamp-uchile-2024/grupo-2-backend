@@ -4,7 +4,7 @@ import { Pedido } from "src/pedidos/entities/pedido.entity";
 import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
 
 //este DTO permite devolver lo usuarios manteniendo la contraseña oculta.
-export class Usuario {
+export class SalidaUsuarioDto {
     @ApiProperty()
     public id: number;
     @ApiProperty()

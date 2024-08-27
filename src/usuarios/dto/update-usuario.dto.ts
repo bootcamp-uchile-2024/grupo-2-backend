@@ -1,8 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Region } from 'src/enum/regiones';
 import { Suscripcione } from 'src/suscripciones/entities/suscripcione.entity';
+import { CreateUsuarioDto } from './create-usuario.dto';
 
-export class UpdateUsuarioDto{
+export class UpdateUsuarioDto extends PartialType(CreateUsuarioDto) {
     @ApiProperty()
     public nombre: string;
     @ApiProperty()

@@ -8,7 +8,7 @@ export class PedidosService {
     return 'Se indica la creación de un pedido';
   }
 
-  findAll() {
+  findAll(usuarioId: number) {
     return `Se entrega una lista de pedidos`;
   }
 

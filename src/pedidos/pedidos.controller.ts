@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PedidosService } from './pedidos.service';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
+import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('pedidos')
 export class PedidosController {
@@ -12,9 +13,10 @@ export class PedidosController {
     return this.pedidosService.create(createPedidoDto);
   }
 
+  @ApiQuery({ name: 'usuarioId', required: false, description: 'Id del usuario' })
   @Get()
-  findAll() {
-    return this.pedidosService.findAll();
+  findAll(@Query('usuarioId') usuarioId: number) {
+    return this.pedidosService.findAll(usuarioId);
   }
 
   @Get(':id')

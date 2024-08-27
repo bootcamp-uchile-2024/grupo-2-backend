@@ -5,6 +5,7 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 @Injectable()
 export class UsuariosService {
   create(createUsuarioDto: CreateUsuarioDto) {
+    //const salida = new Usuai
     return 'Se insica que se creó un usuario correctamente';
   }
 

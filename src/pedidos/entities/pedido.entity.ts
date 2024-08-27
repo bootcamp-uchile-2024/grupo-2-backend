@@ -1,21 +1,22 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Cerveza } from "src/cervezas/entities/cerveza.entity";
 import { estadoPedidos } from "src/enum/estado-pedidos";
 
 export class Pedido {
     @ApiProperty()
-    public id: number; //se puede usar como número de pedido
-    //@ApiProperty()
-    //public cervezas: Cerveza[]
-    @ApiProperty()
+    public id: number; //Autogenerado, se puede usar como número de pedido
+    @ApiProperty({default:'lista de cervezas del pedido'})
+    public items: Cerveza[];
+    @ApiProperty({default:'Estado del pedido'})
     public estado: estadoPedidos // creado, aceptado, pagado, enviado, entregado, etc. Enum
-    @ApiProperty()
-    public fecha_ingreso: Date
-    @ApiProperty()
+    @ApiProperty({description:'Fecha ingreso del pedido'})
+    public fecha_ingreso: Date //Autogenerado
+    @ApiProperty({default:'Dirección de entrega del pedido'})
     public direccion_entrega: string //puede ser local o envio a tercero
-    @ApiProperty()
+    @ApiProperty({default:'Correo del comprador'})
     public correo_comprador: string //se puede sacar del modelo usuario si esta logeado. Si no, se solicita.
-    @ApiProperty()
-    public telefono_comprador: number //se puede sacar del modelo usuario si esta logeado. Si no, se solicita.
-    @ApiProperty()
+    @ApiProperty({default:'Número telefónico del comprador'})
+    public telefono_comprador: string //se puede sacar del modelo usuario si esta logeado. Si no, se solicita.
+    @ApiProperty({default:'Fecha de entrega del pedido'})
     public fecha_entrega: Date //entrega física o envío
 }

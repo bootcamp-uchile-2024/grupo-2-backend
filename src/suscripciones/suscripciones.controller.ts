@@ -14,7 +14,7 @@ export class SuscripcionesController {
 
   @Get()
   findAll() {
-    return "modulo suscripciones";
+    return this.suscripcionesService.findAll();
   }
 
   @Get(':id')

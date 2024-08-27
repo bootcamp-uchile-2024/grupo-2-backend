@@ -5,22 +5,22 @@ import { UpdateSuscripcioneDto } from './dto/update-suscripcione.dto';
 @Injectable()
 export class SuscripcionesService {
   create(createSuscripcioneDto: CreateSuscripcioneDto) {
-    return 'This action adds a new suscripcione';
+    return 'Se indica la creación de una suscripción';
   }
 
   findAll() {
-    return `modulo Suscripciones`;
+    return `Se entrega un arreglo de suscripciones`;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} suscripcione`;
+    return `Se entrega una suscripción`;
   }
 
   update(id: number, updateSuscripcioneDto: UpdateSuscripcioneDto) {
-    return `This action updates a #${id} suscripcione`;
+    return `Se indica la modificación de una suscripción`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} suscripcione`;
+    return `Se indica la eliminación de una suscripción`;
   }
 }

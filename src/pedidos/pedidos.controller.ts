@@ -14,7 +14,7 @@ export class PedidosController {
 
   @Get()
   findAll() {
-    return "Modulo pedidos";
+    return this.pedidosService.findAll();
   }
 
   @Get(':id')

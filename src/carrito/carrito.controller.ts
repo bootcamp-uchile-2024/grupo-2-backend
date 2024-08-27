@@ -14,7 +14,7 @@ export class CarritoController {
 
   @Get()
   findAll() {
-    return "Carrito de compras";
+    return this.carritoService.findAll();
   }
 
   @Get(':id')

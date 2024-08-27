@@ -5,22 +5,22 @@ import { UpdatePedidoDto } from './dto/update-pedido.dto';
 @Injectable()
 export class PedidosService {
   create(createPedidoDto: CreatePedidoDto) {
-    return 'modulo pedidos';
+    return 'Se indica la creación de un pedido';
   }
 
   findAll() {
-    return `This action returns all pedidos`;
+    return `Se entrega una lista de pedidos`;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} pedido`;
+    return `Se entrega un pedido`;
   }
 
   update(id: number, updatePedidoDto: UpdatePedidoDto) {
-    return `This action updates a #${id} pedido`;
+    return `Se indica la modificación de un pedido`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} pedido`;
+    return `Se indica la eliminación un pedido`;
   }
 }

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Region } from 'src/enum/regiones';
+import { Suscripcione } from 'src/suscripciones/entities/suscripcione.entity';
 
 export class UpdateUsuarioDto{
     @ApiProperty()
@@ -16,4 +17,6 @@ export class UpdateUsuarioDto{
     public region: Region; // Enum para que sea selector
     @ApiProperty()
     public edad: number;
+    @ApiProperty()
+    public suscripcion: Suscripcione; //una sola suscripcion por usuario
 }

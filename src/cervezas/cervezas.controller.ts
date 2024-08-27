@@ -12,7 +12,7 @@ import { IBU } from 'src/enum/amargor';
 @Controller('cervezas')
 export class CervezasController {
   
-  constructor(private readonly cervezasService: CervezasService, private readonly usuariosService: UsuariosService ) {}
+  constructor(private readonly cervezasService: CervezasService) {}
 
   @Post()
   create(@Body() createCervezaDto: CreateCervezaDto) {

@@ -2,18 +2,18 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Region } from "src/enum/regiones";
 
 export class CreateUsuarioDto {
-    @ApiProperty()
+    @ApiProperty({default:'Nombre usuario'})
     public nombre: string;
-    @ApiProperty()
+    @ApiProperty({default:'Correo usuario'})
     public correo: string;
-    @ApiProperty()
+    @ApiProperty({default:'Contraseña usuario'})
     public contraseña: string;
-    @ApiProperty()
+    @ApiProperty({default:'Dirección usuario'})
     public direccion: string;
-    @ApiProperty()
+    @ApiProperty({default:'Número de teléfono usuario'})
     public telefono: string; //lo convertimos a number internamente
-    @ApiProperty()
+    @ApiProperty({default:'Región en la que reside el usuario'})
     public region: Region; // Enum para que sea selector
-    @ApiProperty()
+    @ApiProperty({default:'Edad usuario'})
     public edad: number;
 }

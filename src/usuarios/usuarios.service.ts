@@ -5,22 +5,22 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 @Injectable()
 export class UsuariosService {
   create(createUsuarioDto: CreateUsuarioDto) {
-    return 'This action adds a new usuario';
+    return 'Se insica que se creó un usuario correctamente';
   }
 
   findAll() {
-    return `modulo Usuarios`;
+    return `Se retorna un arreglo de usuarios como DTO de salida`;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+    return `Se retorna un usuario como DTO de salida`;
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
+    return `Se indica que se modificaron los atributos correctamente`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} usuario`;
+    return `Se indica que se eliminó el usuario correctamente`;
   }
 }

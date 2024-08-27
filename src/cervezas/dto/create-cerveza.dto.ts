@@ -5,8 +5,6 @@ import { CervezaArtesanal } from "src/enum/tipos-cerveza";
 
 export class CreateCervezaDto {
     @ApiProperty()
-    public id: number;
-    @ApiProperty()
     public nombre: string;
     @ApiProperty()
     public marca: string;

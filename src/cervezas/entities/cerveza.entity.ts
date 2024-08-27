@@ -6,7 +6,7 @@ import { IBU } from "src/enum/amargor";
 
 export class Cerveza {
     @ApiProperty()
-    public id: number;
+    public id: number; //autogenerado
     @ApiProperty()
     public nombre: string;
     @ApiProperty()

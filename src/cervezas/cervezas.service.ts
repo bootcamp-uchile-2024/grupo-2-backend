@@ -10,22 +10,22 @@ import { Formato } from 'src/enum/formato';
 @Injectable()
 export class CervezasService {
   create(createCervezaDto: CreateCervezaDto) {
-    return 'This action adds a new cerveza';
+    return 'Se indica la creación de una cerveza';
   }
 
   findAll(nombre: string, marca: string, categoria: CervezaArtesanal, descripcion: string, precio: number, proveedor: string, region: Region, amargor: IBU, graduacion: string, formato: Formato) {
-    return `Modulo cervezas`;
+    return `Se entrega un arreglo de cervezas`;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} cerveza`;
+    return `Se entrega una cerveza según id`;
   }
 
   update(id: number, updateCervezaDto: UpdateCervezaDto) {
-    return `This action updates a #${id} cerveza`;
+    return `Se indica la modificación de una cerveza`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} cerveza`;
+    return `Se indica la eliminaciión de una cerveza`;
   }
 }

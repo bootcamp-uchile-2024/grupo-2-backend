@@ -1,15 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Cerveza } from "src/cervezas/entities/cerveza.entity";
 import { estadoPedidos } from "src/enum/estado-pedidos";
 
 export class CreatePedidoDto {
-    //@ApiProperty()
-    //public cervezas: Cerveza[]
-    @ApiProperty()
-    public fecha_ingreso: Date
-    @ApiProperty()
+    @ApiProperty({description:'lista de cervezas a comprar'})
+    public items: Cerveza[]
+    @ApiProperty({default:'Dirección de entrega del pedido'})
     public direccion_entrega: string //puede ser local o envio a tercero
-    @ApiProperty()
+    @ApiProperty({default:'Correo del comprador'})
     public correo_comprador: string //se puede sacar del modelo usuario si esta logeado. Si no, se solicita.
-    @ApiProperty()
-    public telefono_comprador: number //se puede sacar del modelo usuario si esta logeado. Si no, se solicita.
+    @ApiProperty({default:'Número de teléfono del comprador'})
+    public telefono_comprador: string //se puede sacar del modelo usuario si esta logeado. Si no, se solicita.
 }

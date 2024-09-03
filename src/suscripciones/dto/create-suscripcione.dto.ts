@@ -1,15 +1,17 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Cerveza } from "src/cervezas/entities/cerveza.entity";
+import { TipoSuscripcion } from "src/enum/tipo-suscripcion";
+import { TipoEnvio } from "src/enum/tipo-envio";
 
 export class CreateSuscripcioneDto {
-    @ApiProperty({default: "Nombre de la Suscripcion"})
-    public nombre: string;
-    @ApiProperty({default:"Precio"})
+    @ApiProperty({default: "SILVER", description:'tipo de suscripcion del usuario', enum:TipoSuscripcion})// === actualizado ===
+    public nombre: TipoSuscripcion;
+    @ApiProperty({default:12000, description:'precio de la suscripcion'}) // === Actualizado ===
     public precio: number;
-    @ApiProperty({default:"% descuento"})
+    @ApiProperty({default:"5%", description:'descuento de la suscripcion'})// === Actualizado ===
     public descuento: number;
-    @ApiProperty({default: "tipo de envio"})
-    public tipo_envio: string;// o puede ser enum si definimos los tipos
-    @ApiProperty({default: "lista de cervezas que incluye"})
+    @ApiProperty({default: "Express",description:'tipo de envio de la suscripcion', enum: TipoEnvio})// === Actualizado ===
+    public tipo_envio: TipoEnvio;// o puede ser enum si definimos los tipos
+    @ApiProperty({default: "Cerveza1, Cerveza3", description:'lista de cervezas que incluye la suscripcion'})
     public items_promocion: Cerveza[]; //items que contiene la promoción
 }

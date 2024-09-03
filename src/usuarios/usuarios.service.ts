@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { DireccionesService } from 'src/direcciones/direcciones.service';
+import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 
 @Injectable()
 export class UsuariosService {
@@ -16,11 +17,11 @@ export class UsuariosService {
       nombre: 'Juan',
       correo: 'abc@abc.cl',
       contraseña: '123',
-      direccion: direcciones.filter(direccion => direccion.idUsuario === 1), // Filtra direcciones del usuario
+      direccion: direcciones.filter(direccion => direccion.idUsuario === 1), // === Actualizado === Filtra direcciones del usuario
       telefono: '123456789',
       edad: 20,
       historial_pedidos: [],
-      suscripcion: 'Basica'
+      suscripcion: TipoSuscripcion.SILVER
     });
 
     this.usuarios.push({
@@ -28,11 +29,11 @@ export class UsuariosService {
       nombre: 'Pedro',
       correo: '123@123.cl',
       contraseña: 'abc',
-      direccion: direcciones.filter(direccion => direccion.idUsuario === 2), // Filtra direcciones del usuario
+      direccion: direcciones.filter(direccion => direccion.idUsuario === 2), // === Actualizado === Filtra direcciones del usuario
       telefono: '987654321',
       edad: 30,
       historial_pedidos: [],
-      suscripcion: 'Premium'
+      suscripcion: TipoSuscripcion.GOLDEN
     });
 
     this.usuarios.push({
@@ -40,11 +41,11 @@ export class UsuariosService {
       nombre: 'Maria',
       correo: '345@345.cl',
       contraseña: 'xyz',
-      direccion: [], // Este usuario no tiene direcciones asociadas
+      direccion: direcciones.filter(direccion => direccion.idUsuario === 3), // === Actualizado === Filtra direcciones del usuario
       telefono: '456789123',
       edad: 40,
       historial_pedidos: [],
-      suscripcion: 'Gold'
+      suscripcion: TipoSuscripcion.PLATINUM
     });
   }
 

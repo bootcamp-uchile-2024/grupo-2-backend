@@ -8,18 +8,18 @@ import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
 export class SalidaUsuarioDto {
     @ApiProperty()
     public id: number;
-    @ApiProperty({ default: 'Juan', description: 'Nombre del usuario' }) // === Modificado por mi
+    @ApiProperty({ default: 'Juan', description: 'Nombre del usuario' }) // === Actualizado ===
     public nombre: string;
-    @ApiProperty({ default: 'juan@123.cl', description: 'Apellido del usuario' }) // === Modificado por mi
+    @ApiProperty({ default: 'juan@123.cl', description: 'Apellido del usuario' }) // === Actualizado ===
     public correo: string;
-    @ApiProperty({ default: '955534455', description: 'Celular' }) // === Modificado por mi
+    @ApiProperty({ default: '955534455', description: 'Celular' }) // === Actualizado ===
     public telefono: string; //lo convertimos a number internamente
-    @ApiProperty({ default: [], description: 'Direccion', type:[Direccione] }) // === Modificado por mi
-    public direcciones: Direccione[] ;  // === Modificado por mi
+    @ApiProperty({ default: [], description: 'Direccion', type:[Direccione] }) // === Actualizado ===
+    public direcciones: Direccione[] ;  // === Actualizado ===
     @ApiProperty({ default: 25, description: 'Edad' })
     public edad: number;
     @ApiProperty()
     public historial_pedidos: Pedido[];
-    @ApiProperty({ default: 'Gold', description: 'tipo de suscripcion de usuario' }) // === Modificado por mi
+    @ApiProperty({ default: 'SILVER', description: 'tipo de suscripcion de usuario' }) // === Actualizado ===
     public suscripcion: Suscripcione; //una sola suscripcion por usuario
 }

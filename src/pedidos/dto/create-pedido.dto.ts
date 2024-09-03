@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Cerveza } from "src/cervezas/entities/cerveza.entity";
-import { estadoPedidos } from "src/enum/estado-pedidos";
+
 
 export class CreatePedidoDto {
     @ApiProperty({description:'lista de cervezas a comprar'})

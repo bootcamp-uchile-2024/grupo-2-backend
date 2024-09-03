@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Region } from "src/enum/regiones";
+import { Direccione } from "src/direcciones/entities/direccione.entity";
 import { Pedido } from "src/pedidos/entities/pedido.entity";
 import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
 
@@ -13,15 +13,14 @@ export class Usuario {
     @ApiProperty({default:'Contraseña usuario'})
     public contraseña: string;
     @ApiProperty({default:'Dirección usuario'})
-    public direccion: string;
+    public direccion: Direccione[];        //===== una o varias direcciones por usuario //Modificado por mi
     @ApiProperty({default:'Número de teléfono usuario'})
     public telefono: string; //lo convertimos a number internamente
-    @ApiProperty({default:'Región en la que reside el usuario'})
-    public region: Region; // Enum para que sea selector
     @ApiProperty({default:'Edad usuario'})
     public edad: number;
     @ApiProperty({default:'Historial de pedidos usuario'})
-    public historial_pedidos: Pedido[];
+    public historial_pedidos?: Pedido[];      // === Modificado por mi deberia ser opcional 
     @ApiProperty({default:'Suscripción pagada por el usuario'})
-    public suscripcion: Suscripcione; //una sola suscripcion por usuario
+    public suscripcion?: Suscripcione; //una sola suscripcion por usuario === Modificado por mi deberia ser opcional 
+
 }

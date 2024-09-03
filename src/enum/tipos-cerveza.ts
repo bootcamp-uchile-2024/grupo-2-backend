@@ -1,4 +1,4 @@
-export enum CervezaArtesanal {
+export enum TipoCerveza {
     // Ales
     PaleAle = 'Pale Ale', // Sabor balanceado con notas afrutadas y lupuladas.
     AmericanPaleAle = 'American Pale Ale', // Variante americana de la Pale Ale, más lupulada.

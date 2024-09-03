@@ -6,7 +6,7 @@ export enum Region{
     CO = 'Región de Coquimbo',
     VA = 'Región de Valparaíso',	
     RM = 'Región Metropolitana',
-    OH = 'Región del Libertador General Bernardo O´Higgins',
+    OH = "Región del Libertador General Bernardo O'Higgins",
     MA = 'Región del Maule',
     NB = 'Región de Ñuble',
     BI = 'Región del Biobío',

@@ -14,8 +14,8 @@ export class Pedido {
     @ApiProperty({description:'Fecha ingreso del pedido'})
     public fecha_ingreso: Date //Autogenerado
     @ApiProperty({default:'Dirección de entrega del pedido'})
-    public direccion_entrega: string //puede ser local o envio a tercero
-    @ApiProperty({default:'Correo del comprador'}) // hecho por mi ====== modificar direccion ya que viene de una clase =====
+    public direccion_entrega: string //puede ser local o envio a tercerohecho // ====== se deberia modificar direccion ya que viene de una clase =====
+    @ApiProperty({default:'Correo del comprador'}) // 
     public correo_comprador: string //se puede sacar del modelo usuario si esta logeado. Si no, se solicita.
     @ApiProperty({default:'Número telefónico del comprador'})
     public telefono_comprador: string //se puede sacar del modelo usuario si esta logeado. Si no, se solicita.

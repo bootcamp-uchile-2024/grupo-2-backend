@@ -8,12 +8,14 @@ export class Usuario {
     public id: number;
     @ApiProperty({default:'Nombre usuario'})
     public nombre: string;
+    @ApiProperty({ default: 'Apellido usuario'}) 
+    public apellido: string;
     @ApiProperty({default:'Correo usuario'})
     public correo: string;
     @ApiProperty({default:'Contraseña usuario'})
     public contraseña: string;
     @ApiProperty({default:'Dirección usuario'})
-    public direccion: Direccione[];        //===== una o varias direcciones por usuario //Modificado por mi
+    public direcciones: Direccione[];        //===== una o varias direcciones por usuario //Modificado por mi
     @ApiProperty({default:'Número de teléfono usuario'})
     public telefono: string; //lo convertimos a number internamente
     @ApiProperty({default:'Edad usuario'})

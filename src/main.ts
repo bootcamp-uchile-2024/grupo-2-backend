@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { CommonInterceptor } from './common/common.interceptor';
+import { CommonFilter } from './common/common.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +18,8 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document, {yamlDocumentUrl: 'swagger/yaml',});
 
   app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalInterceptors(new CommonInterceptor())
+  app.useGlobalFilters(new CommonFilter())
 
   await app.listen(3000);
 }

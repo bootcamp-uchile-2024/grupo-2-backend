@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { DireccionesService } from 'src/direcciones/direcciones.service';
@@ -78,17 +78,21 @@ export class UsuariosService {
 
   findOne(id: number) {
     const usuario = this.usuarios.find(usuario => usuario.id === id);
-    let usuarioDto: SalidaUsuarioDto = new SalidaUsuarioDto();
-    usuarioDto.id = usuario.id;
-    usuarioDto.nombre = usuario.nombre;
-    usuarioDto.apellido = usuario.apellido;
-    usuarioDto.correo = usuario.correo;
-    usuarioDto.direcciones = usuario.direcciones;
-    usuarioDto.telefono = usuario.telefono;
-    usuarioDto.edad = usuario.edad;
-    usuarioDto.historial_pedidos = usuario.historial_pedidos;
-    usuarioDto.suscripcion = usuario.suscripcion;
-    return usuarioDto;
+    if(!usuario){
+      throw new BadRequestException('No existe el usuario con el id entregado');
+    }else{
+      let usuarioDto: SalidaUsuarioDto = new SalidaUsuarioDto();
+      usuarioDto.id = usuario.id;
+      usuarioDto.nombre = usuario.nombre;
+      usuarioDto.apellido = usuario.apellido;
+      usuarioDto.correo = usuario.correo;
+      usuarioDto.direcciones = usuario.direcciones;
+      usuarioDto.telefono = usuario.telefono;
+      usuarioDto.edad = usuario.edad;
+      usuarioDto.historial_pedidos = usuario.historial_pedidos;
+      usuarioDto.suscripcion = usuario.suscripcion;
+      return usuarioDto;
+    }
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {

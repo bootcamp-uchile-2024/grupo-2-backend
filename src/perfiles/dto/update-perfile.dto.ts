@@ -3,8 +3,11 @@ import { CreatePerfileDto } from './create-perfile.dto';
 import { Pedido } from 'src/pedidos/entities/pedido.entity';
 import { Suscripcione } from 'src/suscripciones/entities/suscripcione.entity';
 import { PersonajeCerveza } from 'src/enum/personajes';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class UpdatePerfileDto extends PartialType(CreatePerfileDto) {    
+export class UpdatePerfileDto extends PartialType(CreatePerfileDto) {   
+  @IsString()
+  @IsNotEmpty() 
   @ApiProperty({ default: 'Nombre del perfil', description: 'Nombre asociado al perfil' })
   public nombre: string;
  @ApiProperty({default: [],description: 'Lista de pedidos asociados al perfil',type: [Pedido],})

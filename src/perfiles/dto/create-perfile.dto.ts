@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { PersonajeCerveza } from "src/enum/personajes";
+import { TipoSuscripcion } from "src/enum/tipo-suscripcion";
 import { TipoCerveza } from "src/enum/tipos-cerveza";
 import { Pedido } from "src/pedidos/entities/pedido.entity";
 import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
@@ -9,7 +10,7 @@ export class CreatePerfileDto {
 
     @IsNotEmpty()
     @IsString()
-    @ApiProperty({ default: 'El Buena Onda', description: 'Personaje asociado al perfil basado en las preferencias', enum: PersonajeCerveza })
+    @ApiProperty({ default: 'El Buena Onda (Pale Ale)', description: 'Personaje asociado al perfil basado en las preferencias', enum: PersonajeCerveza })
     public nombre: PersonajeCerveza;
 
     @IsOptional()
@@ -19,20 +20,20 @@ export class CreatePerfileDto {
 
     @IsOptional()
     @IsString()
-    @ApiProperty({ default: [], description: 'Lista de suscripciones asociadas al perfil', type: [Suscripcione], })
-    public suscripciones?: Suscripcione;
+    @ApiProperty({ default: [], description: 'Lista de suscripciones asociadas al perfil', enum: TipoSuscripcion, })
+    public suscripciones?: TipoSuscripcion;
 
     @IsOptional()
     @IsArray()
-    @IsString({ each: true })
-    @ApiProperty({ default: [], description: 'Lista de recomendaciones personalizadas para el perfil' })
-    public recomendaciones?: [];
+    @IsEnum(TipoCerveza, { each: true })
+    @ApiProperty({ default: [], description: 'Lista de recomendaciones personalizadas para el perfil', enum: TipoCerveza, type: [String], })
+    public recomendaciones?: TipoCerveza[];
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsArray()
     @IsEnum(TipoCerveza, { each: true })
     @ApiProperty({ default: 'Cervezas artesanales', description: 'Tipo de cervezas preferidas por el usuario', enum: TipoCerveza, type: [String], })
-    public formularioPreferencias: string[];
+    public formularioPreferencias?: TipoCerveza[];
 
     @IsNotEmpty()
     @IsString()

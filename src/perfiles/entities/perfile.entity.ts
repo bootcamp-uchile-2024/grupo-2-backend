@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { PersonajeCerveza } from "src/enum/personajes";
+import { TipoSuscripcion } from "src/enum/tipo-suscripcion";
 import { Pedido } from "src/pedidos/entities/pedido.entity";
 import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
 
@@ -14,8 +15,8 @@ export class Perfile {
   @ApiProperty({ default: [], description: 'Lista de pedidos asociados al perfil', type: [Pedido], })
   public historialPedidos?: Pedido[];
 
-  @ApiProperty({ default: [], description: 'Lista de suscripciones asociadas al perfil', type: [Suscripcione], })
-  public suscripciones?: Suscripcione[];
+  @ApiProperty({ default: [], description: 'Lista de suscripciones asociadas al perfil', enum: TipoSuscripcion, })
+  public suscripcion: TipoSuscripcion;
 
   @ApiProperty({ default: [], description: 'Lista de recomendaciones personalizadas para el perfil' })
   public recomendaciones?: [];

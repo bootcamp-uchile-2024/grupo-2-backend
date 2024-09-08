@@ -48,7 +48,7 @@ export class CreateCervezaDto {
     @IsString()
     @IsNotEmpty()
     @IsEnum(Region)
-    @ApiProperty({ default: 'Los Rios', description: 'Region de Origen de la cerveza', enum: Region })
+    @ApiProperty({ default: 'Región de Los Ríos', description: 'Region de Origen de la cerveza', enum: Region })
     public region: Region;
 
     @IsString()

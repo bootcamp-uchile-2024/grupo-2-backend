@@ -27,7 +27,7 @@ export class CreateDireccioneDto {
     @IsNotEmpty()
     @IsString()
     @IsEnum(Region)
-    @ApiProperty({ default: 'Metropolitana', description: 'Región de la dirección', enum: Region })
+    @ApiProperty({ default: 'Región Metropolitana', description: 'Región de la dirección', enum: Region })
     public region: Region;
 
     @IsNotEmpty()
@@ -39,7 +39,7 @@ export class CreateDireccioneDto {
     @IsOptional()
     @IsString()
     @Matches(/^\d{7}$/)
-    @ApiProperty({ default: 'Código postal dirección', description: 'Código postal de la dirección' })
+    @ApiProperty({ default: '2980909', description: 'Código postal de la dirección' })
     public codigoPostal?: string;
 }
 

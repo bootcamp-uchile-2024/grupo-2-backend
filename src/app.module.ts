@@ -11,9 +11,10 @@ import { PerfilesModule } from './perfiles/perfiles.module';
 import { DireccionesModule } from './direcciones/direcciones.module';
 import { CommonMiddleware } from './common/common.middleware';
 import { UsuariosController } from './usuarios/usuarios.controller';
+import { TiposPersonajesModule } from './tipos-personajes/tipos-personajes.module';
 
 @Module({
-  imports: [EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule],
+  imports: [EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -7,7 +7,7 @@ import { IsEnum, IsNotEmpty } from "class-validator";
 export class CreateSuscripcioneDto {
     @IsNotEmpty()
     @IsEnum(TipoSuscripcion)
-    @ApiProperty({default: "SILVER", description:'tipo de suscripcion del usuario', enum:TipoSuscripcion})// === actualizado ===
+    @ApiProperty({default: "Plata Premium", description:'tipo de suscripcion del usuario', enum:TipoSuscripcion})// === actualizado ===
     public nombre: TipoSuscripcion;
     @IsNotEmpty()
     @ApiProperty({default:12000, description:'precio de la suscripcion'}) // === Actualizado ===

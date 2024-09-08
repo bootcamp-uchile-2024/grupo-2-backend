@@ -23,7 +23,7 @@ export class UpdateDireccioneDto extends PartialType(CreateDireccioneDto) {
     @IsNotEmpty()
     @IsString()
     @IsEnum(Region)
-    @ApiProperty({ default: 'Metropolitana', description: 'Región de la dirección', enum: Region })
+    @ApiProperty({ default: 'Región Metropolitana', description: 'Región de la dirección', enum: Region })
     public region: Region;
 
     @IsNotEmpty()
@@ -35,6 +35,6 @@ export class UpdateDireccioneDto extends PartialType(CreateDireccioneDto) {
     @IsOptional()
     @IsString()
     @Matches(/^\d{7}$/)
-    @ApiProperty({ default: 'Código postal dirección', description: 'Código postal de la dirección' })
+    @ApiProperty({ default: '2980908', description: 'Código postal de la dirección' })
     public codigoPostal?: string;
 }

@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+
 import { isEnum, IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { IBU } from "src/enum/amargor";
 import { Comuna } from "src/enum/comunas";
@@ -8,6 +9,7 @@ import { TipoCerveza } from "src/enum/tipos-cerveza";
 
 
 export class CreateCervezaDto {
+
 
     @IsString()
     @IsNotEmpty()
@@ -23,7 +25,7 @@ export class CreateCervezaDto {
     @IsNotEmpty()
     @IsEnum(TipoCerveza)
     @ApiProperty({ default: 'Pale Ale', description: 'Categoría de la cerveza', enum: TipoCerveza })
-    public categoria: TipoCerveza;
+    public categoria: TipoCerveza
 
     @IsNumber()
     @IsNotEmpty()
@@ -33,6 +35,7 @@ export class CreateCervezaDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty({ default: 'Tiene un perfil de sabor equilibrado con notas de lúpulo fresco y un toque de caramelo, color es dorado brillante y amargor moderado que complementa su sabor maltoso', description: 'Descripción de la cerveza' })
+
     public descripcion: string;
 
     @IsNumber()

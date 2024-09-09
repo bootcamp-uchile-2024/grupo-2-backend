@@ -6,6 +6,7 @@ import { Region } from 'src/enum/regiones';
 import { IBU } from 'src/enum/amargor';
 import { Comuna } from 'src/enum/comunas';
 import { TipoCerveza } from 'src/enum/tipos-cerveza';
+
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
@@ -24,7 +25,7 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @IsEnum(TipoCerveza)
     @ApiProperty({ default: 'Pale Ale', description: 'Categoría de la cerveza', enum: TipoCerveza })
     public categoria: TipoCerveza;
-   
+
     @IsNumber()
     @IsNotEmpty()
     @ApiProperty({ default: 100, description: 'Stock de la cerveza' })
@@ -56,13 +57,13 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @IsEnum(Comuna)
     @ApiProperty({ default: 'Valdivia', description: 'Comuna Origen de la cerveza', enum: Comuna })
     public comuna: Comuna;
-   
+
     @IsString()
     @IsNotEmpty()
     @IsEnum(IBU)
     @ApiProperty({ default: 'Moderado', description: 'Amargor de la cerveza', enum: IBU })
     public amargor: IBU;
-   
+
     @IsString()
     @IsNotEmpty()
     @ApiProperty({ default: '5%', description: 'Graduación de la cerveza' })

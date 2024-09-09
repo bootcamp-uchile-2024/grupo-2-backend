@@ -9,6 +9,7 @@ import { Pedido } from "src/pedidos/entities/pedido.entity";
 
 export class CreatePerfileDto {
 
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({ default: 'El Buena Onda (Pale Ale)', description: 'Personaje asociado al perfil basado en las preferencias', enum: PersonajeCerveza })

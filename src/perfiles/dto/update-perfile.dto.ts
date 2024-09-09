@@ -33,10 +33,11 @@ export class UpdatePerfileDto extends PartialType(CreatePerfileDto) {
   public recomendaciones?: TipoCerveza[];
 
   @ApiProperty({ default: [], description: 'Respuesta del Formulario' })
-    public formularioPreferencias: Formulario;
+  public formularioPreferencias: Formulario;
 
   @IsNotEmpty()
   @IsString()
   @ApiProperty({ default: 'Usuario intermedio', description: 'Nivel del usuario (ej: principiante, intermedio, experto)', })
+
   public nivelUsuario: string;
 }

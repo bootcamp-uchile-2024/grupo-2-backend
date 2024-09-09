@@ -15,17 +15,11 @@ export class CervezasController {
 
   constructor(private readonly cervezasService: CervezasService) { }
 
-  
-  @Post()
   @ApiResponse({ status: 201, description: 'Cerveza creada exitosamente' })
   @ApiResponse({ status: 404, description: 'Error al crear la cerveza' })
-  create(@Body() createCervezaDto: CreateCervezaDto, @Res() response: Response) {
-    const creacioCerveza = this.cervezasService.create(createCervezaDto);
-    if (creacioCerveza) {
-      response.status(201).send(creacioCerveza);
-    } else {
-      response.status(400).send({ error: 'Error al crear la cerveza' })
-    }
+  @Post()
+  create(@Body() createCervezaDto: CreateCervezaDto) {
+    return this.cervezasService.create(createCervezaDto);
   }
   
   @Get()
@@ -42,7 +36,7 @@ export class CervezasController {
   @ApiQuery({ name: 'amargor', required: false, description: 'Nivel de amargor de la cerveza', enum: IBU })
   @ApiQuery({ name: 'graduacion', required: false, description: 'Graduación alcohólica de la cerveza' })
   @ApiQuery({ name: 'formato', required: false, description: 'Formato de la cerveza', enum: Formato })
-  findAll(@Res() response: Response,
+  findAll(
     @Query('nombre') nombre?: string,
     @Query('marca') marca?: string,
     @Query('categoria') categoria?: TipoCerveza,
@@ -54,46 +48,26 @@ export class CervezasController {
     @Query('amargor') amargor?: IBU,
     @Query('graduacion') graduacion?: string,
     @Query('formato') formato?: Formato) {
-    const obtenerCervezas = this.cervezasService.findAll(nombre, marca, categoria, descripcion, precio, proveedor, region, comuna, amargor, graduacion, formato);
-    if (obtenerCervezas.length == 0) {
-      response.status(404).send({ error: 'No existen Cervezas en la Base de Datos no encontradas' });
-    } else {
-      response.status(200).send(obtenerCervezas);
-    }
+   return this.cervezasService.findAll(nombre, marca, categoria, descripcion, precio, proveedor, region, comuna, amargor, graduacion, formato);
   }
   
   @Get(':id')
   @ApiResponse({ status: 200, description: 'Cerveza encontrada' })
   @ApiResponse({ status: 404, description: 'Cerveza no encontrada' })
-  findOne(@Param('id') id: string, @Res() response: Response) {
-    const obtenerXId = this.cervezasService.findOne(+id);
-    if (obtenerXId) {
-      response.status(200).send(obtenerXId);
-    } else {
-      response.status(404).send({ error: 'Cerveza no encontrada' });
-    }
+  findOne(@Param('id') id: string) {
+   return this.cervezasService.findOne(+id);
   }
   
   @Patch(':id')
   @ApiResponse({ status: 201, description: 'Informacion actualizada de forma exitosa' })
   @ApiResponse({ status: 404, description: 'Error al actualizar informacion' })
-  update(@Param('id') id: string, @Body() updateCervezaDto: UpdateCervezaDto, @Res() response: Response) {
-    const actCerveza = this.cervezasService.update(+id, updateCervezaDto);
-    if (actCerveza) {
-      response.status(201).send(actCerveza);
-    } else {
-      response.status(404).send({ error: 'Error al actualizar informacion' });
-  }
+  update(@Param('id') id: string, @Body() updateCervezaDto: UpdateCervezaDto) {
+    return this.cervezasService.update(+id, updateCervezaDto);
 }
 @Delete(':id')
 @ApiResponse({ status: 200, description: 'Cerveza eliminada exitosamente' })
 @ApiResponse({ status: 404, description: 'Error al eliminar la cerveza' })
-remove(@Param('id') id: string, @Res() response: Response) {
-  const elimCerveza = this.cervezasService.remove(+id);
-  if (elimCerveza) {
-    response.status(200).send({ mensaje: 'Cerveza eliminada exitosamente' });
-  } else {
-    response.status(404).send({ error: 'Error al eliminar la cerveza' });
-  }
+remove(@Param('id') id: string) {
+  return this.cervezasService.remove(+id);
 }
 }

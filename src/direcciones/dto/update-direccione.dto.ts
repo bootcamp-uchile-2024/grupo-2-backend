@@ -2,26 +2,40 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateDireccioneDto } from './create-direccione.dto';
 import { Comuna } from 'src/enum/comunas';
 import { Region } from 'src/enum/regiones';
-import { IsEnum, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsEnum, IsOptional, Matches } from 'class-validator';
+
 
 
 export class UpdateDireccioneDto extends PartialType(CreateDireccioneDto) {
     @IsNotEmpty()
-    @ApiProperty({ default: 'Calle dirección' })
+    @IsString()
+    @ApiProperty({ default: 'Los Encinos', description: 'Nombre de la calle de la dirección' })
     public calle: string;
+
     @IsNotEmpty()
-    @ApiProperty({ default: 'Número dirección' })
+    @IsNumber()
+    @ApiProperty({ default: 307, description: 'Número de la dirección' })
     public numero: number;
-    @ApiProperty({ default: 'Numero de departamento dirección' })
+
+    @IsString()
+    @ApiProperty({ default: '503 B', description: 'Número de departamento del la direccion' })
     public departamento?: string;
+
     @IsNotEmpty()
+    @IsString()
     @IsEnum(Region)
-    @ApiProperty({ default: Region.AR, description: 'Región dirección', enum: Region })
+    @ApiProperty({ default: 'Región Metropolitana', description: 'Región de la dirección', enum: Region })
     public region: Region;
+
     @IsNotEmpty()
+    @IsString()
     @IsEnum(Comuna)
-    @ApiProperty({ default: Comuna.TEMUCO, description: 'Ciudad dirección', enum: Comuna })
+    @ApiProperty({ default: 'Puente Alto', description: 'Comuna de la dirección', enum: Comuna })
+
     public comuna: Comuna;
-    @ApiProperty({ default: 'Código postal dirección' })
+    @IsOptional()
+    @IsString()
+    @Matches(/^\d{7}$/)
+    @ApiProperty({ default: '2980908', description: 'Código postal de la dirección' })
     public codigoPostal?: string;
 }

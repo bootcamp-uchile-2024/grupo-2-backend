@@ -11,35 +11,35 @@ export class PerfilesController {
   @Post()
   @ApiResponse({ status: 200, description: 'Perfil creado de forma exitosa' })
   @ApiResponse({ status: 404, description: 'Error al crear perfil' })
-  create(@Body() createPerfileDto: CreatePerfileDto, @Res() response: Response) {
+  create(@Body() createPerfileDto: CreatePerfileDto) {
     return this.perfilesService.create(createPerfileDto);
   }
 
   @Get()
   @ApiResponse({ status: 200, description: 'Todos los perfiles existentes' })
   @ApiResponse({ status: 404, description: 'Error al obtener perfiles' })
-  findAll(@Res() response: Response) {
+  findAll() {
     return this.perfilesService.findAll();
   }
 
   @Get(':id')
   @ApiResponse({ status: 200, description: 'Perfil obtenido de forma exitosa' })
   @ApiResponse({ status: 404, description: 'Error al obtener perfil' })
-  findOne(@Param('id') id: string, @Res() response: Response) {
+  findOne(@Param('id') id: string) {
     return this.perfilesService.findOne(+id);
   }
 
   @Patch(':id')
   @ApiResponse({ status: 201, description: 'Perfil actualizado exitosamente' })
   @ApiResponse({ status: 404, description: 'Error al actualizar perfil' })
-  update(@Param('id') id: string, @Body() updatePerfileDto: UpdatePerfileDto, @Res() response: Response) {
+  update(@Param('id') id: string, @Body() updatePerfileDto: UpdatePerfileDto) {
     return this.perfilesService.update(+id, updatePerfileDto);
   }
 
   @Delete(':id')
   @ApiResponse({ status: 200, description: 'Perfil eliminada exitosamente' })
   @ApiResponse({ status: 404, description: 'Error al eliminar el perfil' })
-  remove(@Param('id') id: string, @Res() response: Response) {
+  remove(@Param('id') id: string) {
     return this.perfilesService.remove(+id);
   }
 }

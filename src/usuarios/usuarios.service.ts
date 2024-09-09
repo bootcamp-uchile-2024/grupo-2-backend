@@ -10,8 +10,13 @@ export class UsuariosService {
   private usuarios = [];
 
   constructor(private readonly direccionesService: DireccionesService) {
-    // Vincular direcciones a los usuarios según el idUsuario
-    const direcciones = this.direccionesService.findAll();
+    this.initializeUsers();
+  }
+
+  // Método para inicializar usuarios y vincular direcciones
+  private async initializeUsers() {
+    // Asegúrate de obtener las direcciones correctamente como una Promesa
+    const direcciones = await this.direccionesService.findAll();
 
     this.usuarios.push({
       id: 1,
@@ -19,11 +24,11 @@ export class UsuariosService {
       apellido: 'Perez',
       correo: 'abc@abc.cl',
       contraseña: '123',
-      direccion: direcciones.filter(direccion => direccion.idUsuario === 1), // === Actualizado === Filtra direcciones del usuario
+      direccion: direcciones.filter(direccion => direccion.idUsuario === 1),
       telefono: '123456789',
       edad: 20,
       historial_pedidos: [],
-      suscripcion: TipoSuscripcion.SILVER
+      suscripcion: TipoSuscripcion.SILVER,
     });
 
     this.usuarios.push({
@@ -32,11 +37,11 @@ export class UsuariosService {
       apellido: 'Gonzalez',
       correo: '123@123.cl',
       contraseña: 'abc',
-      direccion: direcciones.filter(direccion => direccion.idUsuario === 2), // === Actualizado === Filtra direcciones del usuario
+      direccion: direcciones.filter(direccion => direccion.idUsuario === 2),
       telefono: '987654321',
       edad: 30,
       historial_pedidos: [],
-      suscripcion: TipoSuscripcion.GOLDEN
+      suscripcion: TipoSuscripcion.GOLDEN,
     });
 
     this.usuarios.push({
@@ -45,11 +50,11 @@ export class UsuariosService {
       apellido: 'Diaz',
       correo: '345@345.cl',
       contraseña: 'xyz',
-      direccion: direcciones.filter(direccion => direccion.idUsuario === 3), // === Actualizado === Filtra direcciones del usuario
+      direccion: direcciones.filter(direccion => direccion.idUsuario === 3),
       telefono: '456789123',
       edad: 40,
       historial_pedidos: [],
-      suscripcion: TipoSuscripcion.PLATINUM
+      suscripcion: TipoSuscripcion.PLATINUM,
     });
   }
 
@@ -58,35 +63,32 @@ export class UsuariosService {
   }
 
   findAll() {
-    let usuariosSalida: SalidaUsuarioDto[] = []
-    for(let i: number = 0; i < this.usuarios.length; i++){
-      let usuarioDto = new SalidaUsuarioDto();
-      usuarioDto.id = this.usuarios[i].id;
-      usuarioDto.nombre = this.usuarios[i].nombre;
-      usuarioDto.apellido = this.usuarios[i].apellido;
-      usuarioDto.correo = this.usuarios[i].correo;
-      usuarioDto.direcciones = this.usuarios[i].direcciones;
-      usuarioDto.telefono = this.usuarios[i].telefono;
-      usuarioDto.edad = this.usuarios[i].edad;
-      usuarioDto.historial_pedidos = this.usuarios[i].historial_pedidos;
-      usuarioDto.suscripcion = this.usuarios[i].suscripcion;
-      usuariosSalida.push(usuarioDto);
-    }
-
-    return usuariosSalida;
-  }
-
-  findOne(id: number) {
-    const usuario = this.usuarios.find(usuario => usuario.id === id);
-    if(!usuario){
-      throw new BadRequestException('No existe el usuario con el id entregado');
-    }else{
-      let usuarioDto: SalidaUsuarioDto = new SalidaUsuarioDto();
+    return this.usuarios.map(usuario => {
+      const usuarioDto = new SalidaUsuarioDto();
       usuarioDto.id = usuario.id;
       usuarioDto.nombre = usuario.nombre;
       usuarioDto.apellido = usuario.apellido;
       usuarioDto.correo = usuario.correo;
-      usuarioDto.direcciones = usuario.direcciones;
+      usuarioDto.direcciones = usuario.direccion;
+      usuarioDto.telefono = usuario.telefono;
+      usuarioDto.edad = usuario.edad;
+      usuarioDto.historial_pedidos = usuario.historial_pedidos;
+      usuarioDto.suscripcion = usuario.suscripcion;
+      return usuarioDto;
+    });
+  }
+
+  findOne(id: number) {
+    const usuario = this.usuarios.find(usuario => usuario.id === id);
+    if (!usuario) {
+      throw new BadRequestException('No existe el usuario con el id entregado');
+    } else {
+      const usuarioDto = new SalidaUsuarioDto();
+      usuarioDto.id = usuario.id;
+      usuarioDto.nombre = usuario.nombre;
+      usuarioDto.apellido = usuario.apellido;
+      usuarioDto.correo = usuario.correo;
+      usuarioDto.direcciones = usuario.direccion;
       usuarioDto.telefono = usuario.telefono;
       usuarioDto.edad = usuario.edad;
       usuarioDto.historial_pedidos = usuario.historial_pedidos;

@@ -14,11 +14,11 @@ export class CervezasService {
   private cervezas = [];
 
   constructor() {
-    this.cervezas.push({ id: 1, nombre: 'Cerveza1', marca: 'Marca1', categoria: TipoCerveza.PaleAle, stock: 10, descripcion: 'Descripción1', precio: 1000, proveedor: 'Proveedor1', region: Region.RM, comuna: Comuna.PUENTE_ALTO,amargor: IBU.Bajo, graduacion: '5%', formato: Formato.Lata, imagen: 'imagen1' });
-    this.cervezas.push({ id: 2, nombre: 'Torobayo', marca: 'Kunstmann', categoria: TipoCerveza.PaleAle, stock: 20, descripcion: 'Descripción2', precio: 2000, proveedor: 'CCU', region: Region.BI, comuna: Comuna.CONCEPCION,amargor: IBU.Moderado, graduacion: '6%', formato: Formato.Botella, imagen: 'imagen2' })
-    this.cervezas.push({ id: 3, nombre: 'Cerveza3', marca: 'Marca3', categoria: TipoCerveza.Stout, stock: 30, descripcion: 'Descripción3', precio: 3000, proveedor: 'Proveedor3', region: Region.OH, comuna: Comuna.SAN_VICENTE,amargor: IBU.Alto, graduacion: '7%', formato: Formato.Lata, imagen: 'imagen3' })
-    this.cervezas.push({ id: 4, nombre: 'Cerveza4', marca: 'Marca4', categoria: TipoCerveza.Pilsner, stock: 40, descripcion: 'Descripción4', precio: 4000, proveedor: 'Proveedor4', region: Region.MA, comuna: Comuna.TALCA,amargor: IBU.Bajo, graduacion: '7%', formato: Formato.Botella, imagen: 'imagen4' })
-    this.cervezas.push({ id: 5, nombre: 'Cerveza5', marca: 'Marca5', categoria: TipoCerveza.Porter, stock: 50, descripcion: 'Descripción5', precio: 5000, proveedor: 'Proveedor5', region: Region.AR, comuna: Comuna.AISEN,amargor: IBU.Bajo, graduacion: '4%', formato: Formato.Lata, imagen: 'imagen5' });
+    this.cervezas.push({ id: 1, nombre: 'Cerveza1', marca: 'Marca1', categoria: TipoCerveza.PaleAle, stock: 10, descripcion: 'Descripción1', precio: 1000, proveedor: 'Proveedor1', region: Region.RM, comuna: Comuna.PUENTE_ALTO,amargor: IBU.Bajo_0_20_IBU, graduacion: '5%', formato: Formato.Lata, imagen: 'imagen1' });
+    this.cervezas.push({ id: 2, nombre: 'Torobayo', marca: 'Kunstmann', categoria: TipoCerveza.PaleAle, stock: 20, descripcion: 'Descripción2', precio: 2000, proveedor: 'CCU', region: Region.BI, comuna: Comuna.CONCEPCION,amargor: IBU.Moderado_20_40_IBU, graduacion: '6%', formato: Formato.Botella, imagen: 'imagen2' })
+    this.cervezas.push({ id: 3, nombre: 'Cerveza3', marca: 'Marca3', categoria: TipoCerveza.Stout, stock: 30, descripcion: 'Descripción3', precio: 3000, proveedor: 'Proveedor3', region: Region.OH, comuna: Comuna.SAN_VICENTE,amargor: IBU.Alto_60_IBU, graduacion: '7%', formato: Formato.Lata, imagen: 'imagen3' })
+    this.cervezas.push({ id: 4, nombre: 'Cerveza4', marca: 'Marca4', categoria: TipoCerveza.Pilsner, stock: 40, descripcion: 'Descripción4', precio: 4000, proveedor: 'Proveedor4', region: Region.MA, comuna: Comuna.TALCA,amargor: IBU.Bajo_0_20_IBU, graduacion: '7%', formato: Formato.Botella, imagen: 'imagen4' })
+    this.cervezas.push({ id: 5, nombre: 'Cerveza5', marca: 'Marca5', categoria: TipoCerveza.Porter, stock: 50, descripcion: 'Descripción5', precio: 5000, proveedor: 'Proveedor5', region: Region.AR, comuna: Comuna.AISEN,amargor: IBU.Bajo_0_20_IBU, graduacion: '4%', formato: Formato.Lata, imagen: 'imagen5' });
   }
 
 

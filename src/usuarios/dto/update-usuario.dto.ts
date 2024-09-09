@@ -2,7 +2,7 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Suscripcione } from 'src/suscripciones/entities/suscripcione.entity';
 import { CreateUsuarioDto } from './create-usuario.dto';
 import { Direccione } from 'src/direcciones/entities/direccione.entity';
-import { IsEmail, IsNumber, IsString, Min } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
 
 export class UpdateUsuarioDto extends PartialType(CreateUsuarioDto) {
     @IsString()
@@ -17,6 +17,10 @@ export class UpdateUsuarioDto extends PartialType(CreateUsuarioDto) {
     @IsString()
     @ApiProperty({ default: '123456', description: 'Contraseña del usuario' }) // === Modificado por mi
     public contraseña: string;
+    @IsArray()
+    @IsNotEmpty()
+    @ApiProperty({ default: Direccione, description: 'Direcciones', type: [Direccione] }) // === Actualizado ===
+    public direcciones: Direccione[]; //una o varias direcciones por usuario
     @IsString()
     @ApiProperty({ default: '955534455', description: 'Celular'}) // === Modificado por mi
     public telefono: string; //lo convertimos a number internamente

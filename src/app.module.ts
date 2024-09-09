@@ -10,6 +10,7 @@ import { PedidosModule } from './pedidos/pedidos.module';
 import { PerfilesModule } from './perfiles/perfiles.module';
 import { DireccionesModule } from './direcciones/direcciones.module';
 import { CommonMiddleware } from './common/common.middleware';
+import { UsuariosController } from './usuarios/usuarios.controller';
 
 @Module({
   imports: [EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule],
@@ -20,6 +21,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
   consumer
   .apply(CommonMiddleware) // MIDDLEWARE A APLICAR
-  .forRoutes('usuarios'); 
+  .forRoutes('*'); 
   }
 }

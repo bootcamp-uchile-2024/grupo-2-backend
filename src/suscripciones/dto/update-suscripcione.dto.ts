@@ -4,14 +4,19 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
 import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 import { TipoEnvio } from 'src/enum/tipo-envio';
+import { IsEnum, IsNumber } from 'class-validator';
 
 export class UpdateSuscripcioneDto extends PartialType(CreateSuscripcioneDto) {
+    @IsEnum(TipoSuscripcion)
     @ApiProperty({default: "SILVER", description:'tipo de suscripcion del usuario', enum:TipoSuscripcion}) // === actualizado === 
     public nombre: TipoSuscripcion;
+    @IsNumber()
     @ApiProperty({default:12000, description:'precio de la suscripcion'}) // === Actualizado ===
     public precio: number;
+    @IsNumber()
     @ApiProperty({default:"5%", description:'descuento de la suscripcion'}) // === Actualizado ===
     public descuento: number;
+    @IsEnum(TipoEnvio)
     @ApiProperty({default: "Express",description:'tipo de envio de la suscripcion', enum: TipoEnvio}) // === Actualizado ===
     public tipo_envio: TipoEnvio;// o puede ser enum si definimos los tipos
     @ApiProperty({default: "Cerveza1, Cerveza3", description:'lista de cervezas que incluye la suscripcion'})

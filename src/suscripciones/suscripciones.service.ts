@@ -9,7 +9,8 @@ export class SuscripcionesService {
 
   // === Actualizado ===
 private suscripciones = []
-constructor(){this.suscripciones.push({id:1, nombre: TipoSuscripcion.SILVER, precio: 12000, descuento: 5, tipo_envio: TipoEnvio.Estándar, items_promocion: ["Cerveza1", "Cerveza3"]})
+constructor(){
+  this.suscripciones.push({id:1, nombre: TipoSuscripcion.SILVER, precio: 12000, descuento: 5, tipo_envio: TipoEnvio.Estandar, items_promocion: ["Cerveza1", "Cerveza3"]})
   this.suscripciones.push({id:2, nombre: TipoSuscripcion.GOLDEN, precio: 15000, descuento: 10, tipo_envio: TipoEnvio.Express, items_promocion: ["Cerveza1"]})
   this.suscripciones.push({id:3, nombre: TipoSuscripcion.PLATINUM, precio: 20000, descuento: 15, tipo_envio: TipoEnvio.Prioritario, items_promocion: ["Cerveza3"]})
 }

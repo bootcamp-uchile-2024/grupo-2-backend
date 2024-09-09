@@ -10,6 +10,8 @@ export class SalidaUsuarioDto {
     public id: number;
     @ApiProperty({ default: 'Juan', description: 'Nombre del usuario' }) // === Actualizado ===
     public nombre: string;
+    @ApiProperty({ default: 'Perez', description: 'Apellido del usuario' }) // === Modificado por mi
+    public apellido: string;
     @ApiProperty({ default: 'juan@123.cl', description: 'Apellido del usuario' }) // === Actualizado ===
     public correo: string;
     @ApiProperty({ default: '955534455', description: 'Celular' }) // === Actualizado ===

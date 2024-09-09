@@ -1,6 +1,6 @@
 export enum TipoEnvio {
     Express = "Express", 
-    Estándar = "Estándar", 
+    Estandar = "Estándar", 
     Prioritario = "Prioritario", 
     Internacional = "Internacional" 
 }

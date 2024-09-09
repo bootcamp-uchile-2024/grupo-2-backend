@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { DireccionesService } from 'src/direcciones/direcciones.service';
 import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
+import { SalidaUsuarioDto } from './dto/salida-usuario.dto';
 
 @Injectable()
 export class UsuariosService {
@@ -15,6 +16,7 @@ export class UsuariosService {
     this.usuarios.push({
       id: 1,
       nombre: 'Juan',
+      apellido: 'Perez',
       correo: 'abc@abc.cl',
       contraseña: '123',
       direccion: direcciones.filter(direccion => direccion.idUsuario === 1), // === Actualizado === Filtra direcciones del usuario
@@ -27,6 +29,7 @@ export class UsuariosService {
     this.usuarios.push({
       id: 2,
       nombre: 'Pedro',
+      apellido: 'Gonzalez',
       correo: '123@123.cl',
       contraseña: 'abc',
       direccion: direcciones.filter(direccion => direccion.idUsuario === 2), // === Actualizado === Filtra direcciones del usuario
@@ -39,6 +42,7 @@ export class UsuariosService {
     this.usuarios.push({
       id: 3,
       nombre: 'Maria',
+      apellido: 'Diaz',
       correo: '345@345.cl',
       contraseña: 'xyz',
       direccion: direcciones.filter(direccion => direccion.idUsuario === 3), // === Actualizado === Filtra direcciones del usuario
@@ -54,11 +58,41 @@ export class UsuariosService {
   }
 
   findAll() {
-    return this.usuarios;
+    let usuariosSalida: SalidaUsuarioDto[] = []
+    for(let i: number = 0; i < this.usuarios.length; i++){
+      let usuarioDto = new SalidaUsuarioDto();
+      usuarioDto.id = this.usuarios[i].id;
+      usuarioDto.nombre = this.usuarios[i].nombre;
+      usuarioDto.apellido = this.usuarios[i].apellido;
+      usuarioDto.correo = this.usuarios[i].correo;
+      usuarioDto.direcciones = this.usuarios[i].direcciones;
+      usuarioDto.telefono = this.usuarios[i].telefono;
+      usuarioDto.edad = this.usuarios[i].edad;
+      usuarioDto.historial_pedidos = this.usuarios[i].historial_pedidos;
+      usuarioDto.suscripcion = this.usuarios[i].suscripcion;
+      usuariosSalida.push(usuarioDto);
+    }
+
+    return usuariosSalida;
   }
 
   findOne(id: number) {
-    return this.usuarios.find(usuario => usuario.id === id);
+    const usuario = this.usuarios.find(usuario => usuario.id === id);
+    if(!usuario){
+      throw new BadRequestException('No existe el usuario con el id entregado');
+    }else{
+      let usuarioDto: SalidaUsuarioDto = new SalidaUsuarioDto();
+      usuarioDto.id = usuario.id;
+      usuarioDto.nombre = usuario.nombre;
+      usuarioDto.apellido = usuario.apellido;
+      usuarioDto.correo = usuario.correo;
+      usuarioDto.direcciones = usuario.direcciones;
+      usuarioDto.telefono = usuario.telefono;
+      usuarioDto.edad = usuario.edad;
+      usuarioDto.historial_pedidos = usuario.historial_pedidos;
+      usuarioDto.suscripcion = usuario.suscripcion;
+      return usuarioDto;
+    }
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {

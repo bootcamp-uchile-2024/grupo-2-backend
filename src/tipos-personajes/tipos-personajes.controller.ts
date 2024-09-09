@@ -7,7 +7,7 @@ import { UpdateTiposPersonajeDto } from './dto/update-tipos-personaje.dto';
 export class TiposPersonajesController {
   constructor(private readonly tiposPersonajesService: TiposPersonajesService) {}
 
-  @Post()
+ /* @Post()
   create(@Body() createTiposPersonajeDto: CreateTiposPersonajeDto) {
     return this.tiposPersonajesService.create(createTiposPersonajeDto);
   }
@@ -30,5 +30,5 @@ export class TiposPersonajesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tiposPersonajesService.remove(+id);
-  }
+  } */
 }

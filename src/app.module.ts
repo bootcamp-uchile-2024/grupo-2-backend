@@ -12,9 +12,10 @@ import { DireccionesModule } from './direcciones/direcciones.module';
 import { CommonMiddleware } from './common/common.middleware';
 import { UsuariosController } from './usuarios/usuarios.controller';
 import { TiposPersonajesModule } from './tipos-personajes/tipos-personajes.module';
+import { FormulariosModule } from './formularios/formularios.module';
 
 @Module({
-  imports: [EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule],
+  imports: [EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],
   providers: [AppService],
 })

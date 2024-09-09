@@ -3,8 +3,9 @@ import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validat
 import { PersonajeCerveza } from "src/enum/personajes";
 import { TipoSuscripcion } from "src/enum/tipo-suscripcion";
 import { TipoCerveza } from "src/enum/tipos-cerveza";
+import { Formulario } from "src/formularios/entities/formulario.entity";
 import { Pedido } from "src/pedidos/entities/pedido.entity";
-import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
+
 
 export class CreatePerfileDto {
 
@@ -29,8 +30,8 @@ export class CreatePerfileDto {
     @ApiProperty({ default: [], description: 'Lista de recomendaciones personalizadas para el perfil', enum: TipoCerveza, type: [String], })
     public recomendaciones?: TipoCerveza[];
 
-    @ApiProperty({ default: 'Cervezas artesanales', description: 'Tipo de cervezas preferidas por el usuario', enum: TipoCerveza, type: [String], })
-    public formularioPreferencias: TipoCerveza[];
+    @ApiProperty({ default: [], description: 'Respuesta del Formulario' })
+    public formularioPreferencias: Formulario;
 
     @IsNotEmpty()
     @IsString()

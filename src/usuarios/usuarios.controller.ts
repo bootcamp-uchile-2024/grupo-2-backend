@@ -7,6 +7,7 @@ import { ApiResponse } from '@nestjs/swagger';
 @Controller('usuarios')
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
+  
 
 
 //NO FUNCIONA INTERCEPTOR en el POST
@@ -14,9 +15,9 @@ export class UsuariosController {
   @ApiResponse({ status: 201, description: 'Usuario Creado' })
   @ApiResponse({ status: 404, description: 'No se pudo crear el usuario' })
   @Post()
-  create(@Body() createUsuarioDto: CreateUsuarioDto, @Request()request, @Response() response) {
-    this.usuariosService.create(createUsuarioDto);
-    response.status(201).send('Usuario Creado')
+  create(@Body() createUsuarioDto: CreateUsuarioDto) {
+    return this.usuariosService.create(createUsuarioDto);
+    
   }
   
 

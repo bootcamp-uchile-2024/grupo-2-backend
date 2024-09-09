@@ -6,6 +6,7 @@ import { PersonajeCerveza } from 'src/enum/personajes';
 import { IsNotEmpty, IsString, IsOptional, IsArray, IsEnum } from 'class-validator';
 import { TipoCerveza } from 'src/enum/tipos-cerveza';
 import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
+import { Formulario } from 'src/formularios/entities/formulario.entity';
 
 export class UpdatePerfileDto extends PartialType(CreatePerfileDto) {
 
@@ -31,8 +32,8 @@ export class UpdatePerfileDto extends PartialType(CreatePerfileDto) {
   @ApiProperty({ default: ['Pale Ale'], description: 'Lista de recomendaciones personalizadas para el perfil', enum: TipoCerveza, type: [String], })
   public recomendaciones?: TipoCerveza[];
 
-  @ApiProperty({ default: 'Pale Ale', description: 'Tipo de cervezas preferidas por el usuario', enum: TipoCerveza, type: [String], })
-  public formularioPreferencias?: TipoCerveza[];
+  @ApiProperty({ default: [], description: 'Respuesta del Formulario' })
+    public formularioPreferencias: Formulario;
 
   @IsNotEmpty()
   @IsString()

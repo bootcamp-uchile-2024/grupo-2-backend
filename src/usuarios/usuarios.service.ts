@@ -15,7 +15,7 @@ export class UsuariosService {
 
   // Método para inicializar usuarios y vincular direcciones
   private async initializeUsers() {
-    // Asegúrate de obtener las direcciones correctamente como una Promesa
+    // obtener las direcciones correctamente como una Promesa
     const direcciones = await this.direccionesService.findAll();
 
     this.usuarios.push({

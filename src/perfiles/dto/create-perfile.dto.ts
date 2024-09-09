@@ -14,13 +14,13 @@ export class CreatePerfileDto {
     public nombre: PersonajeCerveza;
 
     @IsOptional()
-    @IsString()
+    @IsArray()
     @ApiProperty({ default: [], description: 'Lista de pedidos asociados al perfil', type: [Pedido], })
     public historialPedidos?: Pedido[];
 
     @IsOptional()
     @IsString()
-    @ApiProperty({ default: [], description: 'Lista de suscripciones asociadas al perfil', enum: TipoSuscripcion, })
+    @ApiProperty({ default: 'Plata Premium', description: 'Lista de suscripciones asociadas al perfil', enum: TipoSuscripcion, })
     public suscripciones?: TipoSuscripcion;
 
     @IsOptional()
@@ -29,11 +29,8 @@ export class CreatePerfileDto {
     @ApiProperty({ default: [], description: 'Lista de recomendaciones personalizadas para el perfil', enum: TipoCerveza, type: [String], })
     public recomendaciones?: TipoCerveza[];
 
-    @IsOptional()
-    @IsArray()
-    @IsEnum(TipoCerveza, { each: true })
     @ApiProperty({ default: 'Cervezas artesanales', description: 'Tipo de cervezas preferidas por el usuario', enum: TipoCerveza, type: [String], })
-    public formularioPreferencias?: TipoCerveza[];
+    public formularioPreferencias: TipoCerveza[];
 
     @IsNotEmpty()
     @IsString()

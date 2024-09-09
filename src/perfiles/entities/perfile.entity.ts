@@ -16,7 +16,7 @@ export class Perfile {
   public historialPedidos?: Pedido[];
 
   @ApiProperty({ default: [], description: 'Lista de suscripciones asociadas al perfil', enum: TipoSuscripcion, })
-  public suscripcion: TipoSuscripcion;
+  public suscripcion?: TipoSuscripcion;
 
   @ApiProperty({ default: [], description: 'Lista de recomendaciones personalizadas para el perfil' })
   public recomendaciones?: [];

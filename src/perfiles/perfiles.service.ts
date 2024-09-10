@@ -14,19 +14,19 @@ this.perfiles.push({ id: 4, nombre: 'Perfil4', historialPedidos: [], suscripcion
 }
 
   create(createPerfileDto: CreatePerfileDto) {
-    return 'This action adds a new perfile';
+     return `Se creo el siguientes perfil: ${JSON.stringify(createPerfileDto)}`;
   }
 
   findAll() {
-    return `This action returns all perfiles`;
+    return this.perfiles;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} perfile`;
+    return this.perfiles.find(perfil => perfil.id == id);
   }
 
   update(id: number, updatePerfileDto: UpdatePerfileDto) {
-    return `This action updates a #${id} perfile`;
+    return `Se edito el siguiente perfil: ${JSON.stringify(updatePerfileDto)}`;
   }
 
   remove(id: number) {
@@ -34,18 +34,4 @@ this.perfiles.push({ id: 4, nombre: 'Perfil4', historialPedidos: [], suscripcion
   }
 }
 
-  /* public id: number;
   
-  public nombre: string;
-
-  public pedidos: Pedido[];
- 
-  public suscripciones: Suscripcione[];
-
-  public recomendaciones: [];
-
-  public personaje: PersonajeCerveza;
-
-  public formularioPreferencias: string[];
-
-  public nivelUsuario: string;*/

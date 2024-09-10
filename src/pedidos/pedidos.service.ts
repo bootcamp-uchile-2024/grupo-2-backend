@@ -65,7 +65,7 @@ export class PedidosService {
   }
 
   create(createPedidoDto: CreatePedidoDto) {
-    return 'Se indica la creación de un pedido';
+    return `Se creo de un pedido con los siguientes atributos: ${JSON.stringify(createPedidoDto)}`
   }
 
   findAll(idUsuario?: number) {
@@ -81,7 +81,7 @@ export class PedidosService {
 
   update(id: number, updatePedidoDto: UpdatePedidoDto) {
     // Implementa la lógica para actualizar un pedido
-    return `Se indica la modificación de un pedido con ID ${id}`;
+    return `Se edito un pedido con los siguientes atributos: ${JSON.stringify(updatePedidoDto)}`
   }
 
   remove(id: number) {

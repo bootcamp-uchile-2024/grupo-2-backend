@@ -3,10 +3,13 @@ import { CreatePerfileDto } from './create-perfile.dto';
 import { Pedido } from 'src/pedidos/entities/pedido.entity';
 import { Suscripcione } from 'src/suscripciones/entities/suscripcione.entity';
 import { PersonajeCerveza } from 'src/enum/personajes';
-import { IsNotEmpty, IsString, IsOptional, IsArray, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsArray, IsEnum, ValidateNested } from 'class-validator';
 import { TipoCerveza } from 'src/enum/tipos-cerveza';
 import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 import { Formulario } from 'src/formularios/entities/formulario.entity';
+import { CreatePedidoDto } from 'src/pedidos/dto/create-pedido.dto';
+import { Type } from 'class-transformer';
+import { CreateFormularioDto } from 'src/formularios/dto/create-formulario.dto';
 
 export class UpdatePerfileDto extends PartialType(CreatePerfileDto) {
 
@@ -18,7 +21,9 @@ export class UpdatePerfileDto extends PartialType(CreatePerfileDto) {
 
   @IsOptional()
   @IsArray()
-  @ApiProperty({ default: [], description: 'Lista de pedidos asociados al perfil', type: [Pedido], })
+  @ValidateNested({ each: true })
+    @Type(() => CreatePedidoDto)
+  @ApiProperty({ default: CreatePedidoDto, description: 'Lista de pedidos asociados al perfil', type: [CreatePedidoDto], })
   public historialPedidos?: Pedido[];
 
   @IsOptional()
@@ -27,13 +32,15 @@ export class UpdatePerfileDto extends PartialType(CreatePerfileDto) {
   public suscripciones?: TipoSuscripcion;
 
   @IsOptional()
-  @IsArray()
   @IsEnum(TipoCerveza, { each: true })
   @ApiProperty({ default: ['Pale Ale'], description: 'Lista de recomendaciones personalizadas para el perfil', enum: TipoCerveza, type: [String], })
   public recomendaciones?: TipoCerveza[];
 
-  @ApiProperty({ default: [], description: 'Respuesta del Formulario' })
-    public formularioPreferencias: Formulario;
+  @IsOptional()
+  @ValidateNested({ each: true })
+    @Type(() => CreateFormularioDto)
+  @ApiProperty({ default: CreateFormularioDto, description: 'Respuesta del Formulario', type: [CreateFormularioDto] })
+    public formularioPreferencias?: Formulario;
 
   @IsNotEmpty()
   @IsString()

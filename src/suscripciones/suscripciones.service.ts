@@ -16,7 +16,7 @@ constructor(){
 }
 
   create(createSuscripcioneDto: CreateSuscripcioneDto) {
-    return 'Se indica la creación de una suscripción';
+    return `Se creo la siguiente suscripcion:  ${JSON.stringify(createSuscripcioneDto)}`;
   }
 
   findAll() { // === Actualizado ===
@@ -24,26 +24,15 @@ constructor(){
   }
 
   findOne(id: number) {
-    return `Se entrega una suscripción`;
+    return this.suscripciones.find(suscripcion => suscripcion.id === id);
   }
 
   update(id: number, updateSuscripcioneDto: UpdateSuscripcioneDto) {
-    return `Se indica la modificación de una suscripción`;
+     return `Se edito la siguiente suscripcion: ${JSON.stringify(updateSuscripcioneDto)}`;
   }
 
   remove(id: number) {
     return `Se indica la eliminación de una suscripción`;
   }
 }
-/*@ApiProperty()
-    public id: number;
-    @ApiProperty({default: "SILVER", description:'tipo de suscripcion del usuario', enum:TipoSuscripcion})// === actualizado === 
-    public nombre: TipoSuscripcion;
-    @ApiProperty({default:12000, description:'precio de la suscripcion'}) // === Actualizado ===
-    public precio: number;
-    @ApiProperty({default:"5%", description:'descuento de la suscripcion'})// === Actualizado ===
-    public descuento: number;
-    @ApiProperty({default: "Express",description:'tipo de envio de la suscripcion', enum: TipoEnvio})// === Actualizado ===
-    public tipo_envio: TipoEnvio;// o puede ser enum si definimos los tipos
-    @ApiProperty({default: "Cerveza1, Cerveza3", description:'lista de cervezas que incluye la suscripcion'}) // === Actualizado ===
-    public items_promocion: Cerveza[]; //items que contiene la promoción*/
+

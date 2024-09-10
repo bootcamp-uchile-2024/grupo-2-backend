@@ -2,11 +2,11 @@ import { ActividadViernes, DescripcionAmigos, TipoComida, DestinoVacaciones, Sab
 
 
 export class Formulario {
-    actividadViernes: ActividadViernes;
-    descripcionAmigos: DescripcionAmigos;
-    tipoComida: TipoComida;
-    destinoVacaciones: DestinoVacaciones;
-    saborBebida: SaborBebida;
+    public actividadViernes: ActividadViernes;
+    public descripcionAmigos: DescripcionAmigos;
+    public tipoComida: TipoComida;
+    public destinoVacaciones: DestinoVacaciones;
+    public saborBebida: SaborBebida;
 }
 /*
 ¿Cuál es tu actividad favorita para un viernes por la noche?

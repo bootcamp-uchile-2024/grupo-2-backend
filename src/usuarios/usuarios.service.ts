@@ -59,7 +59,7 @@ export class UsuariosService {
   }
 
   create(createUsuarioDto: CreateUsuarioDto) {
-    return 'Se indica que se creó un usuario correctamente';
+     return `Se creo el siguiente usuario: ${JSON.stringify(createUsuarioDto)}`;
   }
 
   findAll() {
@@ -98,7 +98,7 @@ export class UsuariosService {
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `Se indica que se modificaron los atributos correctamente`;
+     return `Se edito el siguiente usuario: ${JSON.stringify(updateUsuarioDto)}`;
   }
 
   remove(id: number) {

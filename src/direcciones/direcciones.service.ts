@@ -32,16 +32,6 @@ export class DireccionesService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} direccione`;
+      return `Se elimno la direccion con Id #${id}`;
   }
-}
-
-
-
-
-
-
-
-
-
-
+  }

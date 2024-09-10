@@ -2,15 +2,17 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CarritoService } from './carrito.service';
 import { CreateCarritoDto } from './dto/create-carrito.dto';
 import { UpdateCarritoDto } from './dto/update-carrito.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('carrito')
+@ApiTags('Carrito')
 export class CarritoController {
   constructor(private readonly carritoService: CarritoService) {}
 
   @ApiResponse({ status: 201, description: 'Carrito Creado' })
   @ApiResponse({ status: 404, description: 'No se pudo crear el carrito' })
   @Post()
+  @ApiBody({ type: CreateCarritoDto })
   create(@Body() createCarritoDto: CreateCarritoDto) {
     return this.carritoService.create(createCarritoDto);
   }

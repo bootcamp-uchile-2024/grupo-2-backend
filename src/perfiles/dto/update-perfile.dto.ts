@@ -1,7 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreatePerfileDto } from './create-perfile.dto';
 import { Pedido } from 'src/pedidos/entities/pedido.entity';
-import { Suscripcione } from 'src/suscripciones/entities/suscripcione.entity';
 import { PersonajeCerveza } from 'src/enum/personajes';
 import { IsNotEmpty, IsString, IsOptional, IsArray, IsEnum, ValidateNested } from 'class-validator';
 import { TipoCerveza } from 'src/enum/tipos-cerveza';

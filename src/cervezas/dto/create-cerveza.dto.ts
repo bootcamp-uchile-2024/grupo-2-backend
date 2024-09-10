@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { isEnum, IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { IBU } from "src/enum/amargor";
 import { Comuna } from "src/enum/comunas";
 import { Formato } from "src/enum/formato";

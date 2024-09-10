@@ -3,7 +3,7 @@ import { Type } from "class-transformer";
 import { IsArray, IsEmail, IsNotEmpty, IsString, Matches, Min, ValidateNested } from "class-validator";
 import { CreateDireccioneDto } from "src/direcciones/dto/create-direccione.dto";
 import { Direccione } from "src/direcciones/entities/direccione.entity";
-import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
+
 
 
 export class CreateUsuarioDto {

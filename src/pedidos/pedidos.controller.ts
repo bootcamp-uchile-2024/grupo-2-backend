@@ -2,15 +2,17 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { PedidosService } from './pedidos.service';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
-import { ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('pedidos')
+@ApiTags('Pedidos')
 export class PedidosController {
   constructor(private readonly pedidosService: PedidosService) {}
 
   @ApiResponse({ status: 201, description: 'Pedido Creado Exitosamente' })
   @ApiResponse({ status: 404, description: 'No se creó el Pedido' })
   @Post()
+  @ApiBody({ type: CreatePedidoDto })
   create(@Body() createPedidoDto: CreatePedidoDto) {
     return this.pedidosService.create(createPedidoDto);
   }

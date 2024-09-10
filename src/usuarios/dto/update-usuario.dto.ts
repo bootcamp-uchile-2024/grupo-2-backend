@@ -1,5 +1,4 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { Suscripcione } from 'src/suscripciones/entities/suscripcione.entity';
 import { CreateUsuarioDto } from './create-usuario.dto';
 import { Direccione } from 'src/direcciones/entities/direccione.entity';
 import { IsArray, IsEmail, IsNotEmpty, IsNumber, IsString, Min, ValidateNested } from 'class-validator';

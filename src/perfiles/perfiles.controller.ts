@@ -2,15 +2,17 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from '@nestjs/
 import { PerfilesService } from './perfiles.service';
 import { CreatePerfileDto } from './dto/create-perfile.dto';
 import { UpdatePerfileDto } from './dto/update-perfile.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('perfiles')
+@ApiTags('Perfiles')
 export class PerfilesController {
   constructor(private readonly perfilesService: PerfilesService) { }
 
   @Post()
   @ApiResponse({ status: 200, description: 'Perfil creado de forma exitosa' })
   @ApiResponse({ status: 404, description: 'Error al crear perfil' })
+  @ApiBody({ type: CreatePerfileDto })
   create(@Body() createPerfileDto: CreatePerfileDto) {
     return this.perfilesService.create(createPerfileDto);
   }

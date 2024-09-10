@@ -2,9 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Request, Response, B
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('usuarios')
+@ApiTags('Usuarios')
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
   
@@ -15,6 +16,7 @@ export class UsuariosController {
   @ApiResponse({ status: 201, description: 'Usuario Creado' })
   @ApiResponse({ status: 404, description: 'No se pudo crear el usuario' })
   @Post()
+  @ApiBody({ type: CreateUsuarioDto })
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
     return this.usuariosService.create(createUsuarioDto);
     

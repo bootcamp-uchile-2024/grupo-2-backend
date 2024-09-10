@@ -11,6 +11,7 @@ export class CreatePerfileDto {
 
     @IsNotEmpty()
     @IsString()
+    @IsEnum(PersonajeCerveza)
     @ApiProperty({ default: 'El Buena Onda (Pale Ale)', description: 'Personaje asociado al perfil basado en las preferencias', enum: PersonajeCerveza })
     public nombre: PersonajeCerveza;
 

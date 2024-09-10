@@ -4,6 +4,8 @@ import { Region } from "src/enum/regiones";
 
 export class Direccione {
     @ApiProperty()
+    public id: number;
+    @ApiProperty()
     public idUsuario: number;
     @ApiProperty({ default: 'Calle dirección' })
     public calle: string;

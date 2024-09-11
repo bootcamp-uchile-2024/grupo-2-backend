@@ -2,15 +2,15 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res } from '@
 import { CervezasService } from './cervezas.service';
 import { CreateCervezaDto } from './dto/create-cerveza.dto';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
-import { ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Formato } from 'src/enum/formato';
 import { Region } from 'src/enum/regiones';
 import { TipoCerveza } from 'src/enum/tipos-cerveza';
 import { IBU } from 'src/enum/amargor';
 import { Comuna } from 'src/enum/comunas';
-import { response, Response } from 'express';
 
 @Controller('cervezas')
+@ApiTags('Cervezas')
 export class CervezasController {
 
   constructor(private readonly cervezasService: CervezasService) { }
@@ -18,6 +18,7 @@ export class CervezasController {
   @ApiResponse({ status: 201, description: 'Cerveza creada exitosamente' })
   @ApiResponse({ status: 404, description: 'Error al crear la cerveza' })
   @Post()
+  @ApiBody({ type: CreateCervezaDto })
   create(@Body() createCervezaDto: CreateCervezaDto) {
     return this.cervezasService.create(createCervezaDto);
   }

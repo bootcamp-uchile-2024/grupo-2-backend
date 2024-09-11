@@ -33,7 +33,7 @@ export class Cerveza {
   public graduacion: string;
   @ApiProperty({ default: 'Botella', description: 'Formato de la cerveza', enum: Formato })
   public formato: Formato;
-  @ApiProperty({ default: 'Imagen de la cerveza', description: 'Imagen de la cerveza' })
+  @ApiProperty({ default: 'https://placehold.co/400x600', description: 'Imagen de la cerveza' })
   public imagen: string;
 
 }

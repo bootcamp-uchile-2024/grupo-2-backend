@@ -2,25 +2,28 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { PedidosService } from './pedidos.service';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
-import { ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('pedidos')
+@ApiTags('Pedidos')
 export class PedidosController {
   constructor(private readonly pedidosService: PedidosService) {}
 
-@ApiResponse({ status: 201, description: 'Pedido Creado Exitosamente' })
-@ApiResponse({ status: 404, description: 'No se creo el Pedido' })
+  @ApiResponse({ status: 201, description: 'Pedido Creado Exitosamente' })
+  @ApiResponse({ status: 404, description: 'No se creó el Pedido' })
   @Post()
+  @ApiBody({ type: CreatePedidoDto })
   create(@Body() createPedidoDto: CreatePedidoDto) {
     return this.pedidosService.create(createPedidoDto);
   }
 
-  @ApiResponse({ status: 200, description: 'Pedidos encontrados' })
-  @ApiResponse({ status: 404, description: 'No se encuentra ningun pedido' })
   @Get()
-  @ApiQuery({ name: 'usuarioId', required: false, description: 'Id del usuario' })
-  findAll(@Query('usuarioId') usuarioId: number) {
-    return this.pedidosService.findAll(usuarioId);
+  @ApiResponse({ status: 200, description: 'Pedidos encontrados' })
+  @ApiResponse({ status: 404, description: 'No existen Pedidos en la Base de Datos' })
+  @ApiQuery({ name: 'idUsuario', required: false, description: 'ID del Usuario' })
+  findAll(@Query('idUsuario') idUsuario?: string) {
+    const id = idUsuario ? parseInt(idUsuario, 10) : undefined;
+    return this.pedidosService.findAll(id);
   }
 
   @ApiResponse({ status: 200, description: 'Pedido encontrado' })
@@ -30,8 +33,8 @@ export class PedidosController {
     return this.pedidosService.findOne(+id);
   }
 
-@ApiResponse({ status: 200, description: 'Pedido editado correctamente' })
-@ApiResponse({ status: 404, description: 'No se puede editar el pedido' })
+  @ApiResponse({ status: 200, description: 'Pedido editado correctamente' })
+  @ApiResponse({ status: 404, description: 'No se puede editar el pedido' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePedidoDto: UpdatePedidoDto) {
     return this.pedidosService.update(+id, updatePedidoDto);

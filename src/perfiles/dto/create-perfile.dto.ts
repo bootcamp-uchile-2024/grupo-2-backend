@@ -1,9 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { Type } from "class-transformer";
+import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
 import { PersonajeCerveza } from "src/enum/personajes";
 import { TipoSuscripcion } from "src/enum/tipo-suscripcion";
 import { TipoCerveza } from "src/enum/tipos-cerveza";
+import { CreateFormularioDto } from "src/formularios/dto/create-formulario.dto";
 import { Formulario } from "src/formularios/entities/formulario.entity";
+import { CreatePedidoDto } from "src/pedidos/dto/create-pedido.dto";
 import { Pedido } from "src/pedidos/entities/pedido.entity";
 
 
@@ -12,12 +15,15 @@ export class CreatePerfileDto {
 
     @IsNotEmpty()
     @IsString()
+    @IsEnum(PersonajeCerveza)
     @ApiProperty({ default: 'El Buena Onda (Pale Ale)', description: 'Personaje asociado al perfil basado en las preferencias', enum: PersonajeCerveza })
     public nombre: PersonajeCerveza;
 
     @IsOptional()
     @IsArray()
-    @ApiProperty({ default: [], description: 'Lista de pedidos asociados al perfil', type: [Pedido], })
+    @ValidateNested({ each: true })
+    @Type(() => CreatePedidoDto)
+    @ApiProperty({ default: CreatePedidoDto, description: 'Lista de pedidos asociados al perfil', type: [CreatePedidoDto], })
     public historialPedidos?: Pedido[];
 
     @IsOptional()
@@ -26,13 +32,15 @@ export class CreatePerfileDto {
     public suscripciones?: TipoSuscripcion;
 
     @IsOptional()
-    @IsArray()
     @IsEnum(TipoCerveza, { each: true })
-    @ApiProperty({ default: [], description: 'Lista de recomendaciones personalizadas para el perfil', enum: TipoCerveza, type: [String], })
+    @ApiProperty({ default: 'Pale Ale', description: 'Lista de recomendaciones personalizadas para el perfil', enum: TipoCerveza, type: [String], })
     public recomendaciones?: TipoCerveza[];
 
-    @ApiProperty({ default: [], description: 'Respuesta del Formulario' })
-    public formularioPreferencias: Formulario;
+    @IsOptional()
+    @ValidateNested({ each: true })
+    @Type(() => CreateFormularioDto)
+    @ApiProperty({ default: CreateFormularioDto, description: 'Respuesta del Formulario', type:[CreateFormularioDto] })
+    public formularioPreferencias?: Formulario;
 
     @IsNotEmpty()
     @IsString()

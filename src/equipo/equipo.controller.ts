@@ -1,8 +1,10 @@
 import { Controller, Get, Param, Res } from '@nestjs/common';
 import { EquipoService } from './equipo.service';
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('equipo')
+@ApiTags('Grupo 2')
 export class EquipoController {
   constructor(private readonly equipoService: EquipoService){}
 

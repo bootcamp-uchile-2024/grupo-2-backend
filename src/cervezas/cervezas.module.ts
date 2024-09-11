@@ -6,6 +6,7 @@ import { UsuariosModule } from 'src/usuarios/usuarios.module'; // Importa el mó
 @Module({
   controllers: [CervezasController],
   providers: [CervezasService],
+  exports: [CervezasService],
   //imports: [UsuariosModule], // Importa el módulo que contiene UsuariosService
 })
 export class CervezasModule {}

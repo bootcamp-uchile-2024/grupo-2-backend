@@ -16,7 +16,7 @@ export class DireccionesService {
   }
 
   create(createDireccioneDto: CreateDireccioneDto) {
-    return 'This action adds a new direccione';
+     return `Se creo la siguiente direccion: ${JSON.stringify(createDireccioneDto)}`
   }
 
   findAll() {
@@ -28,20 +28,10 @@ export class DireccionesService {
   }
 
   update(id: number, updateDireccioneDto: UpdateDireccioneDto) {
-    return `This action updates a #${id} direccione`;
+    return `Se edito la siguiente direccion: ${JSON.stringify(updateDireccioneDto)}`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} direccione`;
+      return `Se elimno la direccion con Id #${id}`;
   }
-}
-
-
-
-
-
-
-
-
-
-
+  }

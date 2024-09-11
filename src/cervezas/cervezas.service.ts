@@ -24,7 +24,7 @@ export class CervezasService {
 
 
   create(createCervezaDto: CreateCervezaDto) {
-    return 'Se indica la creación de una cerveza';
+     return `Se creo una Cerveza lo siguiente: ${JSON.stringify(createCervezaDto)}`
   }
 
   findAll(nombre: string, marca: string, categoria: TipoCerveza, descripcion: string, precio: number, proveedor: string, region: Region, comuna: Comuna, amargor: IBU, graduacion: string, formato: Formato) {
@@ -36,7 +36,7 @@ export class CervezasService {
   }
 
   update(id: number, updateCervezaDto: UpdateCervezaDto) {
-    return `Se indica la modificación de una cerveza`;
+     return `Se edito la siguente Cerveza: ${JSON.stringify(updateCervezaDto)}`
   }
 
   remove(id: number) {

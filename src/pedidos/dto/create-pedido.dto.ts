@@ -53,4 +53,4 @@ export class CreatePedidoDto {
     @IsDate({ message: 'La fecha de entrega del pedido debe ser una fecha' })
     @ApiProperty({ default: '2024-12-23' })
     public fecha_entrega: Date //entrega física o envío
-
+}

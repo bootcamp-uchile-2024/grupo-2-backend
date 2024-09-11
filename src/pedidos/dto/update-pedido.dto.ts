@@ -1,6 +1,7 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
 import { CreatePedidoDto } from './create-pedido.dto';
+
 import { Direccione } from 'src/direcciones/entities/direccione.entity';
 import { IsNotEmpty, IsDate, IsEmail, IsString, IsPhoneNumber, Matches, ValidateNested } from 'class-validator';
 import { estadoPedidos } from 'src/enum/estado-pedidos';
@@ -46,4 +47,5 @@ export class UpdatePedidoDto extends PartialType(CreatePedidoDto) {
     @IsDate({ message: 'La fecha de entrega del pedido debe ser una fecha' })
     @ApiProperty({ default: '2024-03-03', description: 'Fecha de entrega del pedido' })
     public fecha_entrega: Date //entrega física o envío
+
 }

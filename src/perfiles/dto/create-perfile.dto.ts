@@ -12,6 +12,7 @@ import { Pedido } from "src/pedidos/entities/pedido.entity";
 
 export class CreatePerfileDto {
 
+
     @IsNotEmpty()
     @IsString()
     @IsEnum(PersonajeCerveza)

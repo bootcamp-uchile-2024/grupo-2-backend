@@ -6,6 +6,7 @@ import { Region } from 'src/enum/regiones';
 import { IBU } from 'src/enum/amargor';
 import { Comuna } from 'src/enum/comunas';
 import { TipoCerveza } from 'src/enum/tipos-cerveza';
+
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
@@ -25,8 +26,10 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @ApiProperty({ default: 'Pale Ale', description: 'Categoría de la cerveza', enum: TipoCerveza })
     public categoria: TipoCerveza;
 
+
     @IsNumber({},{message: 'El stock de la cerveza debe ser un número'})
     @IsNotEmpty({message: 'El stock de la cerveza es requerido'})
+
     @ApiProperty({ default: 100, description: 'Stock de la cerveza' })
     public stock: number;
 
@@ -57,6 +60,7 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @ApiProperty({ default: 'Valdivia', description: 'Comuna Origen de la cerveza', enum: Comuna })
     public comuna: Comuna;
 
+
     @IsString({message: 'El amargor de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El amargor de la cerveza es requerido'})
     @IsEnum(IBU, {message: 'El amargor de la cerveza no es válido'})
@@ -65,6 +69,7 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
 
     @IsString({message: 'La graduación de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'La graduación de la cerveza es requerida'})
+
     @ApiProperty({ default: '5%', description: 'Graduación de la cerveza' })
     public graduacion: string;
 

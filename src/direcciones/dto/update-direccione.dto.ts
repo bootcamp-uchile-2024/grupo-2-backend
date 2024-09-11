@@ -5,6 +5,7 @@ import { Region } from 'src/enum/regiones';
 import { IsNotEmpty, IsString, IsNumber, IsEnum, IsOptional, Matches } from 'class-validator';
 
 
+
 export class UpdateDireccioneDto extends PartialType(CreateDireccioneDto) {
     @IsNotEmpty({message: 'El nombre de la calle es requerido'})
     @IsString({message: 'El nombre de la calle debe ser un texto'})
@@ -30,8 +31,8 @@ export class UpdateDireccioneDto extends PartialType(CreateDireccioneDto) {
     @IsString({message: 'La comuna de la dirección debe ser un texto'})
     @IsEnum(Comuna,{message: 'La comuna de la dirección no es válida'})
     @ApiProperty({ default: 'Puente Alto', description: 'Comuna de la dirección', enum: Comuna })
-    public comuna: Comuna;
 
+    public comuna: Comuna;
     @IsOptional()
     @IsString({message: 'El código postal de la dirección debe ser un texto de 7 dígitos'})
     @Matches(/^\d{7}$/,{message: 'El código postal de la dirección debe ser un texto de 7 dígitos'})

@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
+
 import { Type } from "class-transformer";
 import { IsDate, IsEmail, IsMobilePhone, IsNotEmpty, IsPhoneNumber, IsString, Matches, ValidateNested } from "class-validator";
+
 import { Cerveza } from "src/cervezas/entities/cerveza.entity";
 import { CreateDireccioneDto } from "src/direcciones/dto/create-direccione.dto";
 import { Direccione } from "src/direcciones/entities/direccione.entity";
@@ -9,6 +11,7 @@ import { TipoCerveza } from "src/enum/tipos-cerveza";
 
 
 export class CreatePedidoDto {
+
 
     @IsNotEmpty({ message: 'El id del usuario es requerido' })
     @ApiProperty({ default: 1,description: 'id del usuario dueño del pedido' }) // Modificacion hecha por mi
@@ -50,4 +53,4 @@ export class CreatePedidoDto {
     @IsDate({ message: 'La fecha de entrega del pedido debe ser una fecha' })
     @ApiProperty({ default: '2024-12-23' })
     public fecha_entrega: Date //entrega física o envío
-}
+

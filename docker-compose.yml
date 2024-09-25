@@ -1,0 +1,11 @@
+services:
+  cervezario-app:
+    image: kmreyes/cervezarionacional:0.0.1
+    working_dir: /usr/src/app
+    env_file:
+      - .env.develop
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "4500:4500"
+    command: "npm run start:dev"

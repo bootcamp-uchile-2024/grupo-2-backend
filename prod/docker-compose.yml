@@ -1,0 +1,8 @@
+services:
+  cervezario-app-prod:
+    image: kmreyes/cervezarionacional:0.0.1
+    env_file:
+      - .env.production
+    ports:
+      - "3000:3000"
+    command: "npm run start:prod"

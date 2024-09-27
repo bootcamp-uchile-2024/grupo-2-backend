@@ -20,15 +20,16 @@ async function bootstrap() {
   const version = configService.get<string>('version');
   const author = configService.get<string>('author');
   console.log(author);
-  const license = configService.get<string>('licence');
+  const license = configService.get<string>('license');
+  console.log(license);
 
 
   const config = new DocumentBuilder()
     .setTitle(name + ` - MODULO ${configService.get('AMBIENTE')} `)
     .setDescription(description)
     .setVersion(version)
-    .setContact(author,'','')
-    .setLicense(license,'')
+    .setContact(author,'-','-')
+    .setLicense(license,'-')
     .addTag('Cervezario-Nacional-api')
     .build();
 

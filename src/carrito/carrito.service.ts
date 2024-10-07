@@ -31,6 +31,6 @@ export class CarritoService {
   }
 
   remove(id: number) {
-    return `Se Elimino el carrito con ID ${id}`;
+    return `Se elimino el carrito con ID ${id}`;
   }
 }

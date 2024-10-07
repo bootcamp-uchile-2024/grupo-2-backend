@@ -68,6 +68,7 @@ export class CervezasController {
 @Delete(':id')
 @ApiResponse({ status: 200, description: 'Cerveza eliminada exitosamente' })
 @ApiResponse({ status: 404, description: 'Error al eliminar la cerveza' })
+@ApiResponse({ status: 501, description: 'Endpoint no implementado' })
 remove(@Param('id') id: string) {
   return this.cervezasService.remove(+id);
 }

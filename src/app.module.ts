@@ -13,6 +13,7 @@ import { CommonMiddleware } from './common/common.middleware';
 import { TiposPersonajesModule } from './tipos-personajes/tipos-personajes.module';
 import { FormulariosModule } from './formularios/formularios.module';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [ConfigModule.forRoot(
@@ -24,7 +25,15 @@ import { ConfigModule } from '@nestjs/config';
       author: require('../package.json').author,
       license: require('../package.json').license
       })],
-      isGlobal: true})
+      isGlobal: true}),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'db',
+      port: 3306,
+      username: 'root',
+      password: 'clave123',
+      database: 'Cervezario'
+      })
     ,EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],
   providers: [AppService],

@@ -10,8 +10,6 @@ import { TipoCerveza } from "src/enum/tipos-cerveza";
 
 
 export class CreateCervezaDto {
-
-
     @IsString({message: 'El nombre de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El nombre de la cerveza es requerido'})
 

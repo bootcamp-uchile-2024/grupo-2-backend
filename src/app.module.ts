@@ -14,6 +14,8 @@ import { TiposPersonajesModule } from './tipos-personajes/tipos-personajes.modul
 import { FormulariosModule } from './formularios/formularios.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Cerveza } from './cervezas/entities/cerveza.entity';
+import { Carrito } from './carrito/entities/carrito.entity';
 
 @Module({
   imports: [ConfigModule.forRoot(
@@ -32,7 +34,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port: 3306,
       username: 'root',
       password: 'clave123',
-      database: 'Cervezario'
+      database: 'Cervezario',
+      entities: [Cerveza, Carrito]
       })
     ,EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],

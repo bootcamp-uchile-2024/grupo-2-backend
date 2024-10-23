@@ -406,7 +406,7 @@ INSERT INTO Suscripcion (tipo_suscripcion, nombre, descripcion, precio, descuent
 ('ELITE', 'VIP Élite', 'Máximo nivel de suscripción con todos los beneficios, incluyendo experiencias personalizadas y prioridad en todo', 80000, 25,'Prioritario');
 
 -- Insertar datos en la tabla Categoria
-INSERT INTO Categoria (tipo, nombre, descripcion) VALUES
+INSERT INTO Tipo_Cerveza (tipo, nombre, descripcion) VALUES
 ('PaleAle', 'Pale Ale', 'Sabor balanceado con notas afrutadas y lupuladas.'),
 ('AmericanPaleAle', 'American Pale Ale', 'Variante americana de la Pale Ale, más lupulada.'),
 ('IndiaPaleAle', 'India Pale Ale', 'Cerveza fuertemente lupulada, con mayor amargor.'),
@@ -433,3 +433,20 @@ INSERT INTO Categoria (tipo, nombre, descripcion) VALUES
 ('FlandersRedAle', 'Flanders Red Ale', 'Cerveza belga ácida, agria y afrutada.'),
 ('Barleywine', 'Barleywine', 'Cerveza fuerte, maltosa y envejecida en barriles.'),
 ('RyeBeer', 'Rye Beer', 'Cerveza con centeno, sabor especiado y seco.');
+
+INSERT INTO Proveedor (nombre, id_comuna, id_region, contacto, telefono, correo_electronico) VALUES
+('Proveedores del Sur S.A.', 'Talcahuano', 'RM', 'Juan Pérez', '987654321', 'juan.perez@proveedores.com'),
+('Distribuciones Norte Ltda.', 'Vicuna', 'CO', 'Ana Gómez', '912345678', 'ana.gomez@distribuciones.com');
+
+
+INSERT INTO Cerveza (nombre, marca, tipo, stock, descripcion, precio, id_proveedor, id_amargor, graduacion, id_formato, imagen) VALUES
+('Cerveza Rubia', 'Cerveza del Valle', 'Saison', 150, 'Una cerveza ligera y refrescante.', 1500, 1, 'Notable_40_60_IBU', 4.5, 'Barril', 'rubia.jpg'),
+('Cerveza Negra', 'Cerveza del Norte', 'ChristmasAle', 100, 'Cerveza oscura con notas de café y chocolate.', 1800, 1, 'Alto_60_IBU', 5.0, 'Botella', 'negra.jpg'),
+('Cerveza IPA', 'Cerveza Artesanal', 'FlandersRedAle', 80, 'Cerveza con un fuerte sabor a lúpulo y cítricos.', 2000, 1, 'Alto_60_IBU', 6.5, 'Lata', 'ipa.jpg'),
+('Cerveza Amber', 'Cerveza del Sur', 'RyeBeer', 120, 'Cerveza ámbar con un sabor a malta tostada.', 1700, 1, 'Moderado_20_40_IBU', 5.2, 'Botella', 'amber.jpg'),
+('Cerveza Stout', 'Cerveza Oscura', 'BrownAle', 90, 'Una cerveza rica y cremosa, perfecta para el invierno.', 2200, 1, 'Moderado_20_40_IBU', 7.0, 'Botella', 'stout.jpg'),
+('Cerveza Wheat', 'Cerveza Blanca', 'FlandersRedAle', 110, 'Cerveza de trigo, suave y afrutada.', 1600, 1, 'Moderado_20_40_IBU', 4.8, 'Lata', 'wheat.jpg'),
+('Cerveza Pale Ale', 'Cerveza Clásica', 'Saison', 95, 'Cerveza con un equilibrio perfecto entre malta y lúpulo.', 1900, 1, 'Moderado_20_40_IBU', 5.5, 'Botella', 'paleale.jpg'),
+('Cerveza Radler', 'Cerveza Verano', 'Gose', 130, 'Cerveza mezclada con limón, ideal para el verano.', 1400, 1, 'Notable_40_60_IBU', 3.5, 'Lata', 'radler.jpg'),
+('Cerveza Bock', 'Cerveza Fuerte', 'Kriek', 70, 'Cerveza fuerte con un sabor intenso y profundo.', 2300, 1, 'Notable_40_60_IBU', 6.8, 'Botella', 'bock.jpg'),
+('Cerveza Cerveza del Mes', 'Cerveza Especial', 'BrownAle', 60, 'Cerveza de edición limitada, un verdadero deleite.', 2500, 1, 'Moderado_20_40_IBU', 6.0, 'Barril', 'especial.jpg');

@@ -15,7 +15,7 @@ export class CervezasController {
   constructor(private readonly cervezasService: CervezasService) { }
 
   @ApiResponse({ status: 201, description: 'Cerveza creada exitosamente' })
-  @ApiResponse({ status: 404, description: 'Error al crear la cerveza' })
+  @ApiResponse({ status: 400, description: 'Error al crear la cerveza' })
   @Post()
   @ApiBody({ type: CreateCervezaDto })
   create(@Body() createCervezaDto: CreateCervezaDto) {
@@ -24,7 +24,6 @@ export class CervezasController {
   
   @Get()
   @ApiResponse({ status: 200, description: 'Cervezas encontradas' })
-  @ApiResponse({ status: 404, description: 'No existen Cervezas en la Base de Datos' })
   @ApiQuery({ name: 'nombre', required: false, description: 'Nombre de la cerveza' })
   @ApiQuery({ name: 'marca', required: false, description: 'Marca de la cerveza' })
   @ApiQuery({ name: 'region', required: false, description: 'Región del proveedor', enum: Region })
@@ -52,13 +51,13 @@ export class CervezasController {
   
   @Patch(':id')
   @ApiResponse({ status: 201, description: 'Informacion actualizada de forma exitosa' })
-  @ApiResponse({ status: 404, description: 'Error al actualizar informacion' })
+  @ApiResponse({ status: 404, description: 'no existe el id que se desea actualizar' })
   update(@Param('id') id: string, @Body() updateCervezaDto: UpdateCervezaDto) {
     return this.cervezasService.update(+id, updateCervezaDto);
 }
 @Delete(':id')
 @ApiResponse({ status: 200, description: 'Cerveza eliminada exitosamente' })
-@ApiResponse({ status: 404, description: 'Error al eliminar la cerveza' })
+@ApiResponse({ status: 404, description: 'no existe el id que se desea eliminar' })
 @ApiResponse({ status: 501, description: 'Endpoint no implementado' })
 remove(@Param('id') id: string) {
   return this.cervezasService.remove(+id);

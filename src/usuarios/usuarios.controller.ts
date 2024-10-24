@@ -14,7 +14,7 @@ export class UsuariosController {
 //NO FUNCIONA INTERCEPTOR en el POST
 
   @ApiResponse({ status: 201, description: 'Usuario Creado' })
-  @ApiResponse({ status: 404, description: 'No se pudo crear el usuario' })
+  @ApiResponse({ status: 400, description: 'No se pudo crear el usuario' })
   @Post()
   @ApiBody({ type: CreateUsuarioDto })
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
@@ -38,14 +38,14 @@ export class UsuariosController {
   }
 
   @ApiResponse({ status: 200, description: 'Usuario editado correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede editar el usuario' })
+  @ApiResponse({ status: 404, description: 'no existe el usuario que se desea actualizar' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
     return this.usuariosService.update(+id, updateUsuarioDto);
   }
 
   @ApiResponse({ status: 200, description: 'Usuario eliminado correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede eliminar el usuario' })
+  @ApiResponse({ status: 404, description: 'no existe el usuario que se desea eliminar' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usuariosService.remove(+id);

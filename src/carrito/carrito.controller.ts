@@ -10,7 +10,7 @@ export class CarritoController {
   constructor(private readonly carritoService: CarritoService) {}
 
   @ApiResponse({ status: 201, description: 'Carrito Creado' })
-  @ApiResponse({ status: 404, description: 'No se pudo crear el carrito' })
+  @ApiResponse({ status: 400, description: 'No se pudo crear el carrito' })
   @Post()
   @ApiBody({ type: CreateCarritoDto })
   create(@Body() createCarritoDto: CreateCarritoDto) {

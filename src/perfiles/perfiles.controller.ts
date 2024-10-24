@@ -33,14 +33,14 @@ export class PerfilesController {
 
   @Patch(':id')
   @ApiResponse({ status: 201, description: 'Perfil actualizado exitosamente' })
-  @ApiResponse({ status: 404, description: 'Error al actualizar perfil' })
+  @ApiResponse({ status: 404, description: 'no existe el perfil que se desea actualizar' })
   update(@Param('id') id: string, @Body() updatePerfileDto: UpdatePerfileDto) {
     return this.perfilesService.update(+id, updatePerfileDto);
   }
 
   @Delete(':id')
   @ApiResponse({ status: 200, description: 'Perfil eliminada exitosamente' })
-  @ApiResponse({ status: 404, description: 'Error al eliminar el perfil' })
+  @ApiResponse({ status: 404, description: 'no existe el perfil que se desea eliminar' })
   remove(@Param('id') id: string) {
     return this.perfilesService.remove(+id);
   }

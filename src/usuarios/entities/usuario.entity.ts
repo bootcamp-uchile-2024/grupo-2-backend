@@ -14,7 +14,6 @@ export class Usuario {
     public contraseña: string;
     @ApiProperty({default:'Edad usuario'})
     public edad: number;
-    
     public id_perfil: number;
     @ApiProperty({default:'Suscripción pagada por el usuario'})
     public tipo_suscripcion?: Suscripcione; //una sola suscripcion por usuario === Modificado por mi deberia ser opcional 

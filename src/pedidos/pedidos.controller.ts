@@ -10,7 +10,7 @@ export class PedidosController {
   constructor(private readonly pedidosService: PedidosService) {}
 
   @ApiResponse({ status: 201, description: 'Pedido Creado Exitosamente' })
-  @ApiResponse({ status: 404, description: 'No se creó el Pedido' })
+  @ApiResponse({ status: 400, description: 'No se creó el Pedido' })
   @Post()
   @ApiBody({ type: CreatePedidoDto })
   create(@Body() createPedidoDto: CreatePedidoDto) {
@@ -34,14 +34,14 @@ export class PedidosController {
   }
 
   @ApiResponse({ status: 200, description: 'Pedido editado correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede editar el pedido' })
+  @ApiResponse({ status: 404, description: 'no existe el pedido que se desea actualizar' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePedidoDto: UpdatePedidoDto) {
     return this.pedidosService.update(+id, updatePedidoDto);
   }
 
   @ApiResponse({ status: 200, description: 'Pedido eliminado correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede eliminar el pedido' })
+  @ApiResponse({ status: 404, description: 'no existe el pedido que se desea actualizar' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.pedidosService.remove(+id);

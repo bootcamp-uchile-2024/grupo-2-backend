@@ -10,7 +10,7 @@ export class DireccionesController {
   constructor(private readonly direccionesService: DireccionesService) { }
 
   @ApiResponse({ status: 201, description: 'Direccion Creada Exitosamente' })
-  @ApiResponse({ status: 404, description: 'No se creo la Direccion' })
+  @ApiResponse({ status: 400, description: 'No se creo la Direccion' })
   @Post()
   @ApiBody({ type: CreateDireccioneDto })
   create(@Body() createDireccioneDto: CreateDireccioneDto) {
@@ -32,14 +32,14 @@ export class DireccionesController {
   }
 
   @ApiResponse({ status: 200, description: 'Direcciones editada correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede editar la direccion' })
+  @ApiResponse({ status: 404, description: 'La direccion que se desea actualizar no existe' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDireccioneDto: UpdateDireccioneDto) {
     return this.direccionesService.update(+id, updateDireccioneDto);
   }
 
   @ApiResponse({ status: 200, description: 'Direcciones eliminada correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede eliminar la direccion' })
+  @ApiResponse({ status: 404, description: 'la direccion que se desea eliminar no existe' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.direccionesService.remove(+id);

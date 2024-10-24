@@ -32,14 +32,14 @@ export class SuscripcionesController {
   }
 
   @ApiResponse({ status: 200, description: 'Suscripción editada correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede editar la suscripción' })
+  @ApiResponse({ status: 404, description: 'no existe la suscripcion que se desea actualizar' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSuscripcioneDto: UpdateSuscripcioneDto) {
     return this.suscripcionesService.update(+id, updateSuscripcioneDto);
   }
 
   @ApiResponse({ status: 200, description: 'Suscripción eliminada correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede eliminar la suscripción' })
+  @ApiResponse({ status: 404, description: 'no existe la suscripcion que se desea eliminar' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.suscripcionesService.remove(+id);

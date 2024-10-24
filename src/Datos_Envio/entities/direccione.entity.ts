@@ -1,11 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Comuna } from "src/enum/comunas";
 import { Region } from "src/enum/regiones";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Direccione {
-    @ApiProperty()
+    @PrimaryColumn()
     public id: number;
 
     @Column()

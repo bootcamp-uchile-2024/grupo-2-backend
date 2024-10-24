@@ -36,12 +36,13 @@ export class CreateDireccioneDto {
     @IsString()
     @Length(9, 10, { message: 'El rut del usuario debe tener entre 9 y 10 caracteres' })
     @Matches(/^\d{1,8}-[0-9Kk]{1}$/, { message: 'El RUT no tiene un formato válido.' })
-    public rut_usuario: Usuario;
+    public rut_usuario: string;
 
     @IsNotEmpty({message: 'El correo telefono'})
     public telefono: string;
 
     @IsNotEmpty({message: 'El correo electrónico es requerido'})
     public correo_electronico: string;
+    
 }
 

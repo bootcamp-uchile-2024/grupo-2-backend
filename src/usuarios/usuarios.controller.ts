@@ -22,7 +22,6 @@ export class UsuariosController {
     
   }
   
-
   @ApiResponse({ status: 200, description: 'Usuarios encontrados' })
   @ApiResponse({ status: 404, description: 'No se encontraron usuarios' })
   @Get()

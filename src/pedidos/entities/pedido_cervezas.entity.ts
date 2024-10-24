@@ -5,15 +5,12 @@ import { Column, Entity, JoinColumn, NumericType, OneToMany, PrimaryColumn } fro
 
 @Entity({name: 'Pedido_Cerveza'})
 export class Pedido_Cerveza {
-    @ApiProperty()
     @PrimaryColumn()
     public id_pedido: number; 
    
-    @ApiProperty()
     @PrimaryColumn()
     public id_cerveza: number;
    
-    @ApiProperty()
     @Column()
     public cantidad: number;
 }

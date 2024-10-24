@@ -2,7 +2,8 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateDireccioneDto } from './create-direccione.dto';
 import { Comuna } from 'src/enum/comunas';
 import { Region } from 'src/enum/regiones';
-import { IsNotEmpty, IsString, IsNumber, IsEnum, IsOptional, Matches } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsEnum, IsOptional, Matches, Length } from 'class-validator';
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
 
 
 
@@ -25,13 +26,13 @@ export class UpdateDireccioneDto extends PartialType(CreateDireccioneDto) {
     @IsString({ message: 'La comuna de la dirección debe ser un texto' })
     @IsEnum(Comuna, { message: 'La comuna de la dirección no es válida' })
     @ApiProperty({ default: 'Puente Alto', description: 'Comuna de la dirección', enum: Comuna })
-    public comuna: Comuna;
+    public id_comuna: Comuna;
 
     @IsOptional()
     @IsString({ message: 'El código postal de la dirección debe ser un texto de 7 dígitos' })
     @Matches(/^\d{7}$/, { message: 'El código postal de la dirección debe ser un texto de 7 dígitos' })
     @ApiProperty({ default: '2980909', description: 'Código postal de la dirección' })
-    public codigoPostal?: string;
+    public codigo_Postal: string;
 
     @IsNotEmpty({ message: 'El rut del usuario es requerido' })
     @IsString()

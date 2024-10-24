@@ -10,12 +10,12 @@ export class UpdateSuscripcioneDto extends PartialType(CreateSuscripcioneDto) {
     @IsEnum(TipoSuscripcion)
     @ApiProperty({default: "Plata Premium", description:'tipo de suscripcion del usuario', enum:TipoSuscripcion}) // === actualizado === 
     public nombre: TipoSuscripcion;
-
-    @IsNumber()
+    
+    @IsNumber({}, {message: "el precio de la suscripcion es number"})
     @ApiProperty({default:12000, description:'precio de la suscripcion'}) // === Actualizado ===
     public precio: number;
 
-    @IsString()
+    @IsString({message: "el descuento de la suscripcion es string"})
     @ApiProperty({default:"5%", description:'descuento de la suscripcion'}) // === Actualizado ===
     public descuento: number;
 

@@ -11,7 +11,7 @@ export class CarritoService {
   private carrito = [];
   constructor(@InjectRepository(Carrito) private readonly repositoryCarrito: Repository<Carrito>) {}
   
-  create(createCarritoDto: CreateCarritoDto) {
+  create(createCarritoDto: CreateCarritoDto): string {
     return `Se creo un carro de compras con lo siguiente: ${JSON.stringify(createCarritoDto)}`;
   }
 
@@ -29,11 +29,11 @@ export class CarritoService {
     //return resultado;
   //}
 
-  update(id: number, updateCarritoDto: UpdateCarritoDto) {
+  update(id: number, updateCarritoDto: UpdateCarritoDto): string {
     return `Se actualizo un carro de compras con lo siguiente: ${JSON.stringify(updateCarritoDto)}`
   }
 
-  remove(id: number) {
+  remove(id: number): string {
     return `Se elimino el carrito con ID ${id}`;
   }
 }

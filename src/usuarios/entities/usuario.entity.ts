@@ -4,25 +4,19 @@ import { Pedido } from "src/pedidos/entities/pedido.entity";
 import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
 
 export class Usuario {
-    @ApiProperty()
-    public id: number;
+    @ApiProperty({default:'11111111-1'})
+    public rut: string;
     @ApiProperty({default:'Nombre usuario'})
     public nombre: string;
     @ApiProperty({ default: 'Apellido usuario'}) 
     public apellido: string;
-    @ApiProperty({default:'Correo usuario'})
-    public correo: string;
     @ApiProperty({default:'Contraseña usuario'})
     public contraseña: string;
-    @ApiProperty({default:'Dirección usuario'})
-    public direcciones: Direccione[];        //===== una o varias direcciones por usuario //Modificado por mi
-    @ApiProperty({default:'Número de teléfono usuario'})
-    public telefono: string; //lo convertimos a number internamente
     @ApiProperty({default:'Edad usuario'})
     public edad: number;
-    @ApiProperty({default:'Historial de pedidos usuario'})
-    public historial_pedidos?: Pedido[];      // === Modificado por mi deberia ser opcional 
+    
+    public id_perfil: number;
     @ApiProperty({default:'Suscripción pagada por el usuario'})
-    public suscripcion?: Suscripcione; //una sola suscripcion por usuario === Modificado por mi deberia ser opcional 
+    public tipo_suscripcion?: Suscripcione; //una sola suscripcion por usuario === Modificado por mi deberia ser opcional 
 
 }

@@ -24,7 +24,7 @@ export class CreateUsuarioDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty({ default: '123456', description: 'Contraseña del usuario' }) // === Actualizado ===
-    public contraseña: string;
+    public contrasenia: string;
    
     @IsArray()
     @IsNotEmpty()

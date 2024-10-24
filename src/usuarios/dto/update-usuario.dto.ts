@@ -1,8 +1,8 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateUsuarioDto } from './create-usuario.dto';
-import { Direccione } from 'src/direcciones/entities/direccione.entity';
+import { Direccione } from 'src/Datos_Envio/entities/direccione.entity';
 import { IsArray, IsEmail, IsNotEmpty, IsNumber, IsString, Min, ValidateNested } from 'class-validator';
-import { UpdateDireccioneDto } from 'src/direcciones/dto/update-direccione.dto';
+import { UpdateDireccioneDto } from 'src/Datos_Envio/dto/update-direccione.dto';
 import { Type } from 'class-transformer';
 
 export class UpdateUsuarioDto extends PartialType(CreateUsuarioDto) {

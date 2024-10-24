@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Direccione } from "src/direcciones/entities/direccione.entity";
+import { Direccione } from "src/Datos_Envio/entities/direccione.entity";
 import { Pedido } from "src/pedidos/entities/pedido.entity";
 import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
 

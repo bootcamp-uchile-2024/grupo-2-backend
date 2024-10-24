@@ -8,7 +8,7 @@ import { CarritoModule } from './carrito/carrito.module';
 import { SuscripcionesModule } from './suscripciones/suscripciones.module';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { PerfilesModule } from './perfiles/perfiles.module';
-import { DireccionesModule } from './direcciones/direcciones.module';
+import { DireccionesModule } from './Datos_Envio/direcciones.module';
 import { CommonMiddleware } from './common/common.middleware';
 import { TiposPersonajesModule } from './tipos-personajes/tipos-personajes.module';
 import { FormulariosModule } from './formularios/formularios.module';

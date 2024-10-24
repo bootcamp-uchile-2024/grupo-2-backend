@@ -4,8 +4,8 @@ import { Type } from "class-transformer";
 import { IsDate, IsEmail, IsMobilePhone, IsNotEmpty, IsPhoneNumber, IsString, Matches, ValidateNested } from "class-validator";
 
 import { Cerveza } from "src/cervezas/entities/cerveza.entity";
-import { CreateDireccioneDto } from "src/direcciones/dto/create-direccione.dto";
-import { Direccione } from "src/direcciones/entities/direccione.entity";
+import { CreateDireccioneDto } from "src/Datos_Envio/dto/create-direccione.dto";
+import { Direccione } from "src/Datos_Envio/entities/direccione.entity";
 import { estadoPedidos } from "src/enum/estado-pedidos";
 import { TipoCerveza } from "src/enum/tipos-cerveza";
 

@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsArray, IsEmail, IsNotEmpty, IsString, Matches, Min, ValidateNested } from "class-validator";
-import { CreateDireccioneDto } from "src/direcciones/dto/create-direccione.dto";
-import { Direccione } from "src/direcciones/entities/direccione.entity";
+import { CreateDireccioneDto } from "src/Datos_Envio/dto/create-direccione.dto";
+import { Direccione } from "src/Datos_Envio/entities/direccione.entity";
 
 
 

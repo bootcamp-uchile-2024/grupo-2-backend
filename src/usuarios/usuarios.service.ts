@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
-import { DireccionesService } from 'src/direcciones/direcciones.service';
+import { DireccionesService } from 'src/Datos_Envio/direcciones.service';
 import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 import { SalidaUsuarioDto } from './dto/salida-usuario.dto';
 

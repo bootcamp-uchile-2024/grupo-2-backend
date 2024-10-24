@@ -19,7 +19,7 @@ export class CervezasService {
 
   constructor(@InjectRepository(Cerveza) private readonly CervezaRepository: Repository<Cerveza>) {}
 
-  create(createCervezaDto: CreateCervezaDto) {
+  create(createCervezaDto: CreateCervezaDto): string {
      return `Se creo una Cerveza lo siguiente: ${JSON.stringify(createCervezaDto)}`
   }
 
@@ -46,15 +46,15 @@ export class CervezasService {
     return resultado;
   }
 
-  findOne(id: number) {
+  findOne(id: number): Cerveza {
     return this.cervezas.find((cerveza) => cerveza.id == id);
   }
 
-  update(id: number, updateCervezaDto: UpdateCervezaDto) {
+  update(id: number, updateCervezaDto: UpdateCervezaDto): string {
      return `Se edito la siguente Cerveza: ${JSON.stringify(updateCervezaDto)}`
   }
 
-  remove(id: number) {
+  remove(id: number): string {
     return `Se indica la eliminaciión de una cerveza`;
   }
 }

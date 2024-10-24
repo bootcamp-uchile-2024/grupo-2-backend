@@ -3,6 +3,7 @@ import { CreateSuscripcioneDto } from './dto/create-suscripcione.dto';
 import { UpdateSuscripcioneDto } from './dto/update-suscripcione.dto';
 import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 import { TipoEnvio } from 'src/enum/tipo-envio';
+import { Suscripcione } from './entities/suscripcione.entity';
 
 @Injectable()
 export class SuscripcionesService {
@@ -15,23 +16,24 @@ constructor(){
   this.suscripciones.push({id:3, nombre: TipoSuscripcion.PLATINUM, precio: 20000, descuento: 15, tipo_envio: TipoEnvio.Prioritario, items_promocion: ["Cerveza3"]})
 }
 
-  create(createSuscripcioneDto: CreateSuscripcioneDto) {
-    return `Se creo la siguiente suscripcion:  ${JSON.stringify(createSuscripcioneDto)}`;
+  create(createSuscripcioneDto: CreateSuscripcioneDto):CreateSuscripcioneDto {
+    this.suscripciones.push(createSuscripcioneDto);
+    return createSuscripcioneDto;
   }
 
-  findAll() { // === Actualizado ===
+  findAll():CreateSuscripcioneDto[] { // === Actualizado ===
     return this.suscripciones;
   }
 
-  findOne(id: number) {
+  findOne(id: number):Suscripcione {
     return this.suscripciones.find(suscripcion => suscripcion.id === id);
   }
 
-  update(id: number, updateSuscripcioneDto: UpdateSuscripcioneDto) {
+  update(id: number, updateSuscripcioneDto: UpdateSuscripcioneDto): string {
      return `Se edito la siguiente suscripcion: ${JSON.stringify(updateSuscripcioneDto)}`;
   }
 
-  remove(id: number) {
+  remove(id: number): string {
     return `Se indica la eliminación de una suscripción`;
   }
 }

@@ -3,6 +3,7 @@ import { Region } from 'src/enum/regiones';
 import { Comuna } from 'src/enum/comunas';
 import { CreateDireccioneDto } from './dto/create-direccione.dto';
 import { UpdateDireccioneDto } from './dto/update-direccione.dto';
+import { Direccione } from './entities/direccione.entity';
 
 
 @Injectable()
@@ -19,19 +20,19 @@ export class DireccionesService {
      return `Se creo la siguiente direccion: ${JSON.stringify(createDireccioneDto)}`
   }
 
-  findAll() {
+  findAll(): CreateDireccioneDto[] {
     return this.direcciones;
   }
 
-  findOne(id: number) {
+  findOne(id: number): Direccione {
     return this.direcciones.find(direccion => direccion.idUsuario == id);
   }
 
-  update(id: number, updateDireccioneDto: UpdateDireccioneDto) {
+  update(id: number, updateDireccioneDto: UpdateDireccioneDto): string {
     return `Se edito la siguiente direccion: ${JSON.stringify(updateDireccioneDto)}`;
   }
 
-  remove(id: number) {
+  remove(id: number): string {
       return `Se elimno la direccion con Id #${id}`;
   }
   }

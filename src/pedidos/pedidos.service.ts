@@ -3,6 +3,8 @@ import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
 import { DireccionesService } from 'src/Datos_Envio/direcciones.service';
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
+import { Pedido } from './entities/pedido.entity';
 
 @Injectable()
 export class PedidosService {
@@ -64,27 +66,27 @@ export class PedidosService {
     });
   }
 
-  create(createPedidoDto: CreatePedidoDto) {
+  create(createPedidoDto: CreatePedidoDto): CreatePedidoDto {
     return `Se creo de un pedido con los siguientes atributos: ${JSON.stringify(createPedidoDto)}`
   }
 
-  findAll(idUsuario?: number) {
+  findAll(idUsuario?: number): Usuario[] {
     if (idUsuario) {
       return this.pedidos.filter(pedido => pedido.idUsuario === idUsuario);
     }
     return this.pedidos;
   }
 
-  findOne(id: number) {
+  findOne(id: number): Pedido {
     return this.pedidos.find(pedido => pedido.id === id);
   }
 
-  update(id: number, updatePedidoDto: UpdatePedidoDto) {
+  update(id: number, updatePedidoDto: UpdatePedidoDto) : string {
     // Implementa la lógica para actualizar un pedido
     return `Se edito un pedido con los siguientes atributos: ${JSON.stringify(updatePedidoDto)}`
   }
 
-  remove(id: number) {
+  remove(id: number): string {
     // Implementa la lógica para eliminar un pedido
     return `Se indica la eliminación de un pedido con ID ${id}`;
   }

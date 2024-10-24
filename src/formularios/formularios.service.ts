@@ -8,19 +8,19 @@ export class FormulariosService {
     return 'This action adds a new formulario';
   }
 
-  findAll() {
+  findAll(): string {
     return `This action returns all formularios`;
   }
 
-  findOne(id: number) {
+  findOne(id: number): string {
     return `This action returns a #${id} formulario`;
   }
 
-  update(id: number, updateFormularioDto: UpdateFormularioDto) {
+  update(id: number, updateFormularioDto: UpdateFormularioDto): string {
     return `This action updates a #${id} formulario`;
   }
 
-  remove(id: number) {
+  remove(id: number): string {
     return `This action removes a #${id} formulario`;
   }
 }

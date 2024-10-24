@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePerfileDto } from './dto/create-perfile.dto';
 import { UpdatePerfileDto } from './dto/update-perfile.dto';
 import { PersonajeCerveza } from 'src/enum/personajes';
+import { Perfile } from './entities/perfile.entity';
 
 @Injectable()
 
@@ -17,19 +18,19 @@ this.perfiles.push({ id: 4, nombre: 'Perfil4', historialPedidos: [], suscripcion
      return `Se creo el siguientes perfil: ${JSON.stringify(createPerfileDto)}`;
   }
 
-  findAll() {
+  findAll(): Perfile[] {
     return this.perfiles;
   }
 
-  findOne(id: number) {
+  findOne(id: number): Perfile {
     return this.perfiles.find(perfil => perfil.id == id);
   }
 
-  update(id: number, updatePerfileDto: UpdatePerfileDto) {
+  update(id: number, updatePerfileDto: UpdatePerfileDto): string {
     return `Se edito el siguiente perfil: ${JSON.stringify(updatePerfileDto)}`;
   }
 
-  remove(id: number) {
+  remove(id: number): string {
     return `This action removes a #${id} perfile`;
   }
 }

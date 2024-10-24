@@ -1,30 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateCarritoDto } from './dto/create-carrito.dto';
 import { UpdateCarritoDto } from './dto/update-carrito.dto';
-import { CreateCervezaDto } from 'src/cervezas/dto/create-cerveza.dto';
-import { TipoCerveza } from 'src/enum/tipos-cerveza';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
+import { Carrito } from './entities/carrito.entity';
 
 @Injectable()
 export class CarritoService {
 
   private carrito = [];
-  constructor() {
-    this.carrito.push({ id: 1, item: TipoCerveza.AmberAle, total_a_pagar: 2000, documento: 'Boleta' });
-    this.carrito.push({ id: 2, item: TipoCerveza.PaleAle, total_a_pagar: 3000, documento: 'Factura' });
-    this.carrito.push({ id: 3, item: TipoCerveza.Pilsner, total_a_pagar: 4000, documento: 'Boleta' });
-  }
-
+  constructor(@InjectRepository(Carrito) private readonly repositoryCarrito: Repository<Carrito>) {}
+  
   create(createCarritoDto: CreateCarritoDto) {
     return `Se creo un carro de compras con lo siguiente: ${JSON.stringify(createCarritoDto)}`;
   }
 
-  findAll() {
-    return this.carrito;
+  async findAll() {
+    const resultado: Carrito[] = await this.repositoryCarrito.find({
+      relations:{
+        pedido: true
+      }
+    })
+    return resultado;
   }
 
-  findOne(id: number) {
-    return `Entrega un carrito según id`;
-  }
+  //async findOne(id: number) {
+    //const resultado: Carrito[] = await this.repositoryCarrito.findBy(where: id)
+    //return resultado;
+  //}
 
   update(id: number, updateCarritoDto: UpdateCarritoDto) {
     return `Se actualizo un carro de compras con lo siguiente: ${JSON.stringify(updateCarritoDto)}`

@@ -49,18 +49,4 @@ export class CervezasController {
   findOne(@Param('id') id: string) {
    return this.cervezasService.findOne(+id);
   }
-  
-  @Patch(':id')
-  @ApiResponse({ status: 201, description: 'Informacion actualizada de forma exitosa' })
-  @ApiResponse({ status: 404, description: 'Error al actualizar informacion' })
-  update(@Param('id') id: string, @Body() updateCervezaDto: UpdateCervezaDto) {
-    return this.cervezasService.update(+id, updateCervezaDto);
-}
-@Delete(':id')
-@ApiResponse({ status: 200, description: 'Cerveza eliminada exitosamente' })
-@ApiResponse({ status: 404, description: 'Error al eliminar la cerveza' })
-@ApiResponse({ status: 501, description: 'Endpoint no implementado' })
-remove(@Param('id') id: string) {
-  return this.cervezasService.remove(+id);
-}
 }

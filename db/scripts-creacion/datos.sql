@@ -399,11 +399,11 @@ INSERT INTO Tipo_Envio (nombre, descripcion) VALUES
 
 -- Insertar datos en la tabla Suscripcion
 INSERT INTO Suscripcion (tipo_suscripcion, nombre, descripcion, precio, descuento, tipo_envio) VALUES
-('BRONZE', 'Bronce Básico', 'Acceso a características estándar y descuentos limitados', 10000, 5, 'Estandar'),
-('SILVER', 'Plata Premium', 'Beneficios adicionales, como descuentos exclusivos y acceso anticipado a productos', 20000, 10, 'Express'),
-('GOLDEN', 'Oro Dorado', 'Acceso a ofertas especiales, envíos gratuitos y contenido exclusivo', 30000, 15, 'Express'),
-('PLATINUM', 'Platino Exclusivo', 'Beneficios premium, soporte personalizado y acceso a eventos exclusivos', 50000, 20,'Internacional'),
-('ELITE', 'VIP Élite', 'Máximo nivel de suscripción con todos los beneficios, incluyendo experiencias personalizadas y prioridad en todo', 80000, 25,'Prioritario');
+('BRONZE', 'Bronce Básico', 'Acceso a características estándar y descuentos limitados', 10000, 5, 2),
+('SILVER', 'Plata Premium', 'Beneficios adicionales, como descuentos exclusivos y acceso anticipado a productos', 20000, 10, 1),
+('GOLDEN', 'Oro Dorado', 'Acceso a ofertas especiales, envíos gratuitos y contenido exclusivo', 30000, 15, 1),
+('PLATINUM', 'Platino Exclusivo', 'Beneficios premium, soporte personalizado y acceso a eventos exclusivos', 50000, 20,4),
+('ELITE', 'VIP Élite', 'Máximo nivel de suscripción con todos los beneficios, incluyendo experiencias personalizadas y prioridad en todo', 80000, 25,3);
 
 -- Insertar datos en la tabla Categoria
 INSERT INTO Tipo_Cerveza (tipo, nombre, descripcion) VALUES
@@ -434,19 +434,87 @@ INSERT INTO Tipo_Cerveza (tipo, nombre, descripcion) VALUES
 ('Barleywine', 'Barleywine', 'Cerveza fuerte, maltosa y envejecida en barriles.'),
 ('RyeBeer', 'Rye Beer', 'Cerveza con centeno, sabor especiado y seco.');
 
-INSERT INTO Proveedor (nombre, id_comuna, id_region, contacto, telefono, correo_electronico) VALUES
-('Proveedores del Sur S.A.', 'Talcahuano', 'RM', 'Juan Pérez', '987654321', 'juan.perez@proveedores.com'),
-('Distribuciones Norte Ltda.', 'Vicuna', 'CO', 'Ana Gómez', '912345678', 'ana.gomez@distribuciones.com');
+INSERT INTO Proveedor (nombre, id_comuna, contacto, telefono, correo_electronico) VALUES
+('Proveedores del Sur S.A.', 'Talcahuano', 'Juan Pérez', '987654321', 'juan.perez@proveedores.com'),
+('Distribuciones Norte Ltda.', 'Vicuna', 'Ana Gómez', '912345678', 'ana.gomez@distribuciones.com');
 
 
-INSERT INTO Cerveza (nombre, marca, tipo, stock, descripcion, precio, id_proveedor, id_amargor, graduacion, id_formato, imagen) VALUES
-('Cerveza Rubia', 'Cerveza del Valle', 'Saison', 150, 'Una cerveza ligera y refrescante.', 1500, 1, 'Notable_40_60_IBU', 4.5, 'Barril', 'rubia.jpg'),
-('Cerveza Negra', 'Cerveza del Norte', 'ChristmasAle', 100, 'Cerveza oscura con notas de café y chocolate.', 1800, 1, 'Alto_60_IBU', 5.0, 'Botella', 'negra.jpg'),
-('Cerveza IPA', 'Cerveza Artesanal', 'FlandersRedAle', 80, 'Cerveza con un fuerte sabor a lúpulo y cítricos.', 2000, 1, 'Alto_60_IBU', 6.5, 'Lata', 'ipa.jpg'),
-('Cerveza Amber', 'Cerveza del Sur', 'RyeBeer', 120, 'Cerveza ámbar con un sabor a malta tostada.', 1700, 1, 'Moderado_20_40_IBU', 5.2, 'Botella', 'amber.jpg'),
-('Cerveza Stout', 'Cerveza Oscura', 'BrownAle', 90, 'Una cerveza rica y cremosa, perfecta para el invierno.', 2200, 1, 'Moderado_20_40_IBU', 7.0, 'Botella', 'stout.jpg'),
-('Cerveza Wheat', 'Cerveza Blanca', 'FlandersRedAle', 110, 'Cerveza de trigo, suave y afrutada.', 1600, 1, 'Moderado_20_40_IBU', 4.8, 'Lata', 'wheat.jpg'),
-('Cerveza Pale Ale', 'Cerveza Clásica', 'Saison', 95, 'Cerveza con un equilibrio perfecto entre malta y lúpulo.', 1900, 1, 'Moderado_20_40_IBU', 5.5, 'Botella', 'paleale.jpg'),
-('Cerveza Radler', 'Cerveza Verano', 'Gose', 130, 'Cerveza mezclada con limón, ideal para el verano.', 1400, 1, 'Notable_40_60_IBU', 3.5, 'Lata', 'radler.jpg'),
-('Cerveza Bock', 'Cerveza Fuerte', 'Kriek', 70, 'Cerveza fuerte con un sabor intenso y profundo.', 2300, 1, 'Notable_40_60_IBU', 6.8, 'Botella', 'bock.jpg'),
-('Cerveza Cerveza del Mes', 'Cerveza Especial', 'BrownAle', 60, 'Cerveza de edición limitada, un verdadero deleite.', 2500, 1, 'Moderado_20_40_IBU', 6.0, 'Barril', 'especial.jpg');
+INSERT INTO Cerveza (nombre, marca, id_tipo, stock, descripcion, precio, id_proveedor, id_amargor, graduacion, id_formato, imagen) VALUES
+('Cerveza Rubia', 'Cerveza del Valle', 1, 150, 'Una cerveza ligera y refrescante.', 1500, 1, 'Notable_40_60_IBU', 4.5, 'Barril', 'rubia.jpg'),
+('Cerveza Negra', 'Cerveza del Norte', 2, 100, 'Cerveza oscura con notas de café y chocolate.', 1800, 1, 'Alto_60_IBU', 5.0, 'Botella', 'negra.jpg'),
+('Cerveza IPA', 'Cerveza Artesanal', 2, 80, 'Cerveza con un fuerte sabor a lúpulo y cítricos.', 2000, 1, 'Alto_60_IBU', 6.5, 'Lata', 'ipa.jpg'),
+('Cerveza Amber', 'Cerveza del Sur', 4, 120, 'Cerveza ámbar con un sabor a malta tostada.', 1700, 1, 'Moderado_20_40_IBU', 5.2, 'Botella', 'amber.jpg'),
+('Cerveza Stout', 'Cerveza Oscura', 2, 90, 'Una cerveza rica y cremosa, perfecta para el invierno.', 2200, 1, 'Moderado_20_40_IBU', 7.0, 'Botella', 'stout.jpg'),
+('Cerveza Wheat', 'Cerveza Blanca', 5, 110, 'Cerveza de trigo, suave y afrutada.', 1600, 1, 'Moderado_20_40_IBU', 4.8, 'Lata', 'wheat.jpg'),
+('Cerveza Pale Ale', 'Cerveza Clásica', 2, 95, 'Cerveza con un equilibrio perfecto entre malta y lúpulo.', 1900, 1, 'Moderado_20_40_IBU', 5.5, 'Botella', 'paleale.jpg'),
+('Cerveza Radler', 'Cerveza Verano', 1, 130, 'Cerveza mezclada con limón, ideal para el verano.', 1400, 1, 'Notable_40_60_IBU', 3.5, 'Lata', 'radler.jpg'),
+('Cerveza Bock', 'Cerveza Fuerte', 8, 70, 'Cerveza fuerte con un sabor intenso y profundo.', 2300, 1, 'Notable_40_60_IBU', 6.8, 'Botella', 'bock.jpg'),
+('Cerveza Cerveza del Mes', 'Cerveza Especial', 9, 60, 'Cerveza de edición limitada, un verdadero deleite.', 2500, 1, 'Moderado_20_40_IBU', 6.0, 'Barril', 'especial.jpg');
+
+INSERT INTO Usuario (rut, nombre, apellido, contraseña, edad, tipo_suscripcion) VALUES
+('12345678-9', 'Carlos', 'Pérez', 'contraseña1', 28, 'BRONZE'),
+('98765432-1', 'Laura', 'Gómez', 'contraseña2', 35, 'SILVER'),
+('45678912-3', 'Martín', 'López', 'contraseña3', 22, 'GOLDEN'),
+('32165498-7', 'Sofía', 'Martínez', 'contraseña4', 30, 'PLATINUM'),
+('14725836-9', 'Pedro', 'Fernández', 'contraseña5', 40, 'ELITE'),
+('96385274-1', 'Ana', 'Ramírez', 'contraseña6', 26, 'BRONZE'),
+('25896314-5', 'Jorge', 'Santiago', 'contraseña7', 29, 'SILVER'),
+('78945612-3', 'Claudia', 'Rojas', 'contraseña8', 34, 'GOLDEN'),
+('15975348-6', 'Luis', 'Torres', 'contraseña9', 45, 'PLATINUM'),
+('75395124-0', 'Elena', 'Vásquez', 'contraseña10', 38, 'ELITE');
+
+INSERT INTO Datos_Envio (calle, numero, departamento, id_comuna, codigo_postal, rut_usuario, telefono, correo_electronico) VALUES
+('Av. Libertador', '123', 'A', 'Aisen', '1234567', '12345678-9', '987654321', 'carlos.perez@example.com'),
+('Calle Los Cerezos', '456', 'B', 'Angol', '2345678', '98765432-1', '912345678', 'laura.gomez@example.com'),
+('Calle 5 de Abril', '789', '', 'Curico', '3456789', '45678912-3', '987123456', 'martin.lopez@example.com'),
+('Calle San Martín', '321', 'C', 'Dalcahue', '4567890', '32165498-7', '998877665', 'sofia.martinez@example.com'),
+('Calle del Sol', '654', 'D', 'LaReina', '5678901', '14725836-9', '945678123', 'pedro.fernandez@example.com'),
+('Calle del Río', '987', '', 'LaReina', '6789012', '96385274-1', '951753852', 'ana.ramirez@example.com'),
+('Calle de la Paz', '159', 'E', 'EstacionCentral', '7890123', '25896314-5', '789456123', 'jorge.santiago@example.com'),
+('Calle de los Olmos', '753', '', 'Curico', '8901234', '78945612-3', '123456789', 'claudia.rojas@example.com'),
+('Calle del Viento', '258', 'F', 'EstacionCentral', '9012345', '15975348-6', '456123789', 'luis.torres@example.com'),
+('Calle de la Luna', '147', '', 'Providencia', '0123456', '75395124-0', '321987654', 'elena.vasquez@example.com');
+
+INSERT INTO Pedido (estado, fecha_ingreso, fecha_entrega, rut_comprador, direccion_entrega) VALUES
+('Aceptado', '2024-10-01', '2024-10-05', '12345678-9', 1),
+('Enviado', '2024-10-02', '2024-10-06', '98765432-1', 2),
+('Entregado', '2024-10-03', '2024-10-07', '45678912-3', 3),
+('Creado', '2024-10-04', '2024-10-08', '32165498-7', 4),
+('Pagado', '2024-10-05', '2024-10-09', '14725836-9', 5),
+('Enviado', '2024-10-06', '2024-10-10', '96385274-1', 6),
+('Entregado', '2024-10-07', '2024-10-11', '25896314-5', 7),
+('Creado', '2024-10-08', '2024-10-12', '78945612-3', 8),
+('Aceptado', '2024-10-09', '2024-10-13', '15975348-6', 9),
+('Enviado', '2024-10-10', '2024-10-14', '75395124-0', 10);
+
+INSERT INTO Pedido_Cerveza (id_pedido, id_cerveza, cantidad) VALUES
+(1,3,5),
+(1,4,3),
+(2,7,1),
+(2,8,4),
+(6,3,9),
+(7,4,3),
+(9,3,5),
+(9,10,3),
+(3,9,5),
+(4,8,15);
+
+INSERT INTO Documento (tipo, comentario) VALUES
+('boleta', 'texto1'),
+('boleta', 'texto2'),
+('boleta', 'texto3'),
+('boleta', 'texto4'),
+('boleta', 'texto5'),
+('boleta', 'texto6'),
+('boleta', 'texto7'),
+('boleta', 'texto8');
+
+INSERT INTO Carrito(total_a_pagar, id_documento, id_pedido) VALUES
+(12000, 1, 1),
+(20500, 2, 2),
+(17000, 3, 3),
+(14000, 4, 4),
+(32000, 5, 5),
+(52000, 6, 6),
+(18000, 7, 7),
+(35000, 8, 8);

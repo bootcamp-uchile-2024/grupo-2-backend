@@ -1,56 +1,37 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsArray, IsEmail, IsNotEmpty, IsString, Matches, Min, ValidateNested } from "class-validator";
-import { CreateDireccioneDto } from "src/direcciones/dto/create-direccione.dto";
-import { Direccione } from "src/direcciones/entities/direccione.entity";
-
-
+import { IsArray, IsEmail, IsNotEmpty, IsString, Matches, Min, ValidateNested, Length, IsNumber} from "class-validator";
+import { CreateDireccioneDto } from "src/Datos_Envio/dto/create-direccione.dto";
+import { Direccione } from "src/Datos_Envio/entities/direccione.entity";
 
 export class CreateUsuarioDto {
+    @IsNotEmpty({ message: 'El rut del usuario es requerido' })
     @IsString()
-    @IsNotEmpty()
+    @Length(9, 10, { message: 'El rut del usuario debe tener entre 9 y 10 caracteres' })
+    @Matches(/^\d{1,8}-[0-9Kk]{1}$/, { message: 'El RUT no tiene un formato válido.' })
+    public rut: string;
+    @IsString({ message: 'El nombre del comprador debe ser un string' })
+    @IsNotEmpty({ message: 'El nombre del comprador no puede estar vacío' })
     @ApiProperty({ default: 'Juan', description: 'Nombre del usuario' }) // === Actualizado ===
     public nombre: string;
    
-    @IsString()
-    @IsNotEmpty()
+    @IsString({ message: 'El apellido del comprador debe ser un string' })
+    @IsNotEmpty({ message: 'El apellido del comprador no puede estar vacío' })
     @ApiProperty({ default: 'Perez', description: 'Apellido del usuario' }) // === Modificado por mi
     public apellido: string;
-   
-    @IsEmail()
-    @ApiProperty({ default: 'juan@123.cl', description: 'Correo del usuario' }) // === Actualizado ===
-    public correo: string;
-   
-    @IsString()
-    @IsNotEmpty()
+
+    @IsString({ message: 'La contraseña del comprador debe ser un string' })
+    @IsNotEmpty({ message: 'La contraseña del comprador no puede estar vacía' })
     @ApiProperty({ default: '123456', description: 'Contraseña del usuario' }) // === Actualizado ===
-    public contraseña: string;
-   
-    @IsArray()
-    @IsNotEmpty()
-    @ValidateNested({ each: true })
-    @Type(() => CreateDireccioneDto)
-    @ApiProperty({ default: CreateDireccioneDto, description: 'Direcciones', type: [CreateDireccioneDto] }) // === Actualizado ===
-    public direcciones: Direccione[]; //una o varias direcciones por usuario
-   
-    @IsString()
-    @Matches(/^\d{9}$/, { message: 'El Movil del comprador debe ser un número de 9 dígitos' })
-    @ApiProperty({ default: '955534455', description: 'Celular' }) // === Actualizado ===
-    public telefono: string; //lo convertimos a number internamente
+    public contrasenia: string;
    
     @Min(18) //validacion para edad, debe ser mayor o igual a 18.
     @ApiProperty({ default: 25, description: 'Edad', minimum: 18 })
     public edad: number;
 
-    //Comento las suscripciones porque deberían agregarse al usuario una vez se paga y no
-    //necesariamente cuando se crea el usuario
-    //@ApiProperty({ default: "SILVER", description: 'tipo de suscripcion de usuario' }) // === Actualizado ===
-    //public suscripcion?: Suscripcione; //una sola suscripcion por usuario
+    @IsNumber()
+    public id_perfil: number;
 
-    //Comento lo de las direcciones porque no se deberían pedir en la creación del usuario, sino agregarse 
-    //una vez se crea la direcion a traves de su propio servicio
-    //@ApiProperty({ default: [], description: 'Direccion', type:[Direccione] }) // === Actualizado ===
-    //public direccion: Direccione[] ;  // === Actualizado ===
+    @IsString()
+    public tipo_suscripcion: string;
 }
-
-

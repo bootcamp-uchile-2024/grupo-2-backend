@@ -13,13 +13,17 @@ CREATE TABLE Comuna (
 );
 
 CREATE TABLE Tipo_Envio (
-    nombre VARCHAR(100) PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100),
     descripcion TEXT
 );
 
-CREATE TABLE Categoria (
-    tipo VARCHAR(50) PRIMARY KEY,
+CREATE TABLE Tipo_Cerveza (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipo VARCHAR(50),
     nombre VARCHAR(50),
+    categoria VARCHAR(50),
+    color VARCHAR(50),
     descripcion TEXT 
 );
 
@@ -35,18 +39,20 @@ CREATE TABLE Formato (
 );
 
 CREATE TABLE Personaje (
-    nombre VARCHAR(100) PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100),
     estilo VARCHAR(100),
     atributos TEXT
 );
 
 CREATE TABLE Suscripcion (
-    tipo_suscripcion VARCHAR(50) PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipo_suscripcion VARCHAR(50) UNIQUE,
     nombre VARCHAR(50),
     descripcion TEXT,
     precio DECIMAL(10,0),
     descuento DECIMAL(5,2),
-    tipo_envio VARCHAR(100)
+    tipo_envio INT
 );
 
 CREATE TABLE Formulario_Preferencias (
@@ -62,7 +68,6 @@ CREATE TABLE Proveedor (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
     id_comuna VARCHAR(100),
-    id_region VARCHAR(2),
     contacto VARCHAR(100),
     telefono VARCHAR(15),
     correo_electronico VARCHAR(100)
@@ -72,7 +77,7 @@ CREATE TABLE Cerveza (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
     marca VARCHAR(100),
-    tipo VARCHAR(50),
+    id_tipo INT,
     stock INT,
     descripcion TEXT,
     precio DECIMAL(10,0),
@@ -85,7 +90,7 @@ CREATE TABLE Cerveza (
 
 CREATE TABLE Perfil (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nombre_personaje VARCHAR(100),
+    id_personaje INT,
     historial_pedido INT,
     tipo_suscripcion VARCHAR(50),
     id_formulario INT,
@@ -99,7 +104,6 @@ CREATE TABLE Usuario (
     apellido VARCHAR(100),
     contraseña VARCHAR(100),
     edad INT,
-    id_perfil INT,
     tipo_suscripcion VARCHAR(50)
 );
 
@@ -108,7 +112,6 @@ CREATE TABLE Datos_Envio (
     calle VARCHAR(100),
     numero VARCHAR(10),
     departamento VARCHAR(10),
-    id_region VARCHAR(2),
     id_comuna VARCHAR(100),
     codigo_postal VARCHAR(7),
     rut_usuario VARCHAR(12),
@@ -140,10 +143,10 @@ CREATE TABLE Carrito (
 );
 
 CREATE TABLE Promocion_Suscripcion (
-    tipo_suscripcion VARCHAR(50),
+    id_suscripcion INT,
     id_cerveza INT,
     descuento_adicional DECIMAL(5,2),
-    PRIMARY KEY (tipo_suscripcion, id_cerveza)
+    PRIMARY KEY (id_suscripcion, id_cerveza)
 );
 
 CREATE TABLE Documento (
@@ -155,31 +158,33 @@ CREATE TABLE Documento (
 CREATE TABLE Estado_Pedido (
     descripcion VARCHAR(50) PRIMARY KEY
 );
+
 CREATE TABLE Cerveza_Comuna (
-id_cerveza INT,
-id_comuna VARCHAR(100),
-PRIMARY KEY (id_cerveza, id_comuna),
-FOREIGN KEY (id_cerveza) REFERENCES Cerveza(id),
-FOREIGN KEY (id_comuna) REFERENCES Comuna(id)
+    id_cerveza INT,
+    id_comuna VARCHAR(100),
+    PRIMARY KEY (id_cerveza, id_comuna),
+    FOREIGN KEY (id_cerveza) REFERENCES Cerveza(id),
+    FOREIGN KEY (id_comuna) REFERENCES Comuna(id)
 );
+
+-- Añadir claves foráneas
 
 ALTER TABLE Comuna
 ADD FOREIGN KEY (id_region) REFERENCES Region(id);
 
 ALTER TABLE Proveedor
-ADD FOREIGN KEY (id_comuna) REFERENCES Comuna(id),
-ADD FOREIGN KEY (id_region) REFERENCES Region(id);
+ADD FOREIGN KEY (id_comuna) REFERENCES Comuna(id);
 
 ALTER TABLE Cerveza
 ADD FOREIGN KEY (id_proveedor) REFERENCES Proveedor(id),
-ADD FOREIGN KEY (id_formato) REFERENCES Formato(id);
+ADD FOREIGN KEY (id_formato) REFERENCES Formato(id),
+ADD FOREIGN KEY (id_tipo) REFERENCES Tipo_Cerveza(id),
+ADD FOREIGN KEY (id_amargor) REFERENCES Amargor(id);
 
 ALTER TABLE Usuario
-ADD FOREIGN KEY (id_perfil) REFERENCES Perfil(id),
 ADD FOREIGN KEY (tipo_suscripcion) REFERENCES Suscripcion(tipo_suscripcion);
 
 ALTER TABLE Datos_Envio
-ADD FOREIGN KEY (id_region) REFERENCES Region(id),
 ADD FOREIGN KEY (id_comuna) REFERENCES Comuna(id),
 ADD FOREIGN KEY (rut_usuario) REFERENCES Usuario(rut);
 
@@ -196,25 +201,17 @@ ADD FOREIGN KEY (id_documento) REFERENCES Documento(id),
 ADD FOREIGN KEY (id_pedido) REFERENCES Pedido(id);
 
 ALTER TABLE Promocion_Suscripcion
-ADD FOREIGN KEY (tipo_suscripcion) REFERENCES Suscripcion(tipo_suscripcion),
+ADD FOREIGN KEY (id_suscripcion) REFERENCES Suscripcion(id),
 ADD FOREIGN KEY (id_cerveza) REFERENCES Cerveza(id);
 
 ALTER TABLE Perfil
 ADD FOREIGN KEY (historial_pedido) REFERENCES Pedido(id),
 ADD FOREIGN KEY (tipo_suscripcion) REFERENCES Suscripcion(tipo_suscripcion),
 ADD FOREIGN KEY (id_formulario) REFERENCES Formulario_Preferencias(id),
-ADD FOREIGN KEY (nombre_personaje) REFERENCES Personaje(nombre);
-
-ALTER TABLE Cerveza_Comuna
-ADD FOREIGN KEY (id_cerveza) REFERENCES Cerveza(id),
-ADD FOREIGN KEY (id_comuna) REFERENCES Comuna(id);
+ADD FOREIGN KEY (id_personaje) REFERENCES Personaje(id);
 
 ALTER TABLE Pedido 
 ADD FOREIGN KEY (estado) REFERENCES Estado_Pedido(descripcion);
 
 ALTER TABLE Suscripcion 
-ADD FOREIGN KEY (tipo_envio) REFERENCES Tipo_Envio(nombre);
-
-ALTER TABLE Cerveza 
-ADD FOREIGN KEY (id_amargor) REFERENCES Amargor(id),
-ADD FOREIGN KEY (tipo) REFERENCES Categoria(tipo);
+ADD FOREIGN KEY (tipo_envio) REFERENCES Tipo_Envio(id);

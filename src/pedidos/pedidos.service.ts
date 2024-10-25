@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
-import { DireccionesService } from 'src/direcciones/direcciones.service';
+import { DireccionesService } from 'src/Datos_Envio/direcciones.service';
 
 @Injectable()
 export class PedidosService {

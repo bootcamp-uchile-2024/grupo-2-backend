@@ -1,16 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCervezaDto } from './dto/create-cerveza.dto';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
-
 import { IBU } from 'src/enum/amargor';
 import { Region } from 'src/enum/regiones';
 import { Formato } from 'src/enum/formato';
 import { Comuna } from 'src/enum/comunas';
-import { TipoCerveza } from 'src/enum/tipos-cerveza';
-import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Cerveza } from './entities/cerveza.entity';
-import { Amargor } from 'src/Amargor/amargor.entity';
 
 
 @Injectable()
@@ -46,15 +43,17 @@ export class CervezasService {
     return resultado;
   }
 
-  findOne(id: number) {
-    return this.cervezas.find((cerveza) => cerveza.id == id);
-  }
-
-  update(id: number, updateCervezaDto: UpdateCervezaDto) {
-     return `Se edito la siguente Cerveza: ${JSON.stringify(updateCervezaDto)}`
-  }
-
-  remove(id: number) {
-    return `Se indica la eliminaciión de una cerveza`;
+  async findOne(id_entrada: number): Promise<Cerveza> {
+    const resultado: Cerveza = await this.CervezaRepository.findOne({
+      where:{
+        id: id_entrada},
+      relations:{
+          proveedor: true,
+          tipo: true,
+          amargor: true,
+          formato: true
+        }
+      })
+    return resultado;
   }
 }

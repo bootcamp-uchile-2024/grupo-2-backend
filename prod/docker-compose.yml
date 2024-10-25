@@ -1,6 +1,6 @@
 services:
   cervezario-app-prod:
-    image: kmreyes/cervezarionacional:0.0.1
+    image: kmreyes/cervezarionacional:1.0.1
     env_file:
       - .env.production
     ports:

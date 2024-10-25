@@ -1,13 +1,12 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
 import { CreatePedidoDto } from './create-pedido.dto';
-
-import { Direccione } from 'src/direcciones/entities/direccione.entity';
 import { IsNotEmpty, IsDate, IsEmail, IsString, IsPhoneNumber, Matches, ValidateNested } from 'class-validator';
 import { estadoPedidos } from 'src/enum/estado-pedidos';
-import { CreateDireccioneDto } from 'src/direcciones/dto/create-direccione.dto';
 import { Type } from 'class-transformer';
 import { TipoCerveza } from 'src/enum/tipos-cerveza';
+import { CreateDireccioneDto } from 'src/Datos_Envio/dto/create-direccione.dto';
+import { Direccione } from 'src/Datos_Envio/entities/direccione.entity';
 
 export class UpdatePedidoDto extends PartialType(CreatePedidoDto) {
 

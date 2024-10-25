@@ -24,12 +24,12 @@ export class CarritoController {
     return this.carritoService.findAll();
   }
 
-  @ApiResponse({ status: 200, description: 'Carrito encontrado' })
-  @ApiResponse({ status: 404, description: 'No se encontró el carrito' })
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.carritoService.findOne(+id);
-  }
+  //@ApiResponse({ status: 200, description: 'Carrito encontrado' })
+  //@ApiResponse({ status: 404, description: 'No se encontró el carrito' })
+  //@Get(':id')
+  //findOne(@Param('id') id: string) {
+    //return this.carritoService.findOne(+id);
+  //}
 
   @ApiResponse({ status: 200, description: 'Carrito editado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede editar el carrito' })

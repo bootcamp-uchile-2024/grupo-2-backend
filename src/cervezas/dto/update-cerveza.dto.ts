@@ -29,7 +29,6 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
 
     @IsNumber({},{message: 'El stock de la cerveza debe ser un número'})
     @IsNotEmpty({message: 'El stock de la cerveza es requerido'})
-
     @ApiProperty({ default: 100, description: 'Stock de la cerveza' })
     public stock: number;
 

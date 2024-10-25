@@ -8,11 +8,22 @@ import { CarritoModule } from './carrito/carrito.module';
 import { SuscripcionesModule } from './suscripciones/suscripciones.module';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { PerfilesModule } from './perfiles/perfiles.module';
-import { DireccionesModule } from './direcciones/direcciones.module';
 import { CommonMiddleware } from './common/common.middleware';
 import { TiposPersonajesModule } from './tipos-personajes/tipos-personajes.module';
 import { FormulariosModule } from './formularios/formularios.module';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Cerveza } from './cervezas/entities/cerveza.entity';
+import { Carrito } from './carrito/entities/carrito.entity';
+import { Pedido } from './pedidos/entities/pedido.entity';
+import { Pedido_Cerveza } from './pedidos/entities/pedido_cervezas.entity';
+import { Comuna } from './Comunas/comunas.entity';
+import { Region } from './Region/regiones.entity';
+import { TipoCerveza } from './tipos_cerveza/tipos-cervezas.entity';
+import { Amargor } from './Amargor/amargor.entity';
+import { Formato } from './Formato/Formatos.entity';
+import { Proveedor } from './Proveedores/entities/proveedores.entity';
+import { DireccionesModule } from './Datos_Envio/direcciones.module';
 
 @Module({
   imports: [ConfigModule.forRoot(
@@ -24,7 +35,16 @@ import { ConfigModule } from '@nestjs/config';
       author: require('../package.json').author,
       license: require('../package.json').license
       })],
-      isGlobal: true})
+      isGlobal: true}),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'db',
+      port: 3306,
+      username: 'root',
+      password: 'clave123',
+      database: 'Cervezario',
+      entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comuna, Region, TipoCerveza, Amargor, Formato, Proveedor]
+      })
     ,EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],
   providers: [AppService],

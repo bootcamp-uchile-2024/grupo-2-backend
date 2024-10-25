@@ -1,6 +1,6 @@
 services:
   cervezario-app:
-    image: kmreyes/cervezarionacional:0.0.1
+    image: node:22.9.0-alpine3.19
     working_dir: /usr/src/app
     env_file:
       - .env.develop

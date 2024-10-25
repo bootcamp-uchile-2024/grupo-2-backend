@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { CervezasService } from './cervezas.service';
 import { CervezasController } from './cervezas.controller';
-import { UsuariosModule } from 'src/usuarios/usuarios.module'; // Importa el módulo que contiene UsuariosService
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Cerveza } from './entities/cerveza.entity';
 
 @Module({
   controllers: [CervezasController],
   providers: [CervezasService],
   exports: [CervezasService],
-  //imports: [UsuariosModule], // Importa el módulo que contiene UsuariosService
+  imports: [TypeOrmModule.forFeature([Cerveza])]
 })
 export class CervezasModule {}
 

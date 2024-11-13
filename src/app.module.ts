@@ -38,8 +38,8 @@ import { DireccionesModule } from './Datos_Envio/direcciones.module';
       isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 4501,
+      host: 'db',
+      port: 3306,
       username: 'root',
       password: 'clave123',
       database: 'Cervezario',

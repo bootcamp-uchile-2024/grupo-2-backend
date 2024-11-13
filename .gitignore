@@ -1,9 +1,9 @@
 # compiled output
-/db/data_dev/
+db/data_dev/
 /dist
 /node_modules
 /build
-/prod/db
+prod/db
 
 # Logs
 logs

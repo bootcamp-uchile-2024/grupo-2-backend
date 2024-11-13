@@ -22,7 +22,7 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @IsNotEmpty({message: 'El tipo de cerveza es requerido'})
     @IsEnum(TipoCerveza, {message: 'El tipo de cerveza no es válido'})
     @ApiProperty({ default: 'Pale Ale', description: 'Categoría de la cerveza', enum: TipoCerveza })
-    public categoria: TipoCerveza;
+    public tipo_cerveza: TipoCerveza;
 
 
     @IsNumber({},{message: 'El stock de la cerveza debe ser un número'})
@@ -40,9 +40,8 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @ApiProperty({ default: 1000, description: 'Precio de la cerveza' })
     public precio: number;
 
-    @IsString({message: 'El proveedor de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El proveedor de la cerveza es requerido'})
-    @ApiProperty({ default: 'CCU', description: 'Nombre Proveedor de la cerveza' })
+    @ApiProperty({description: 'Se deben entregar todos los datos del Proveedor de la cerveza para su creación o asignación' })
     public proveedor: createProveedor;
 
     @IsString({message: 'El amargor de la cerveza debe ser un texto'})
@@ -51,11 +50,10 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @ApiProperty({ default: 'Moderado', description: 'Amargor de la cerveza', enum: IBU })
     public amargor: IBU;
 
-    @IsString({message: 'La graduación de la cerveza debe ser un texto'})
+    @IsNumber()
     @IsNotEmpty({message: 'La graduación de la cerveza es requerida'})
-
-    @ApiProperty({ default: '5%', description: 'Graduación de la cerveza' })
-    public graduacion: string;
+    @ApiProperty({ default: 5.0, description: 'Graduación de la cerveza' })
+    public graduacion: number;
 
     @IsString({message: 'El formato de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El formato de la cerveza es requerido'})

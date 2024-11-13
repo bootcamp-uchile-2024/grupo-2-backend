@@ -32,10 +32,10 @@ export class Cerveza {
   public id_proveedor: number;
   
   @Column({name: 'id_amargor'})
-  public id_amargor: number;
+  public id_amargor: string;
   
   @Column()
-  public graduacion: string;
+  public graduacion: number;
   
   @Column({name: 'id_formato'})
   public id_formato: string;

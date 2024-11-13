@@ -15,7 +15,7 @@ export class CervezasController {
   constructor(private readonly cervezasService: CervezasService) { }
 
   @ApiResponse({ status: 201, description: 'Cerveza creada exitosamente' })
-  @ApiResponse({ status: 404, description: 'Error al crear la cerveza' })
+  @ApiResponse({ status: 400, description: 'Error al crear la cerveza' })
   @Post()
   @ApiBody({ type: CreateCervezaDto })
   create(@Body() createCervezaDto: CreateCervezaDto) {
@@ -45,8 +45,24 @@ export class CervezasController {
   
   @Get(':id')
   @ApiResponse({ status: 200, description: 'Cerveza encontrada' })
-  @ApiResponse({ status: 404, description: 'Cerveza no encontrada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no encontrada' })
   findOne(@Param('id') id: string) {
    return this.cervezasService.findOne(+id);
   }
+
+  @Patch(':id')
+  @ApiResponse({ status: 200, description: 'Cerveza actualizada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no existe' })
+  update(@Param('id') id: string, @Body() updateCervezaDto: UpdateCervezaDto) {
+   return this.cervezasService.update(+id, updateCervezaDto);
+  }
+
+  @Delete(':id')
+  @ApiResponse({ status: 200, description: 'Cerveza eliminada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no existe' })
+  remove(@Param('id') id: string) {
+   return this.cervezasService.remove(+id);
+  }
+
+
 }

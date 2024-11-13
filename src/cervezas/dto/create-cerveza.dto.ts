@@ -41,7 +41,6 @@ export class CreateCervezaDto {
     @ApiProperty({ default: 1000, description: 'Precio de la cerveza' })
     public precio: number;
 
-    @IsString({message: 'El proveedor de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El proveedor de la cerveza es requerido'})
     @ApiProperty({description: 'Se deben entregar todos los datos del Proveedor de la cerveza para su creación o asignación' })
     public proveedor: createProveedor;
@@ -52,10 +51,10 @@ export class CreateCervezaDto {
     @ApiProperty({ default: 'Moderado', description: 'Amargor de la cerveza', enum: IBU })
     public amargor: IBU;
 
-    @IsString({message: 'La graduación de la cerveza debe ser un texto'})
+    @IsNumber()
     @IsNotEmpty({message: 'La graduación de la cerveza es requerida'})
-    @ApiProperty({ default: '5%', description: 'Graduación de la cerveza' })
-    public graduacion: string;
+    @ApiProperty({ default: 5.0, description: 'Graduación de la cerveza debe venir como número y puede ser decimal separado por un punto' })
+    public graduacion: number;
 
     @IsString({message: 'El formato de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El formato de la cerveza es requerido'})

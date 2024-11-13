@@ -29,7 +29,6 @@ async function bootstrap() {
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
   });
 
-
   const config = new DocumentBuilder()
     .setTitle(name + ` - MODULO ${configService.get('AMBIENTE')} `)
     .setDescription(description)

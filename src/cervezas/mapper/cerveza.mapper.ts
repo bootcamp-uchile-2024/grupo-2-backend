@@ -7,7 +7,8 @@ export class CervezaMapper{
         cerveza.nombre = dto.nombre;
         cerveza.marca = dto.marca;
         cerveza.descripcion = dto.descripcion;
-        cerveza.graduacion = dto.graduacion;
+        const graduacion = Number(dto.graduacion);
+        cerveza.graduacion = graduacion;
         cerveza.imagen = dto.imagen;
         cerveza.stock = dto.stock;
         cerveza.id_formato = dto.formato;

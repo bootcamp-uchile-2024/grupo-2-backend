@@ -475,29 +475,6 @@ INSERT INTO Datos_Envio (calle, numero, departamento, id_comuna, codigo_postal, 
 ('Calle del Viento', '258', 'F', 'EstacionCentral', '9012345', '15975348-6', '456123789', 'luis.torres@example.com'),
 ('Calle de la Luna', '147', '', 'Providencia', '0123456', '75395124-0', '321987654', 'elena.vasquez@example.com');
 
-INSERT INTO Pedido (estado, fecha_ingreso, fecha_entrega, rut_comprador, direccion_entrega) VALUES
-('Aceptado', '2024-10-01', '2024-10-05', '12345678-9', 1),
-('Enviado', '2024-10-02', '2024-10-06', '98765432-1', 2),
-('Entregado', '2024-10-03', '2024-10-07', '45678912-3', 3),
-('Creado', '2024-10-04', '2024-10-08', '32165498-7', 4),
-('Pagado', '2024-10-05', '2024-10-09', '14725836-9', 5),
-('Enviado', '2024-10-06', '2024-10-10', '96385274-1', 6),
-('Entregado', '2024-10-07', '2024-10-11', '25896314-5', 7),
-('Creado', '2024-10-08', '2024-10-12', '78945612-3', 8),
-('Aceptado', '2024-10-09', '2024-10-13', '15975348-6', 9),
-('Enviado', '2024-10-10', '2024-10-14', '75395124-0', 10);
-
-INSERT INTO Pedido_Cerveza (id_pedido, id_cerveza, cantidad) VALUES
-(1,3,5),
-(1,4,3),
-(2,7,1),
-(2,8,4),
-(6,3,9),
-(7,4,3),
-(9,3,5),
-(9,10,3),
-(3,9,5),
-(4,8,15);
 
 INSERT INTO Documento (tipo, comentario) VALUES
 ('boleta', 'texto1'),
@@ -509,12 +486,37 @@ INSERT INTO Documento (tipo, comentario) VALUES
 ('boleta', 'texto7'),
 ('boleta', 'texto8');
 
-INSERT INTO Carrito(total_a_pagar, id_documento, id_pedido) VALUES
-(12000, 1, 1),
-(20500, 2, 2),
-(17000, 3, 3),
-(14000, 4, 4),
-(32000, 5, 5),
-(52000, 6, 6),
-(18000, 7, 7),
-(35000, 8, 8);
+INSERT INTO Carrito(total_a_pagar) VALUES
+(12000),
+(20500),
+(17000),
+(14000),
+(32000),
+(52000),
+(18000),
+(35000);
+
+INSERT INTO Pedido_Cerveza (id_carrito, id_cerveza, cantidad) VALUES
+(1,3,5),
+(1,4,3),
+(2,7,1),
+(3,8,4),
+(4,3,9),
+(5,4,3),
+(6,3,5),
+(7,10,3),
+(8,9,5),
+(6,7,5),
+(7,2,3),
+(8,3,5),
+(4,8,15);
+
+INSERT INTO Pedido (id_carrito, id_documento, estado, fecha_ingreso, fecha_entrega, rut_comprador, direccion_entrega) VALUES
+(1,1,'Aceptado', '2024-10-01', '2024-10-05', '12345678-9', 1),
+(2,2,'Enviado', '2024-10-02', '2024-10-06', '98765432-1', 2),
+(3,3,'Entregado', '2024-10-03', '2024-10-07', '45678912-3', 3),
+(4,4,'Creado', '2024-10-04', '2024-10-08', '32165498-7', 4),
+(5,5,'Pagado', '2024-10-05', '2024-10-09', '14725836-9', 5),
+(6,6,'Enviado', '2024-10-06', '2024-10-10', '96385274-1', 6),
+(7,7,'Entregado', '2024-10-07', '2024-10-11', '25896314-5', 7),
+(8,8,'Creado', '2024-10-08', '2024-10-12', '78945612-3', 8);

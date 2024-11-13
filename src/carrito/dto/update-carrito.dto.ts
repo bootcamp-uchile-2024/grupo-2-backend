@@ -1,17 +1,15 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateCarritoDto } from './create-carrito.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
-
-import { UpdateCervezaDto } from 'src/cervezas/dto/update-cerveza.dto';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
+import { CreatePedidoCervezaDto } from 'src/pedidos/dto/create-pedido-cervezas.dto';
 
 
-export class UpdateCarritoDto extends PartialType(CreateCarritoDto) {
+export class UpdateCarritoDto {
     @ValidateNested({ each: true })
-    @Type(() => UpdateCervezaDto)
-    @ApiProperty({default: Cerveza, type: [UpdateCervezaDto]})
+    @Type(() => CreatePedidoCervezaDto)
+    @ApiProperty({default: CreatePedidoCervezaDto, type: [CreatePedidoCervezaDto]})
+    public items: CreatePedidoCervezaDto[];
 
-    public items: Cerveza[];
+    @ApiProperty({description: 'total a pagar actualizado'})
+    public total_a_pagar: number;
 }

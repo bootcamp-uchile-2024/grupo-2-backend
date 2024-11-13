@@ -23,7 +23,13 @@ export class Pedido {
     @Column()
     public fecha_entrega: Date;
 
-    @OneToMany(() => Pedido_Cerveza, (pedido_cervezas) => pedido_cervezas.id_pedido )
+    @Column()
+    public documento: number;
+
+    @Column()
+    public id_carrito: number;
+
+    @OneToMany(() => Pedido_Cerveza, (pedido_cervezas) => pedido_cervezas.id_carrito )
     pedido_cervezas: Pedido_Cerveza[];
 
 }

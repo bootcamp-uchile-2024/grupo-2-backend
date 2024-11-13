@@ -9,8 +9,6 @@ import { TipoCerveza } from "src/enum/tipos-cerveza";
 
 
 export class CreatePedidoDto {
-
-
     @IsNotEmpty({ message: 'El id del usuario es requerido' })
     @ApiProperty({ default: 1,description: 'id del usuario dueño del pedido' }) // Modificacion hecha por mi
     public idUsuario: number; //relacionado con el usuario que lo crea

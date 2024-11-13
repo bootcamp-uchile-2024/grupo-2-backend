@@ -57,11 +57,11 @@ CREATE TABLE Suscripcion (
 
 CREATE TABLE Formulario_Preferencias (
     id INT PRIMARY KEY AUTO_INCREMENT,
-   actividad_viernes VARCHAR(100),
-   descripcion_amigos VARCHAR(100),
-   tipo_comida VARCHAR(100),
-   destino_vacaciones VARCHAR(100),
-   sabor_bebida VARCHAR(100)
+    actividad_viernes VARCHAR(100),
+    descripcion_amigos VARCHAR(100),
+    tipo_comida VARCHAR(100),
+    destino_vacaciones VARCHAR(100),
+    sabor_bebida VARCHAR(100)
 );
 
 CREATE TABLE Proveedor (
@@ -102,7 +102,7 @@ CREATE TABLE Usuario (
     rut VARCHAR(12) PRIMARY KEY,
     nombre VARCHAR(100),
     apellido VARCHAR(100),
-    contraseña VARCHAR(100),
+    contrasena VARCHAR(100),
     edad INT,
     tipo_suscripcion VARCHAR(50)
 );

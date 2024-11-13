@@ -451,7 +451,7 @@ INSERT INTO Cerveza (nombre, marca, id_tipo, stock, descripcion, precio, id_prov
 ('Cerveza Bock', 'Cerveza Fuerte', 8, 70, 'Cerveza fuerte con un sabor intenso y profundo.', 2300, 1, 'Notable_40_60_IBU', 6.8, 'Botella', 'bock.jpg'),
 ('Cerveza Cerveza del Mes', 'Cerveza Especial', 9, 60, 'Cerveza de edición limitada, un verdadero deleite.', 2500, 1, 'Moderado_20_40_IBU', 6.0, 'Barril', 'especial.jpg');
 
-INSERT INTO Usuario (rut, nombre, apellido, contraseña, edad, tipo_suscripcion) VALUES
+INSERT INTO Usuario (rut, nombre, apellido, contrasena, edad, tipo_suscripcion) VALUES
 ('12345678-9', 'Carlos', 'Pérez', 'contraseña1', 28, 'BRONZE'),
 ('98765432-1', 'Laura', 'Gómez', 'contraseña2', 35, 'SILVER'),
 ('45678912-3', 'Martín', 'López', 'contraseña3', 22, 'GOLDEN'),

@@ -1,18 +1,17 @@
 import { ApiProperty } from "@nestjs/swagger";
-
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
-
 import { IBU } from "src/enum/amargor";
 import { Comuna } from "src/enum/comunas";
 import { Formato } from "src/enum/formato";
 import { Region } from "src/enum/regiones";
 import { TipoCerveza } from "src/enum/tipos-cerveza";
+import { createProveedor } from "src/Proveedores/dto/creacionProveedores.dto";
+import { Proveedor } from "src/Proveedores/entities/proveedores.entity";
 
 
 export class CreateCervezaDto {
     @IsString({message: 'El nombre de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El nombre de la cerveza es requerido'})
-
     @ApiProperty({ default: 'Torobayo', description: 'Nombre de la cerveza' })
     public nombre: string;
 
@@ -25,7 +24,7 @@ export class CreateCervezaDto {
     @IsNotEmpty({message: 'El tipo de cerveza es requerido'})
     @IsEnum(TipoCerveza, {message: 'El tipo de cerveza no es válido'})
     @ApiProperty({ default: 'Pale Ale', description: 'Categoría de la cerveza', enum: TipoCerveza })
-    public categoria: TipoCerveza
+    public tipo_cerveza: TipoCerveza
 
     @IsNumber({},{message: 'El stock de la cerveza debe ser un número'})
     @IsNotEmpty({message: 'El stock de la cerveza es requerido'})
@@ -35,7 +34,6 @@ export class CreateCervezaDto {
     @IsString({message: 'La descripción de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'La descripción de la cerveza es requerida'})
     @ApiProperty({ default: 'Tiene un perfil de sabor equilibrado con notas de lúpulo fresco y un toque de caramelo, color es dorado brillante y amargor moderado que complementa su sabor maltoso', description: 'Descripción de la cerveza' })
-
     public descripcion: string;
 
     @IsNumber({},{message: 'El precio de la cerveza debe ser un número'})
@@ -45,20 +43,8 @@ export class CreateCervezaDto {
 
     @IsString({message: 'El proveedor de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El proveedor de la cerveza es requerido'})
-    @ApiProperty({ default: 'CCU', description: 'Nombre Proveedor de la cerveza' })
-    public proveedor: string;
-
-    @IsString({message: 'El origen de la cerveza debe ser un texto'})
-    @IsNotEmpty({message: 'El origen de la cerveza es requerido'})
-    @IsEnum(Region, {message: 'La región de origen de la cerveza no es válida'})
-    @ApiProperty({ default: 'Región de Los Ríos', description: 'Region de Origen de la cerveza', enum: Region })
-    public region: Region;
-
-    @IsString({message: 'La comuna de la cerveza debe ser un texto'})
-    @IsNotEmpty({message: 'La comuna de la cerveza es requerida'})
-    @IsEnum(Comuna,{message: 'La comuna de la cerveza no es válida'})
-    @ApiProperty({ default: 'Valdivia', description: 'Comuna Origen de la cerveza', enum: Comuna })
-    public comuna: Comuna;
+    @ApiProperty({description: 'Se deben entregar todos los datos del Proveedor de la cerveza para su creación o asignación' })
+    public proveedor: createProveedor;
 
     @IsString({message: 'El amargor de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El amargor de la cerveza es requerido'})

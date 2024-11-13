@@ -23,6 +23,12 @@ async function bootstrap() {
   const license = configService.get<string>('license');
   console.log(license);
 
+  app.enableCors({
+    origin: '*',
+    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
+  });
+
 
   const config = new DocumentBuilder()
     .setTitle(name + ` - MODULO ${configService.get('AMBIENTE')} `)
@@ -40,6 +46,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new CommonInterceptor())
   app.useGlobalFilters(new CommonFilter())
 
-  await app.listen(process.env.PORT);
+  await app.listen(4500);
 }
 bootstrap();

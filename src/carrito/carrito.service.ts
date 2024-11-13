@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { Carrito } from './entities/carrito.entity';
 import { CarritoMapper } from './mapper/carrito.mapper';
 import { PedidoCervezaMapper } from 'src/pedidos/mapper/pedido_cervezas.mapper';
-import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
 import { Pedido_Cerveza } from 'src/pedidos/entities/pedido_cervezas.entity';
 
 @Injectable()

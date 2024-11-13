@@ -2,12 +2,10 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateCervezaDto } from './create-cerveza.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Formato } from 'src/enum/formato';
-import { Region } from 'src/enum/regiones';
 import { IBU } from 'src/enum/amargor';
-import { Comuna } from 'src/enum/comunas';
 import { TipoCerveza } from 'src/enum/tipos-cerveza';
-
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { createProveedor } from 'src/Proveedores/dto/creacionProveedores.dto';
 
 export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @IsString({message: 'El nombre de la cerveza debe ser un texto'})
@@ -45,20 +43,7 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @IsString({message: 'El proveedor de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El proveedor de la cerveza es requerido'})
     @ApiProperty({ default: 'CCU', description: 'Nombre Proveedor de la cerveza' })
-    public proveedor: string;
-
-    @IsString({message: 'El origen de la cerveza debe ser un texto'})
-    @IsNotEmpty({message: 'El origen de la cerveza es requerido'})
-    @IsEnum(Region, {message: 'La región de origen de la cerveza no es válida'})
-    @ApiProperty({ default: 'Región de Los Ríos', description: 'Region de Origen de la cerveza', enum: Region })
-    public region: Region;
-
-    @IsString({message: 'La comuna de la cerveza debe ser un texto'})
-    @IsNotEmpty({message: 'La comuna de la cerveza es requerida'})
-    @IsEnum(Comuna,{message: 'La comuna de la cerveza no es válida'})
-    @ApiProperty({ default: 'Valdivia', description: 'Comuna Origen de la cerveza', enum: Comuna })
-    public comuna: Comuna;
-
+    public proveedor: createProveedor;
 
     @IsString({message: 'El amargor de la cerveza debe ser un texto'})
     @IsNotEmpty({message: 'El amargor de la cerveza es requerido'})

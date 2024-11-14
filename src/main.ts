@@ -10,10 +10,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
   const configService : ConfigService = app.get(ConfigService);
-  console.log('Port:', configService.get('PORT'));
+  console.log('Port:', configService.get('NESTJS_PORT'));
   console.log('APP Name:', configService.get('APP_NAME'));
   console.log('App Versio:', configService.get('APP_VERSION'));
-  console.log('Reg Level:', configService.get('LOG_LEVEL'));
   console.log('Entorno:', configService.get('AMBIENTE'));
   const name = configService.get<string>('name');
   const description = configService.get<string>('description');
@@ -45,6 +44,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new CommonInterceptor())
   app.useGlobalFilters(new CommonFilter())
 
-  await app.listen(4500);
+  await app.listen(process.env.NESTJS_PORT);
 }
 bootstrap();

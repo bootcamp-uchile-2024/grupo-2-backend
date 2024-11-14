@@ -1,4 +1,4 @@
-CREATE DATABASE Cervezario;
+
 USE Cervezario;
 
 CREATE TABLE Region (

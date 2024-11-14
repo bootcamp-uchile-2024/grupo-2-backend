@@ -8,8 +8,7 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
-  const configService : ConfigService = app.get(ConfigService);
+  const configService: ConfigService = app.get(ConfigService);
   console.log('Port:', configService.get('NESTJS_PORT'));
   console.log('APP Name:', configService.get('APP_NAME'));
   console.log('App Versio:', configService.get('APP_VERSION'));
@@ -32,17 +31,19 @@ async function bootstrap() {
     .setTitle(name + ` - MODULO ${configService.get('AMBIENTE')} `)
     .setDescription(description)
     .setVersion(version)
-    .setContact(author,'-','-')
-    .setLicense(license,'-')
+    .setContact(author, '-', '-')
+    .setLicense(license, '-')
     .addTag('Cervezario-Nacional-api')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document, {yamlDocumentUrl: 'swagger/yaml',});
+  SwaggerModule.setup('api', app, document, {
+    yamlDocumentUrl: 'swagger/yaml',
+  });
 
-  app.useGlobalPipes(new ValidationPipe())
-  app.useGlobalInterceptors(new CommonInterceptor())
-  app.useGlobalFilters(new CommonFilter())
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new CommonInterceptor());
+  app.useGlobalFilters(new CommonFilter());
 
   await app.listen(process.env.NESTJS_PORT);
 }

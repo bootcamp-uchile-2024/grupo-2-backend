@@ -16,5 +16,5 @@ services:
       - ./db/script-creacion/datos.sql:/docker-entrypoint-initdb.d/2.sql
       - ./db/data_prod:/var/lib/mysql
     ports:
-      - "3001:${DB_PORT}"
+      - "3306:${DB_PORT}"
     platform: linux/amd64

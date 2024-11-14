@@ -30,7 +30,7 @@ import { Direccione } from './Datos_Envio/entities/direccione.entity';
 
 @Module({
   imports: [ConfigModule.forRoot(
-    {envFilePath: `.env.${process.env.ARCHIVO_ENV}`,
+    {envFilePath: `.env`,
       load: [() => ({
       version: require('../package.json').version,
       name: require('../package.json').name,

@@ -1,16 +1,20 @@
 services:
   cervezario-app-prod:
-    image: kmreyes/cervezarionacional:1.0.1
+    image: kmreyes/cervezarionacional:2.0.1
     env_file:
       - .env
     ports:
-      - "3000:${PORT}"
+      - "3000:${NESTJS_PORT}"
     command: "npm run start:prod"
   db:
-    image: mysql:8.0.39-debian
+    image: mysql:${DB_VERSION}
     environment:
-      MYSQL_ROOT_PASSWORD: clave123
+      MYSQL_ROOT_PASSWORD: ${DB_PASS_ROOT}
+      MYSQL_DATABASE: ${DB_NAME} 
     volumes:
+      - ./db/script-creacion/creacion-db.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./db/script-creacion/datos.sql:/docker-entrypoint-initdb.d/2.sql
       - ./db/data_prod:/var/lib/mysql
     ports:
-      - "3001:3306"
+      - "3001:${DB_PORT}"
+    platform: linux/amd64

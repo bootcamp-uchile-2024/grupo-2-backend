@@ -15,6 +15,6 @@ WORKDIR /home/node/app
 COPY --from=constructor /home/node/nest/dist /home/node/app/dist
 COPY --from=constructor /home/node/nest/node_modules /home/node/app/node_modules
 COPY package.json /home/node/app/package.json
-COPY prod/.env.production /home/node/app/.env.production
+COPY prod/.env /home/node/app/.env
 RUN npm install --production
 CMD npm run start:prod

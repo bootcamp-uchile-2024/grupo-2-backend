@@ -44,7 +44,7 @@ import { Direccione } from './Datos_Envio/entities/direccione.entity';
       host: 'db',
       port: 3306,
       username: 'root',
-      password: 'CLAVE123',
+      password: 'clave123',
       database: 'Cervezario',
       entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comuna, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione]
       })

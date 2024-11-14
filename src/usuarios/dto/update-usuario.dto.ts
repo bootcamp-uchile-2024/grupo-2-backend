@@ -1,16 +1,10 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateUsuarioDto } from './create-usuario.dto';
-import { IsArray, IsEmail, IsNotEmpty, IsNumber, IsString, Length, Matches, Min, ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
-import { Direccione } from 'src/Datos_Envio/entities/direccione.entity';
-import { UpdateDireccioneDto } from 'src/Datos_Envio/dto/update-direccione.dto';
+import { IsEmail, IsEnum, IsNotEmpty, IsString, Length, Matches, Min, ValidateNested } from 'class-validator';
+import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 
-export class UpdateUsuarioDto extends PartialType(CreateUsuarioDto) {
-    @IsNotEmpty({ message: 'El rut del usuario es requerido' })
-    @IsString()
-    @Length(9, 10, { message: 'El rut del usuario debe tener entre 9 y 10 caracteres' })
-    @Matches(/^\d{1,8}-[0-9Kk]{1}$/, { message: 'El RUT no tiene un formato válido.' })
-    public rut: string;
+
+export class UpdateUsuarioDto{
 
     @IsString({ message: 'El nombre del comprador debe ser un string' })
     @IsNotEmpty({ message: 'El nombre del comprador no puede estar vacío' })
@@ -31,10 +25,9 @@ export class UpdateUsuarioDto extends PartialType(CreateUsuarioDto) {
     @ApiProperty({ default: 25, description: 'Edad', minimum: 18 })
     public edad: number;
 
-    @IsNumber()
-    public id_perfil: number;
-    
     @IsString()
+    @IsEnum(TipoSuscripcion)
+    @ApiProperty({enum: TipoSuscripcion})
     public tipo_suscripcion: string;
 
 }

@@ -1,18 +1,17 @@
-import { Suscripcione } from "src/suscripciones/entities/suscripcione.entity";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
+@Entity({name: 'Usuario'})
 export class Usuario {
-
+    @PrimaryColumn()
     public rut: string;
-
+    @Column()
     public nombre: string;
-
+    @Column()
     public apellido: string;
-
+    @Column({name: 'contrasena'})
     public contrasenia: string;
-
+    @Column()
     public edad: number;
-
-    public id_perfil: number;
-
-    public tipo_suscripcion: Suscripcione;
+    @Column()
+    public tipo_suscripcion: string;
 }

@@ -118,7 +118,7 @@ export class CervezasService {
         entidad.id_proveedor = guardar_proveedor.id;
       }
       const guardar_cerveza = await this.CervezaRepository.update(id, entidad);
-      return guardar_cerveza;
+      return updateCervezaDto;
     }else{
       throw new HttpException('La cerveza que se intenta actualizar no existe', HttpStatus.BAD_REQUEST);
     }

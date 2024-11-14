@@ -1,38 +1,37 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSuscripcioneDto } from './dto/create-suscripcione.dto';
-import { UpdateSuscripcioneDto } from './dto/update-suscripcione.dto';
-import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
-import { TipoEnvio } from 'src/enum/tipo-envio';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Suscripcion } from './entities/suscripcione.entity';
+import { Repository } from 'typeorm';
+import { SuscripcionMapper } from './mapper/suscripcion.mapper';
+import { getSuscripcion } from './dto/getSuscripcion.dto';
 
 @Injectable()
 export class SuscripcionesService {
+  
+  constructor(@InjectRepository(Suscripcion) private readonly suscripcionRepository: Repository<Suscripcion>){}
+  
+  async findAll(): Promise<getSuscripcion[]> {
+    const resultado = await this.suscripcionRepository.find({
+      select:{
+        nombre: true,
+        descripcion: true,
+        precio: true,
+        descuento: true,
+        tipo_envio: true
+      }
+    });
+    console.log(resultado)
+    const respuesta = resultado.map((entidad) => SuscripcionMapper.entityToDto(entidad));
+    return respuesta;
+  }
 
-  // === Actualizado ===
-private suscripciones = []
-constructor(){
-  this.suscripciones.push({id:1, nombre: TipoSuscripcion.SILVER, precio: 12000, descuento: 5, tipo_envio: TipoEnvio.Estandar, items_promocion: ["Cerveza1", "Cerveza3"]})
-  this.suscripciones.push({id:2, nombre: TipoSuscripcion.GOLDEN, precio: 15000, descuento: 10, tipo_envio: TipoEnvio.Express, items_promocion: ["Cerveza1"]})
-  this.suscripciones.push({id:3, nombre: TipoSuscripcion.PLATINUM, precio: 20000, descuento: 15, tipo_envio: TipoEnvio.Prioritario, items_promocion: ["Cerveza3"]})
+  async findOne(id: number) {
+    const resultado = await this.suscripcionRepository.findOneBy({id: id});
+    const respuesta = SuscripcionMapper.entityToDto(resultado);
+
+    return respuesta;
+  }
+
 }
 
-  create(createSuscripcioneDto: CreateSuscripcioneDto) {
-    return `Se creo la siguiente suscripcion:  ${JSON.stringify(createSuscripcioneDto)}`;
-  }
-
-  findAll() { // === Actualizado ===
-    return this.suscripciones;
-  }
-
-  findOne(id: number) {
-    return this.suscripciones.find(suscripcion => suscripcion.id === id);
-  }
-
-  update(id: number, updateSuscripcioneDto: UpdateSuscripcioneDto) {
-     return `Se edito la siguiente suscripcion: ${JSON.stringify(updateSuscripcioneDto)}`;
-  }
-
-  remove(id: number) {
-    return `Se indica la eliminación de una suscripción`;
-  }
-}
 

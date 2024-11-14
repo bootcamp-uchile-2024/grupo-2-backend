@@ -1,4 +1,6 @@
 
+CREATE DATABASE IF NOT EXISTS Cervezario;
+
 USE Cervezario;
 
 CREATE TABLE Region (

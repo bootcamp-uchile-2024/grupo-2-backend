@@ -131,17 +131,15 @@ CREATE TABLE Pedido (
 );
 
 CREATE TABLE Pedido_Cerveza (
-    id_pedido INT,
+    id_carrito INT,
     id_cerveza INT,
     cantidad INT,
-    PRIMARY KEY (id_pedido, id_cerveza)
+    PRIMARY KEY (id_carrito, id_cerveza)
 );
 
 CREATE TABLE Carrito (
     id INT PRIMARY KEY AUTO_INCREMENT,
     total_a_pagar DECIMAL(10,0),
-    id_documento INT,
-    id_pedido INT
 );
 
 CREATE TABLE Promocion_Suscripcion (
@@ -195,12 +193,8 @@ ADD FOREIGN KEY (rut_comprador) REFERENCES Usuario(rut),
 ADD FOREIGN KEY (direccion_entrega) REFERENCES Datos_Envio(id);
 
 ALTER TABLE Pedido_Cerveza
-ADD FOREIGN KEY (id_pedido) REFERENCES Pedido(id),
+ADD FOREIGN KEY (id_carrito) REFERENCES Carrito(id),
 ADD FOREIGN KEY (id_cerveza) REFERENCES Cerveza(id);
-
-ALTER TABLE Carrito
-ADD FOREIGN KEY (id_documento) REFERENCES Documento(id),
-ADD FOREIGN KEY (id_pedido) REFERENCES Pedido(id);
 
 ALTER TABLE Promocion_Suscripcion
 ADD FOREIGN KEY (id_suscripcion) REFERENCES Suscripcion(id),

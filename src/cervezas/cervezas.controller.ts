@@ -25,22 +25,10 @@ export class CervezasController {
   @Get()
   @ApiResponse({ status: 200, description: 'Cervezas encontradas' })
   @ApiResponse({ status: 404, description: 'No existen Cervezas en la Base de Datos' })
-  @ApiQuery({ name: 'nombre', required: false, description: 'Nombre de la cerveza' })
-  @ApiQuery({ name: 'marca', required: false, description: 'Marca de la cerveza' })
-  @ApiQuery({ name: 'region', required: false, description: 'Región del proveedor', enum: Region })
-  @ApiQuery({ name: 'comuna', required: false, description: 'Comuna del proveedor', enum: Comuna })
-  @ApiQuery({ name: 'amargor', required: false, description: 'Nivel de amargor de la cerveza', enum: IBU })
-  @ApiQuery({ name: 'graduacion', required: false, description: 'Graduación alcohólica de la cerveza' })
-  @ApiQuery({ name: 'formato', required: false, description: 'Formato de la cerveza', enum: Formato })
-  findAll(
-    @Query('nombre') nombre?: string,
-    @Query('marca') marca?: string,
-    @Query('region') region?: Region,
-    @Query('comuna') comuna?: Comuna,
-    @Query('amargor') amargor?: IBU,
-    @Query('graduacion') graduacion?: string,
-    @Query('formato') formato?: Formato) {
-   return this.cervezasService.findAll(nombre, marca, region, comuna, amargor, graduacion, formato);
+  @ApiQuery({ name: 'pagina', required: true, description: 'Se debe entregar la página en la que se encuentra el usuario' })
+  @ApiQuery({ name: 'cantproductos', required: true, description: 'Se debe entregar la cantidad de productos que se quieren ver en la página' })
+  findAll(@Query('pagina') pagina: number, @Query('cantproductos') cantproductos: number) {
+   return this.cervezasService.findAll(pagina, cantproductos);
   }
   
   @Get(':id')

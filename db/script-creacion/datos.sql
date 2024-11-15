@@ -487,14 +487,14 @@ INSERT INTO Pedido (estado, fecha_ingreso, fecha_entrega, rut_comprador, direcci
 ('Aceptado', '2024-10-09', '2024-10-13', '15975348-6', 9),
 ('Enviado', '2024-10-10', '2024-10-14', '75395124-0', 10);
 
-INSERT INTO Pedido_Cerveza (id_pedido, id_cerveza, cantidad) VALUES
+INSERT INTO Pedido_Cerveza (id_carrito, id_cerveza, cantidad) VALUES
 (1,3,5),
 (1,4,3),
 (2,7,1),
-(2,8,4),
+(5,8,4),
 (6,3,9),
 (7,4,3),
-(9,3,5),
+(8,3,5),
 (9,10,3),
 (3,9,5),
 (4,8,15);
@@ -509,12 +509,12 @@ INSERT INTO Documento (tipo, comentario) VALUES
 ('boleta', 'texto7'),
 ('boleta', 'texto8');
 
-INSERT INTO Carrito(total_a_pagar, id_documento, id_pedido) VALUES
-(12000, 1, 1),
-(20500, 2, 2),
-(17000, 3, 3),
-(14000, 4, 4),
-(32000, 5, 5),
-(52000, 6, 6),
-(18000, 7, 7),
-(35000, 8, 8);
+INSERT INTO Carrito(total_a_pagar) VALUES
+(12000),
+(20500),
+(17000),
+(14000),
+(32000),
+(52000),
+(18000),
+(35000);

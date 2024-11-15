@@ -1,20 +1,20 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Cerveza } from "src/cervezas/entities/cerveza.entity";
 import { TipoSuscripcion } from "src/enum/tipo-suscripcion";
-import { TipoEnvio } from "src/enum/tipo-envio";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-
-export class Suscripcione {
-   
+@Entity({name: "Suscripcion"})
+export class Suscripcion{
+    @PrimaryGeneratedColumn()
     public id: number;
-    
-    public nombre: TipoSuscripcion;
-    
+    @Column()
+    public tipo_suscripcion: TipoSuscripcion;
+    @Column()
+    public descripcion: string;
+    @Column()
+    public nombre: string;
+    @Column()
     public precio: number;
-    
+    @Column()
     public descuento: number;
-    
-    public tipo_envio: TipoEnvio;// o puede ser enum si definimos los tipos
-    
-    public items_promocion: Cerveza[]; //items que contiene la promoción
+    @Column()
+    public tipo_envio: number;
 }

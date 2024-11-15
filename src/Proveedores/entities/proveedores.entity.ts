@@ -1,11 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Comuna } from "src/Comunas/comunas.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: "Proveedor"})
 export class Proveedor{
 
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   public id: number; //autogenerado
 
   @Column()

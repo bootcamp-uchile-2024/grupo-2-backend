@@ -8,61 +8,7 @@ import { DireccionesService } from 'src/Datos_Envio/direcciones.service';
 export class PedidosService {
   private pedidos = [];
 
-  constructor(private readonly direccionesService: DireccionesService) {
-    this.initializePedidos();
-  }
-
-  private initializePedidos() {
-    const direcciones = this.direccionesService.findAll();
-
-    this.pedidos.push({
-      id: 1,
-      idUsuario: 1,
-      items: Cerveza,
-      estado: 'creado',
-      fecha_ingreso: new Date(),
-      direccion_entrega: direcciones.filter(direccion => direccion.idUsuario === 1),
-      correo_comprador: '234@234.cl',
-      telefono_comprador: '123456789',
-      fecha_entrega: new Date()
-    });
-
-    this.pedidos.push({
-      id: 2,
-      idUsuario: 1,
-      items: Cerveza,
-      estado: 'creado',
-      fecha_ingreso: new Date(),
-      direccion_entrega: direcciones.filter(direccion => direccion.idUsuario === 1),
-      correo_comprador: 'tgr@tre.cl',
-      telefono_comprador: '987654321',
-      fecha_entrega: new Date()
-    });
-
-    this.pedidos.push({
-      id: 3,
-      idUsuario: 3,
-      items: Cerveza,
-      estado: 'creado',
-      fecha_ingreso: new Date(),
-      direccion_entrega: direcciones.filter(direccion => direccion.idUsuario === 3),
-      correo_comprador: 'juy@er4.cl',
-      telefono_comprador: '123456789',
-      fecha_entrega: new Date()
-    });
-
-    this.pedidos.push({
-      id: 4,
-      idUsuario: 2,
-      items: Cerveza,
-      estado: 'creado',
-      fecha_ingreso: new Date(),
-      direccion_entrega: direcciones.filter(direccion => direccion.idUsuario === 2),
-      correo_comprador: 'mjhy@gtr.cl',
-      telefono_comprador: '987654321',
-      fecha_entrega: new Date()
-    });
-  }
+  constructor(private readonly direccionesService: DireccionesService) {}
 
   create(createPedidoDto: CreatePedidoDto) {
     return `Se creo de un pedido con los siguientes atributos: ${JSON.stringify(createPedidoDto)}`

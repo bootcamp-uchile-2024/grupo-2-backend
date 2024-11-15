@@ -1,6 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IBU } from "src/enum/amargor";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Proveedor } from "src/Proveedores/entities/proveedores.entity";
 import { TipoCerveza } from "src/tipos_cerveza/tipos-cervezas.entity";
 import { Amargor } from "src/Amargor/amargor.entity";
@@ -9,7 +7,7 @@ import { Formato } from "src/Formato/Formatos.entity";
 @Entity({name: "Cerveza"})
 export class Cerveza {
 
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   public id: number; //autogenerado
   
   @Column()
@@ -34,13 +32,13 @@ export class Cerveza {
   public id_proveedor: number;
   
   @Column({name: 'id_amargor'})
-  public id_amargor: number;
+  public id_amargor: string;
   
   @Column()
-  public graduacion: string;
+  public graduacion: number;
   
   @Column({name: 'id_formato'})
-  public id_formato: Formato;
+  public id_formato: string;
   
   @Column()
   public imagen: string;

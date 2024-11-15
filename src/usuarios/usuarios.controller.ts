@@ -8,10 +8,6 @@ import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 @ApiTags('Usuarios')
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
-  
-
-
-//NO FUNCIONA INTERCEPTOR en el POST
 
   @ApiResponse({ status: 201, description: 'Usuario Creado' })
   @ApiResponse({ status: 404, description: 'No se pudo crear el usuario' })
@@ -22,7 +18,7 @@ export class UsuariosController {
     
   }
   
-
+  
   @ApiResponse({ status: 200, description: 'Usuarios encontrados' })
   @ApiResponse({ status: 404, description: 'No se encontraron usuarios' })
   @Get()
@@ -30,24 +26,26 @@ export class UsuariosController {
     return this.usuariosService.findAll();
   }
 
+  
   @ApiResponse({ status: 200, description: 'Usuario encontrado' })
   @ApiResponse({ status: 404, description: 'No se encontró el usuario' })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usuariosService.findOne(+id);
+    return this.usuariosService.findOne(id);
   }
-
+  
   @ApiResponse({ status: 200, description: 'Usuario editado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede editar el usuario' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
-    return this.usuariosService.update(+id, updateUsuarioDto);
+    return this.usuariosService.update(id, updateUsuarioDto);
   }
 
+  /*
   @ApiResponse({ status: 200, description: 'Usuario eliminado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede eliminar el usuario' })
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usuariosService.remove(+id);
-  }
+    return this.usuariosService.remove(id);
+  }*/
 }

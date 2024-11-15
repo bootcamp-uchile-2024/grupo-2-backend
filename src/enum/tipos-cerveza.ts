@@ -3,11 +3,11 @@ export enum TipoCerveza {
     PaleAle = 'Pale Ale', // Sabor balanceado con notas afrutadas y lupuladas.
     AmericanPaleAle = 'American Pale Ale', // Variante americana de la Pale Ale, más lupulada.
     IndiaPaleAle = 'India Pale Ale', // Cerveza fuertemente lupulada, con mayor amargor.
-    AmberAle = 'Amber Ale', // Maltosa y caramelizada, con color ámbar.
+    AmberAle = 'Ambe rAle', // Maltosa y caramelizada, con color ámbar.
     BrownAle = 'Brown Ale', // Cerveza marrón con sabores a nuez y chocolate.
     Porter = 'Porter', // Oscura con sabores a chocolate y café.
     Stout = 'Stout', // Similar a la Porter, más intensa con malta tostada.
-    DryStout = 'Dry Stout', // Stout seca, con menos dulzura y cuerpo ligero.
+    DryStout = 'DryStout', // Stout seca, con menos dulzura y cuerpo ligero.
     ImperialStout = 'Imperial Stout', // Stout más fuerte y robusta, alto contenido alcohólico.
 
     // Lagers
@@ -37,5 +37,5 @@ export enum TipoCerveza {
 
     // Otros Estilos
     Barleywine = 'Barleywine', // Cerveza fuerte, maltosa y envejecida en barriles.
-    RyeBeer = 'Rye Beer', // Cerveza con centeno, sabor especiado y seco.
+    RyeBeer = 'RyeBeer', // Cerveza con centeno, sabor especiado y seco.
 }

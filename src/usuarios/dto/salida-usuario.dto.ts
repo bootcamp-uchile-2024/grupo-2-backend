@@ -23,9 +23,6 @@ export class SalidaUsuarioDto {
     @ApiProperty({ default: 25, description: 'Edad', minimum: 18 })
     public edad: number;
 
-    @IsNumber()
-    public id_perfil: number;
-
     @IsString()
     public tipo_suscripcion: string;
 }

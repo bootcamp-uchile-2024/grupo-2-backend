@@ -24,10 +24,13 @@ import { Amargor } from './Amargor/amargor.entity';
 import { Formato } from './Formato/Formatos.entity';
 import { Proveedor } from './Proveedores/entities/proveedores.entity';
 import { DireccionesModule } from './Datos_Envio/direcciones.module';
+import { Suscripcion } from './suscripciones/entities/suscripcione.entity';
+import { Usuario } from './usuarios/entities/usuario.entity';
+import { Direccione } from './Datos_Envio/entities/direccione.entity';
 
 @Module({
   imports: [ConfigModule.forRoot(
-    {envFilePath: `.env.${process.env.ARCHIVO_ENV}`,
+    {envFilePath: `.env`,
       load: [() => ({
       version: require('../package.json').version,
       name: require('../package.json').name,
@@ -43,7 +46,7 @@ import { DireccionesModule } from './Datos_Envio/direcciones.module';
       username: 'root',
       password: 'clave123',
       database: 'Cervezario',
-      entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comuna, Region, TipoCerveza, Amargor, Formato, Proveedor]
+      entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comuna, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione]
       })
     ,EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],

@@ -1,37 +1,53 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePedidoDto } from './dto/create-pedido.dto';
+import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
-import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
-import { DireccionesService } from 'src/Datos_Envio/direcciones.service';
+import { Pedido } from './entities/pedido.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreatePedidoDto } from './dto/create-pedido.dto';
+import { estadoPedidos } from 'src/enum/estado-pedidos';
 
 @Injectable()
-export class PedidosService {
-  private pedidos = [];
+export class PedidoService {
+  constructor(
+    @InjectRepository(Pedido)
+    private pedidoRepository: Repository<Pedido>,
+  ) { }
+  async create(createPedidoDto: CreatePedidoDto): Promise<Pedido> {
+    // Mapea el DTO a un objeto de tipo Pedido
+    const pedido = this.pedidoRepository.create({
+      ...createPedidoDto,
+      fecha_ingreso: new Date(), // Establece automáticamente la fecha de ingreso
+      estado: estadoPedidos.Creado, // Asigna el estado 'creado' por defecto
+    });
 
-  constructor(private readonly direccionesService: DireccionesService) {}
-
-  create(createPedidoDto: CreatePedidoDto) {
-    return `Se creo de un pedido con los siguientes atributos: ${JSON.stringify(createPedidoDto)}`
+    // Guarda el pedido en la base de datos
+    return this.pedidoRepository.save(pedido);
   }
-
-  findAll(idUsuario?: number) {
-    if (idUsuario) {
-      return this.pedidos.filter(pedido => pedido.idUsuario === idUsuario);
+  async updatePedido(id: number, updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
+    // Encuentra el pedido usando findOne con un objeto de opciones
+    const pedido = await this.pedidoRepository.findOne({ where: { id } });
+    if (!pedido) {
+      throw new Error('Pedido no encontrado');
     }
-    return this.pedidos;
+
+    // Aquí puedes agregar lógica para permitir ediciones solo si el estado es 'creado'
+
+    // Actualiza el pedido con los datos del DTO
+    Object.assign(pedido, updatePedidoDto);
+    return this.pedidoRepository.save(pedido);
   }
 
-  findOne(id: number) {
-    return this.pedidos.find(pedido => pedido.id === id);
+
+  async findAll(): Promise<Pedido[]> {
+    return this.pedidoRepository.find(); // Retorna todos los pedidos
   }
 
-  update(id: number, updatePedidoDto: UpdatePedidoDto) {
-    // Implementa la lógica para actualizar un pedido
-    return `Se edito un pedido con los siguientes atributos: ${JSON.stringify(updatePedidoDto)}`
+  async findOne(id: number): Promise<Pedido> {
+    return this.pedidoRepository.findOne({ where: {id} }); // Encuentra un pedido por su id
   }
 
-  remove(id: number) {
-    // Implementa la lógica para eliminar un pedido
-    return `Se indica la eliminación de un pedido con ID ${id}`;
+
+  async remove(id: number): Promise<void> {
+    await this.pedidoRepository.delete(id); // Elimina un pedido por su id
   }
 }

@@ -1,13 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-import { PedidosService } from './pedidos.service';
+import { PedidoService } from './pedidos.service';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Pedido } from './entities/pedido.entity';
 
 @Controller('pedidos')
 @ApiTags('Pedidos')
 export class PedidosController {
-  constructor(private readonly pedidosService: PedidosService) {}
+  constructor(private readonly pedidosService: PedidoService) {}
 
   @ApiResponse({ status: 201, description: 'Pedido Creado Exitosamente' })
   @ApiResponse({ status: 404, description: 'No se creó el Pedido' })
@@ -23,7 +24,7 @@ export class PedidosController {
   @ApiQuery({ name: 'idUsuario', required: false, description: 'ID del Usuario' })
   findAll(@Query('idUsuario') idUsuario?: string) {
     const id = idUsuario ? parseInt(idUsuario, 10) : undefined;
-    return this.pedidosService.findAll(id);
+    return this.pedidosService.findAll();
   }
 
   @ApiResponse({ status: 200, description: 'Pedido encontrado' })
@@ -36,8 +37,8 @@ export class PedidosController {
   @ApiResponse({ status: 200, description: 'Pedido editado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede editar el pedido' })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePedidoDto: UpdatePedidoDto) {
-    return this.pedidosService.update(+id, updatePedidoDto);
+  async update(@Param('id') id: number, @Body() updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
+    return this.pedidosService.updatePedido(id, updatePedidoDto);
   }
 
   @ApiResponse({ status: 200, description: 'Pedido eliminado correctamente' })

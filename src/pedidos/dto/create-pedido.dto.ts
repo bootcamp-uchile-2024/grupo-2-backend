@@ -6,7 +6,7 @@ import { CreatePedidoCervezaDto } from "src/pedidos/dto/create-pedido-cervezas.d
 
 export class CreatePedidoDto {
     @IsNotEmpty({ message: 'El RUT del comprador es requerido' })
-    @ApiProperty({ example: '11.111.111-1', description: 'RUT del comprador' })
+    @ApiProperty({ example: '12345678-9', description: 'RUT del comprador' })
     public rut_comprador: string;
 
     @IsNotEmpty({ message: 'El ID de la dirección es requerido' })
@@ -20,7 +20,7 @@ export class CreatePedidoDto {
     public cervezas: CreatePedidoCervezaDto[];
 
     @IsEnum(estadoPedidos, { message: 'Estado debe ser uno de los valores permitidos' })
-    @ApiProperty({ example: 'creado', description: 'Estado del pedido', enum: estadoPedidos })
+    @ApiProperty({ example: 'Creado', description: 'Estado del pedido', enum: estadoPedidos })
     public estado: estadoPedidos;
 
     @Type(() => Date)
@@ -32,6 +32,7 @@ export class CreatePedidoDto {
     @IsEmail({}, { message: 'El correo debe ser válido' })
     @ApiProperty({ example: 'correo@ejemplo.com', required: false })
     public correo_comprador?: string;
+    
 
     @IsOptional()
     @ApiProperty({ example: '987654321', required: false, description: 'Teléfono del comprador' })

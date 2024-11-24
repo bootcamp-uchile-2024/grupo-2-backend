@@ -34,13 +34,14 @@ export class PedidoService {
     if (!usuario) {
       throw new Error('Usuario no encontrado');
     }
-
+    console.log("======1=====");
     // Verificar la dirección de entrega
     const direccion = await this.direccionRepository.findOne({ where: { id: createPedidoDto.id_direccion } });
 
     if (!direccion) {
       throw new Error('Dirección no encontrada');
     }
+    console.log("======2=====");
 
     // Si el usuario no está suscrito, solicitamos el correo y teléfono
     let datosEnvio;
@@ -61,7 +62,7 @@ export class PedidoService {
       });
       await this.direccionRepository.save(datosEnvio);
     }
-
+    console.log("======3=====");
     // Obtener los detalles de las cervezas usando los ids proporcionados
     const cervezas = await Promise.all(
       createPedidoDto.cervezas.map(async (item) => {
@@ -72,7 +73,7 @@ export class PedidoService {
         return { cerveza, cantidad: item.cantidad };
       }),
     );
-
+    console.log("======4=====");
     // Crear el nuevo pedido sin los campos de correo o teléfono, ya que son parte de Datos_Envio
     const pedido = this.pedidoRepository.create({
       rut_comprador: createPedidoDto.rut_comprador,
@@ -80,24 +81,26 @@ export class PedidoService {
       fecha_entrega: createPedidoDto.fecha_entrega,
       direccion_entrega: direccion, // Solo asociamos la dirección
     });
+    console.log("======5=====");
 
     // Guardar el pedido en la base de datos
     const savedPedido = await this.pedidoRepository.save(pedido);
-
+    console.log("======6=====");
     // Crear los registros en Pedido_Cerveza para cada cerveza
     await Promise.all(
       cervezas.map(async ({ cerveza, cantidad }) => {
         const pedidoCerveza = this.pedidoCervezaRepository.create({
-          id_carrito: savedPedido.id, // Usar el id del pedido como id_carrito
+          id_pedido: savedPedido.id, // Usar el id del pedido como id_carrito
           id_cerveza: cerveza.id,
           cantidad,
         });
         await this.pedidoCervezaRepository.save(pedidoCerveza);
       }),
     );
-
+    console.log("======7=====");
     return savedPedido;
   }
+
   // Método para actualizar un pedido
   async updatePedido(id: number, updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
     const pedido = await this.pedidoRepository.findOne({

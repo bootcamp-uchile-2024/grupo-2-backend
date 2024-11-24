@@ -5,8 +5,9 @@ import { Cerveza } from "src/cervezas/entities/cerveza.entity";
 
 @Entity({name: 'Pedido_Cerveza'})
 export class Pedido_Cerveza {
+    
     @PrimaryColumn()
-    public id_carrito: number;
+    public id_pedido: number;
 
     @PrimaryColumn()
     public id_cerveza: number;
@@ -14,9 +15,9 @@ export class Pedido_Cerveza {
     @Column()
     public cantidad: number;
 
-    @ManyToOne(() => Carrito)
-    @JoinColumn({name: 'id_carrito'})
-    carrito: Carrito;
+    @ManyToOne(() => Pedido)
+    @JoinColumn({name: 'id_pedido'})
+    carrito: Pedido;
 
     @OneToOne(() => Cerveza)
     @JoinColumn({name: 'id_cerveza'})

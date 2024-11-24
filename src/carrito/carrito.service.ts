@@ -34,7 +34,7 @@ export class CarritoService {
     const pedidos = PedidoCervezaMapper.dtoToEntityList(id, updateCarritoDto);
     const pedidos_existentes = await this.repositoryPedidoCerveza.find({
       where: {
-        id_carrito: id,
+        id_pedido: id,
       }})
 
     if(pedidos_existentes.length > 0){
@@ -63,7 +63,7 @@ export class CarritoService {
   }
 
   async remove(id: number) {
-    await this.repositoryPedidoCerveza.delete({id_carrito: id})
+    await this.repositoryPedidoCerveza.delete({id_pedido: id})
     await this.repositoryCarrito.delete(id)
     return `Se elimino el carrito con ID ${id}`;
   }

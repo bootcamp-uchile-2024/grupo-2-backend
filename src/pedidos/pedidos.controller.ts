@@ -1,23 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { PedidoService } from './pedidos.service';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
-import { UpdatePedidoDto } from './dto/update-pedido.dto';
-import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Pedido } from './entities/pedido.entity';
+import { Get, Param, Patch, Delete, Query } from '@nestjs/common';
+import { UpdatePedidoDto } from './dto/update-pedido.dto';
+import { ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @Controller('pedidos')
 @ApiTags('Pedidos')
 export class PedidosController {
   constructor(private readonly pedidosService: PedidoService) {}
 
-  @ApiResponse({ status: 201, description: 'Pedido Creado Exitosamente' })
-  @ApiResponse({ status: 404, description: 'No se creó el Pedido' })
   @Post()
-  @ApiBody({ type: CreatePedidoDto })
-  create(@Body() createPedidoDto: CreatePedidoDto) {
-    return this.pedidosService.create(createPedidoDto);
+  async create(@Body() createPedidoDto: CreatePedidoDto): Promise<Pedido> {
+    try {
+      return await this.pedidosService.create(createPedidoDto);
+    } catch (error) {
+      throw new Error(`Error al crear el pedido: ${error.message}`);
+    }
   }
-
   @Get()
   @ApiResponse({ status: 200, description: 'Pedidos encontrados' })
   @ApiResponse({ status: 404, description: 'No existen Pedidos en la Base de Datos' })

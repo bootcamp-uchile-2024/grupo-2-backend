@@ -1,53 +1,130 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
-import { UpdatePedidoDto } from './dto/update-pedido.dto';
-import { Pedido } from './entities/pedido.entity';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Pedido } from './entities/pedido.entity';
+import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
+import { Direccione } from 'src/Datos_Envio/entities/direccione.entity';
+import { Pedido_Cerveza } from './entities/pedido_cervezas.entity';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { estadoPedidos } from 'src/enum/estado-pedidos';
+import { UpdatePedidoDto } from './dto/update-pedido.dto';
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
 
 @Injectable()
 export class PedidoService {
   constructor(
+    @InjectRepository(Usuario)
+    private readonly usuarioRepository: Repository<Usuario>,
     @InjectRepository(Pedido)
-    private pedidoRepository: Repository<Pedido>,
+    private readonly pedidoRepository: Repository<Pedido>,
+    @InjectRepository(Cerveza)
+    private readonly cervezaRepository: Repository<Cerveza>,
+    @InjectRepository(Direccione)
+    private readonly direccionRepository: Repository<Direccione>,
+    @InjectRepository(Pedido_Cerveza)
+    private readonly pedidoCervezaRepository: Repository<Pedido_Cerveza>,
   ) { }
+
+
+  //=======================================================================================================
   async create(createPedidoDto: CreatePedidoDto): Promise<Pedido> {
-    // Mapea el DTO a un objeto de tipo Pedido
+    // Verificar si el usuario existe por su rut_comprador
+    const usuario = await this.usuarioRepository.findOne({ where: { rut: createPedidoDto.rut_comprador } });
+
+    if (!usuario) {
+      throw new Error('Usuario no encontrado');
+    }
+
+    // Verificar la dirección de entrega
+    const direccion = await this.direccionRepository.findOne({ where: { id: createPedidoDto.id_direccion } });
+
+    if (!direccion) {
+      throw new Error('Dirección no encontrada');
+    }
+
+    // Si el usuario no está suscrito, solicitamos el correo y teléfono
+    let datosEnvio;
+    if (usuario.tipo_suscripcion === 'nula' || usuario.tipo_suscripcion === 'sin suscripción') {
+      if (!createPedidoDto.correo_comprador || !createPedidoDto.telefono_comprador) {
+        throw new Error('Correo y teléfono son requeridos para usuarios no suscritos');
+      }
+      // Crear un nuevo registro de datos de envío
+      datosEnvio = this.direccionRepository.create({
+        calle: direccion.calle,
+        numero: direccion.numero,
+        departamento: direccion.departamento,
+        id_comuna: direccion.id_comuna,
+        codigo_Postal: direccion.codigo_Postal,
+        rut_usuario: createPedidoDto.rut_comprador,
+        telefono: createPedidoDto.telefono_comprador,
+        correo_electronico: createPedidoDto.correo_comprador,
+      });
+      await this.direccionRepository.save(datosEnvio);
+    }
+
+    // Obtener los detalles de las cervezas usando los ids proporcionados
+    const cervezas = await Promise.all(
+      createPedidoDto.cervezas.map(async (item) => {
+        const cerveza = await this.cervezaRepository.findOne({ where: { id: item.id_cerveza } });
+        if (!cerveza) {
+          throw new Error(`Cerveza con id ${item.id_cerveza} no encontrada`);
+        }
+        return { cerveza, cantidad: item.cantidad };
+      }),
+    );
+
+    // Crear el nuevo pedido sin los campos de correo o teléfono, ya que son parte de Datos_Envio
     const pedido = this.pedidoRepository.create({
-      ...createPedidoDto,
-      fecha_ingreso: new Date(), // Establece automáticamente la fecha de ingreso
-      estado: estadoPedidos.Creado, // Asigna el estado 'creado' por defecto
+      rut_comprador: createPedidoDto.rut_comprador,
+      estado: estadoPedidos.Creado, // Estado inicial 'Creado'
+      fecha_entrega: createPedidoDto.fecha_entrega,
+      direccion_entrega: direccion, // Solo asociamos la dirección
     });
 
-    // Guarda el pedido en la base de datos
-    return this.pedidoRepository.save(pedido);
+    // Guardar el pedido en la base de datos
+    const savedPedido = await this.pedidoRepository.save(pedido);
+
+    // Crear los registros en Pedido_Cerveza para cada cerveza
+    await Promise.all(
+      cervezas.map(async ({ cerveza, cantidad }) => {
+        const pedidoCerveza = this.pedidoCervezaRepository.create({
+          id_carrito: savedPedido.id, // Usar el id del pedido como id_carrito
+          id_cerveza: cerveza.id,
+          cantidad,
+        });
+        await this.pedidoCervezaRepository.save(pedidoCerveza);
+      }),
+    );
+
+    return savedPedido;
   }
+  // Método para actualizar un pedido
   async updatePedido(id: number, updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
-    // Encuentra el pedido usando findOne con un objeto de opciones
-    const pedido = await this.pedidoRepository.findOne({ where: { id } });
+    const pedido = await this.pedidoRepository.findOne({
+      where: { id },
+    });
     if (!pedido) {
       throw new Error('Pedido no encontrado');
     }
 
-    // Aquí puedes agregar lógica para permitir ediciones solo si el estado es 'creado'
-
-    // Actualiza el pedido con los datos del DTO
     Object.assign(pedido, updatePedidoDto);
     return this.pedidoRepository.save(pedido);
   }
 
-
+  // Método para obtener todos los pedidos
   async findAll(): Promise<Pedido[]> {
-    return this.pedidoRepository.find(); // Retorna todos los pedidos
+    return this.pedidoRepository.find();
   }
 
+  // Método para obtener un pedido específico
   async findOne(id: number): Promise<Pedido> {
-    return this.pedidoRepository.findOne({ where: {id} }); // Encuentra un pedido por su id
+    return this.pedidoRepository.findOne({
+      where: { id },
+    });
   }
 
-
+  // Método para eliminar un pedido
   async remove(id: number): Promise<void> {
-    await this.pedidoRepository.delete(id); // Elimina un pedido por su id
+    await this.pedidoRepository.delete(id);
   }
 }

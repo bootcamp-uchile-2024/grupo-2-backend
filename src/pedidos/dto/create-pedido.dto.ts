@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsDate, IsEmail, IsNotEmpty, IsOptional, ValidateNested } from "class-validator";
+import { IsDate, IsEmail, IsNotEmpty, IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { estadoPedidos } from "src/enum/estado-pedidos";
 import { CreatePedidoCervezaDto } from "src/pedidos/dto/create-pedido-cervezas.dto";
 
@@ -19,8 +19,9 @@ export class CreatePedidoDto {
     @ApiProperty({ type: [CreatePedidoCervezaDto], description: 'Lista de cervezas y cantidades asociadas al pedido' })
     public cervezas: CreatePedidoCervezaDto[];
 
+    @IsEnum(estadoPedidos, { message: 'Estado debe ser uno de los valores permitidos' })
     @ApiProperty({ example: 'creado', description: 'Estado del pedido', enum: estadoPedidos })
-    public estado: estadoPedidos
+    public estado: estadoPedidos;
 
     @Type(() => Date)
     @IsDate({ message: 'La fecha de entrega debe ser válida' })
@@ -35,4 +36,25 @@ export class CreatePedidoDto {
     @IsOptional()
     @ApiProperty({ example: '987654321', required: false, description: 'Teléfono del comprador' })
     public telefono_comprador?: string;
+
+    // Dirección de entrega completa
+    @IsOptional()
+    @ApiProperty({
+        description: 'Detalles completos de la dirección de entrega',
+        type: Object,
+        example: {
+            calle: "Los Encinos",
+            numero: 307,
+            departamento: "503 B",
+            id_comuna: "Puente Alto",
+            codigo_Postal: "2980909"
+        }
+    })
+    public direccion_entrega?: {
+        calle: string;
+        numero: number;
+        departamento?: string;
+        id_comuna: string;
+        codigo_Postal: string;
+    };
 }

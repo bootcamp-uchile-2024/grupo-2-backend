@@ -14,12 +14,19 @@ import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 @Injectable()
 export class UsuariosService {
   constructor(@InjectRepository(Usuario) private readonly usuariosRepository: Repository<Usuario>,
-              @InjectRepository(Direccione) private readonly datosEnvioRepository: Repository<Direccione>,
-              @InjectRepository(Pedido) private readonly pedidoRepository: Repository<Pedido>) {}
-//=======================================================================================================
+    @InjectRepository(Direccione) private readonly datosEnvioRepository: Repository<Direccione>,
+    @InjectRepository(Pedido) private readonly pedidoRepository: Repository<Pedido>) { }
+
+  async existsByRut(rut: string): Promise<boolean> {
+    const usuario = await this.usuariosRepository.findOne({ where: { rut } });
+    return !!usuario;
+  }
+
+
+  //=======================================================================================================
   async create(createUsuarioDto: CreateUsuarioDto) {
-    const existe = await this.usuariosRepository.existsBy({rut: createUsuarioDto.rut})
-    if(!existe){
+    const existe = await this.usuariosRepository.existsBy({ rut: createUsuarioDto.rut })
+    if (!existe) {
       const usuario = new Usuario();
       usuario.nombre = createUsuarioDto.nombre;
       usuario.apellido = createUsuarioDto.apellido;
@@ -28,21 +35,21 @@ export class UsuariosService {
       usuario.rut = createUsuarioDto.rut;
       usuario.correo_comprador = createUsuarioDto.correo_comprador;
       usuario.telefono_comprador = createUsuarioDto.telefono_comprador;
-      
-      if(Object.values(TipoSuscripcion).includes(createUsuarioDto.tipo_suscripcion as TipoSuscripcion)){
+
+      if (Object.values(TipoSuscripcion).includes(createUsuarioDto.tipo_suscripcion as TipoSuscripcion)) {
         usuario.tipo_suscripcion = createUsuarioDto.tipo_suscripcion as TipoSuscripcion;
 
-      const usuario_guardado = await this.usuariosRepository.save(usuario);
-      return createUsuarioDto;
-    }else{
-      throw new HttpException('El rut ingresado ya tiene un usuario creado', HttpStatus.BAD_REQUEST);
+        const usuario_guardado = await this.usuariosRepository.save(usuario);
+        return createUsuarioDto;
+      } else {
+        throw new HttpException('El rut ingresado ya tiene un usuario creado', HttpStatus.BAD_REQUEST);
+      }
     }
   }
-}
- //======================================================================================================= 
-  async findAll(): Promise<SalidaUsuarioDto[]>{
+  //======================================================================================================= 
+  async findAll(): Promise<SalidaUsuarioDto[]> {
     const resultado = await this.usuariosRepository.find({
-      select:{
+      select: {
         nombre: true,
         apellido: true,
         edad: true,
@@ -52,27 +59,27 @@ export class UsuariosService {
     })
     const respuesta = resultado.map((entidad) => UsuarioMapper.entityToDto(entidad));
     return respuesta;
-    }
+  }
 
-  
+
   async findOne(id: string): Promise<SalidaUsuarioDto> {
-    const usuario = await this.usuariosRepository.findOneBy({rut: id});
-    if(usuario){
+    const usuario = await this.usuariosRepository.findOneBy({ rut: id });
+    if (usuario) {
       const respuesta = UsuarioMapper.entityToDto(usuario);
       return respuesta;
-    }else{
+    } else {
       throw new HttpException('El rut ingresado no tiene usuario creado', HttpStatus.BAD_REQUEST);
     }
   }
-  
+
   async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
-    const existe = await this.usuariosRepository.existsBy({rut: id})
-    if (existe){
+    const existe = await this.usuariosRepository.existsBy({ rut: id })
+    if (existe) {
       const cambios = UsuarioMapper.dtoToEntity(updateUsuarioDto);
       cambios.rut = id;
       const guardado = await this.usuariosRepository.update(id, cambios);
       return updateUsuarioDto;
-    }else{
+    } else {
       throw new HttpException('El rut ingresado no tiene usuario creado', HttpStatus.BAD_GATEWAY);
     }
   }

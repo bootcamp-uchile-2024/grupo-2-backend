@@ -174,6 +174,11 @@ export class PedidoService {
   }
   
 //=======================================================================================================
+async existsById(id: number): Promise<boolean> {
+  const pedido = await this.pedidoRepository.findOne({ where: { id } });
+  return !!pedido;
+}
+
 async findAll(filters?: { rut_comprador?: string; id?: number; estado?: string }): Promise<Pedido[]> {
   const where: any = {};
 

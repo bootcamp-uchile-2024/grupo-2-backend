@@ -6,11 +6,17 @@ import { Get, Param, Patch, Delete, Query } from '@nestjs/common';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { estadoPedidos } from 'src/enum/estado-pedidos';
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { UsuariosService } from 'src/usuarios/usuarios.service';
+
+
 
 @Controller('pedidos')
 @ApiTags('Pedidos')
 export class PedidosController {
-  constructor(private readonly pedidosService: PedidoService) {}
+  constructor(private readonly pedidosService: PedidoService,
+    private readonly usuariosService: UsuariosService,
+  ) {}
 //=======================================================================================================
   @Post()
   async create(@Body() createPedidoDto: CreatePedidoDto): Promise<Pedido> {
@@ -24,12 +30,40 @@ export class PedidosController {
   @Get()
   @ApiQuery({ name: 'rut_comprador', required: false, type: String, description: 'RUT del comprador' })
   @ApiQuery({ name: 'id', required: false, type: Number, description: 'ID del pedido' })
-  @ApiQuery({ name: 'estado', required: false, type: String, description: 'Estado del pedido', enum: estadoPedidos })
+  @ApiQuery({
+    name: 'estado',
+    required: false,
+    enum: ['Creado', 'Enviado', 'Aceptado', 'Entregado', 'Pagado'],
+    description: 'Estado del pedido (valores posibles: Creado, Enviado, Aceptado, Entregado, Pagado)',
+  })
   async getAllPedidos(
     @Query('rut_comprador') rut_comprador?: string,
     @Query('id') id?: number,
     @Query('estado') estado?: string,
   ): Promise<Pedido[]> {
+    // Validar la existencia del rut_comprador en la tabla usuario
+    if (rut_comprador) {
+      const usuarioExiste = await this.usuariosService.existsByRut(rut_comprador);
+      if (!usuarioExiste) {
+        throw new HttpException(
+          `El RUT proporcionado (${rut_comprador}) no existe en la tabla de usuarios.`,
+          HttpStatus.FORBIDDEN,
+        );
+      }
+    }
+
+    // Validar la existencia del id en la tabla pedido
+    if (id) {
+      const pedidoExiste = await this.pedidosService.existsById(id);
+      if (!pedidoExiste) {
+        throw new HttpException(
+          `El ID proporcionado (${id}) no existe en la tabla de pedidos.`,
+          HttpStatus.FORBIDDEN,
+        );
+      }
+    }
+
+    // Construir los filtros para la consulta
     const filters = {
       rut_comprador,
       id: id ? Number(id) : undefined,

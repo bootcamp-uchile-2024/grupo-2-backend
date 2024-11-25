@@ -48,12 +48,14 @@ CREATE TABLE Personaje (
 
 CREATE TABLE Suscripcion (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    tipo_suscripcion VARCHAR(50) UNIQUE,
+    tipo_suscripcion ENUM('BRONZE', 'SILVER', 'GOLDEN', 'PLATINUM', 'ELITE', 'SIN_SUSCRIPCION') NOT NULL,
     nombre VARCHAR(50),
     descripcion TEXT,
     precio DECIMAL(10,0),
     descuento DECIMAL(5,2),
-    tipo_envio INT
+    tipo_envio INT,
+    -- Agregar el índice en la columna tipo_suscripcion
+    INDEX (tipo_suscripcion)
 );
 
 CREATE TABLE Formulario_Preferencias (
@@ -93,7 +95,7 @@ CREATE TABLE Perfil (
     id INT PRIMARY KEY AUTO_INCREMENT,
     id_personaje INT,
     historial_pedido INT,
-    tipo_suscripcion VARCHAR(50),
+    tipo_suscripcion ENUM('BRONZE', 'SILVER', 'GOLDEN', 'PLATINUM', 'ELITE', 'SIN_SUSCRIPCION') NOT NULL,
     id_formulario INT,
     recomendaciones TEXT,
     nivel_usuario VARCHAR(50)
@@ -105,7 +107,9 @@ CREATE TABLE Usuario (
     apellido VARCHAR(100),
     contrasena VARCHAR(100),
     edad INT,
-    tipo_suscripcion VARCHAR(50)
+    tipo_suscripcion ENUM('BRONZE', 'SILVER', 'GOLDEN', 'PLATINUM','ELITE', 'SIN_SUSCRIPCION') NOT NULL,
+    telefono_comprador VARCHAR(15),
+    correo_comprador VARCHAR(100)
 );
 
 CREATE TABLE Datos_Envio (

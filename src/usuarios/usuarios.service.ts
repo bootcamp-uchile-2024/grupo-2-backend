@@ -9,13 +9,14 @@ import { Usuario } from './entities/usuario.entity';
 import { UsuarioMapper } from './mapper/usuario.mapper';
 import { Direccione } from 'src/Datos_Envio/entities/direccione.entity';
 import { Pedido } from 'src/pedidos/entities/pedido.entity';
+import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 
 @Injectable()
 export class UsuariosService {
   constructor(@InjectRepository(Usuario) private readonly usuariosRepository: Repository<Usuario>,
               @InjectRepository(Direccione) private readonly datosEnvioRepository: Repository<Direccione>,
               @InjectRepository(Pedido) private readonly pedidoRepository: Repository<Pedido>) {}
-
+//=======================================================================================================
   async create(createUsuarioDto: CreateUsuarioDto) {
     const existe = await this.usuariosRepository.existsBy({rut: createUsuarioDto.rut})
     if(!existe){
@@ -25,14 +26,20 @@ export class UsuariosService {
       usuario.contrasenia = createUsuarioDto.contrasenia;
       usuario.edad = createUsuarioDto.edad;
       usuario.rut = createUsuarioDto.rut;
-      usuario.tipo_suscripcion = createUsuarioDto.tipo_suscripcion;
+      usuario.correo_comprador = createUsuarioDto.correo_comprador;
+      usuario.telefono_comprador = createUsuarioDto.telefono_comprador;
+      
+      if(Object.values(TipoSuscripcion).includes(createUsuarioDto.tipo_suscripcion as TipoSuscripcion)){
+        usuario.tipo_suscripcion = createUsuarioDto.tipo_suscripcion as TipoSuscripcion;
+
       const usuario_guardado = await this.usuariosRepository.save(usuario);
       return createUsuarioDto;
     }else{
       throw new HttpException('El rut ingresado ya tiene un usuario creado', HttpStatus.BAD_REQUEST);
     }
   }
-  
+}
+ //======================================================================================================= 
   async findAll(): Promise<SalidaUsuarioDto[]>{
     const resultado = await this.usuariosRepository.find({
       select:{

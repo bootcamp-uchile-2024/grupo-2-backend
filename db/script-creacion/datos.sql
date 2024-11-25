@@ -403,7 +403,8 @@ INSERT INTO Suscripcion (tipo_suscripcion, nombre, descripcion, precio, descuent
 ('SILVER', 'Plata Premium', 'Beneficios adicionales, como descuentos exclusivos y acceso anticipado a productos', 20000, 10, 1),
 ('GOLDEN', 'Oro Dorado', 'Acceso a ofertas especiales, envíos gratuitos y contenido exclusivo', 30000, 15, 1),
 ('PLATINUM', 'Platino Exclusivo', 'Beneficios premium, soporte personalizado y acceso a eventos exclusivos', 50000, 20,4),
-('ELITE', 'VIP Élite', 'Máximo nivel de suscripción con todos los beneficios, incluyendo experiencias personalizadas y prioridad en todo', 80000, 25,3);
+('ELITE', 'VIP Élite', 'Máximo nivel de suscripción con todos los beneficios, incluyendo experiencias personalizadas y prioridad en todo', 80000, 25,3),
+('SIN_SUSCRIPCION', 'Sin Suscripción', 'Acceso limitado a características y sin descuentos', 0, 0, 2);
 
 -- Insertar datos en la tabla Categoria
 INSERT INTO Tipo_Cerveza (tipo, nombre, descripcion) VALUES

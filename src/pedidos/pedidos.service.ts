@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pedido } from './entities/pedido.entity';
@@ -9,6 +9,7 @@ import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { estadoPedidos } from 'src/enum/estado-pedidos';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { Usuario } from 'src/usuarios/entities/usuario.entity';
+import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 
 @Injectable()
 export class PedidoService {
@@ -46,9 +47,9 @@ export class PedidoService {
 
     // Si el usuario no está suscrito, solicitamos el correo y teléfono
     let datosEnvio;
-    if (usuario.tipo_suscripcion === 'nula' || usuario.tipo_suscripcion === 'sin suscripción') {
+    if (usuario.tipo_suscripcion === TipoSuscripcion.SIN_SUSCRIPCION) {
       if (!createPedidoDto.correo_comprador || !createPedidoDto.telefono_comprador) {
-        throw new Error('Correo y teléfono son requeridos para usuarios no suscritos');
+        throw new BadRequestException('Correo y teléfono son requeridos para usuarios no suscritos');
       }
       // Crear un nuevo registro de datos de envío
       datosEnvio = this.direccionRepository.create({

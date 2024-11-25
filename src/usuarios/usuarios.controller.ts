@@ -41,6 +41,7 @@ export class UsuariosController {
     return this.usuariosService.update(id, updateUsuarioDto);
   }
 
+  
   /*
   @ApiResponse({ status: 200, description: 'Usuario eliminado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede eliminar el usuario' })

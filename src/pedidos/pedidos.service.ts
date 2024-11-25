@@ -88,6 +88,7 @@ export class PedidoService {
     // Guardar el pedido en la base de datos
     const savedPedido = await this.pedidoRepository.save(pedido);
     console.log("======6=====");
+
     // Crear los registros en Pedido_Cerveza para cada cerveza
     await Promise.all(
       cervezas.map(async ({ cerveza, cantidad }) => {
@@ -102,32 +103,88 @@ export class PedidoService {
     console.log("======7=====");
     return savedPedido;
   }
-
+//=======================================================================================================
   // Método para actualizar un pedido
   async updatePedido(id: number, updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
-    const pedido = await this.pedidoRepository.findOne({
-      where: { id },
-    });
+    // Buscar el pedido por ID
+    const pedido = await this.pedidoRepository.findOne({ where: { id } });
     if (!pedido) {
       throw new Error('Pedido no encontrado');
     }
-
-    Object.assign(pedido, updatePedidoDto);
+  
+    // Verificar si el estado del pedido permite la modificación
+    if (pedido.estado === estadoPedidos.Enviado || pedido.estado === estadoPedidos.Entregado) {
+      throw new Error('No se pueden modificar pedidos que ya han sido enviados o entregados');
+    }
+  
+    // Si el estado es "Pagado", no permitir la modificación de cervezas
+    if (pedido.estado === estadoPedidos.Pagado && updatePedidoDto.cervezas) {
+      throw new Error('No se pueden modificar las cervezas de un pedido pagado');
+    }
+  
+    // Si el estado es "Creado" o "Aceptado", se pueden modificar los campos permitidos
+    if (pedido.estado === estadoPedidos.Creado || pedido.estado === estadoPedidos.Aceptado) {
+      if (updatePedidoDto.id_direccion) {
+        const nuevaDireccion = await this.direccionRepository.findOne({ where: { id: updatePedidoDto.id_direccion } });
+        if (!nuevaDireccion) {
+          throw new Error('Dirección no encontrada');
+        }
+        pedido.direccion_entrega = nuevaDireccion;
+      }
+  
+      if (updatePedidoDto.fecha_entrega) {
+        pedido.fecha_entrega = updatePedidoDto.fecha_entrega;
+      }
+  
+      if (updatePedidoDto.cervezas) {
+        // Eliminar cervezas existentes asociadas al pedido
+        await this.pedidoCervezaRepository.delete({ id_pedido: pedido.id });
+  
+        // Insertar las nuevas cervezas
+        await Promise.all(
+          updatePedidoDto.cervezas.map(async (item) => {
+            const cerveza = await this.cervezaRepository.findOne({ where: { id: item.id_cerveza } });
+            if (!cerveza) {
+              throw new Error(`Cerveza con id ${item.id_cerveza} no encontrada`);
+            }
+            const pedidoCerveza = this.pedidoCervezaRepository.create({
+              id_pedido: pedido.id,
+              id_cerveza: cerveza.id,
+              cantidad: item.cantidad,
+            });
+            await this.pedidoCervezaRepository.save(pedidoCerveza);
+          }),
+        );
+      }
+  
+      if (updatePedidoDto.correo_comprador) {
+        // Aquí deberías actualizar el correo en el objeto de datos de envío, si es necesario
+      }
+  
+      if (updatePedidoDto.telefono_comprador) {
+        // Aquí deberías actualizar el teléfono en el objeto de datos de envío, si es necesario
+      }
+    } else {
+      throw new Error('No se puede modificar un pedido con este estado');
+    }
+  
+    // Guardar el pedido actualizado
     return this.pedidoRepository.save(pedido);
   }
-
+  
+//=======================================================================================================
   // Método para obtener todos los pedidos
   async findAll(): Promise<Pedido[]> {
     return this.pedidoRepository.find();
   }
-
+//=======================================================================================================
   // Método para obtener un pedido específico
   async findOne(id: number): Promise<Pedido> {
     return this.pedidoRepository.findOne({
       where: { id },
     });
   }
-
+//=======================================================================================================
   // Método para eliminar un pedido
   async remove(id: number): Promise<void> {
     await this.pedidoRepository.delete(id);

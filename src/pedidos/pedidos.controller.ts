@@ -10,7 +10,7 @@ import { ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 @ApiTags('Pedidos')
 export class PedidosController {
   constructor(private readonly pedidosService: PedidoService) {}
-
+//=======================================================================================================
   @Post()
   async create(@Body() createPedidoDto: CreatePedidoDto): Promise<Pedido> {
     try {
@@ -19,6 +19,7 @@ export class PedidosController {
       throw new Error(`Error al crear el pedido: ${error.message}`);
     }
   }
+  //=======================================================================================================
   @Get()
   @ApiResponse({ status: 200, description: 'Pedidos encontrados' })
   @ApiResponse({ status: 404, description: 'No existen Pedidos en la Base de Datos' })
@@ -28,20 +29,24 @@ export class PedidosController {
     return this.pedidosService.findAll();
   }
 
+  //=======================================================================================================
   @ApiResponse({ status: 200, description: 'Pedido encontrado' })
   @ApiResponse({ status: 404, description: 'No se encuentra el pedido' })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.pedidosService.findOne(+id);
   }
-
+//=======================================================================================================
+  @Patch(':id')
   @ApiResponse({ status: 200, description: 'Pedido editado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede editar el pedido' })
-  @Patch(':id')
-  async update(@Param('id') id: number, @Body() updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
-    return this.pedidosService.updatePedido(id, updatePedidoDto);
+  async update(
+    @Param('id') id: number,
+    @Body() updatePedidoDto: UpdatePedidoDto
+  ): Promise<Pedido> {
+    return await this.pedidosService.updatePedido(id, updatePedidoDto);
   }
-
+//=======================================================================================================
   @ApiResponse({ status: 200, description: 'Pedido eliminado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede eliminar el pedido' })
   @Delete(':id')

@@ -5,4 +5,5 @@ export enum TipoSuscripcion {
     GOLDEN = 'GOLDEN', // Acceso a ofertas especiales, envíos gratuitos y contenido exclusivo
     PLATINUM = 'PLATINUM', // Beneficios premium, soporte personalizado y acceso a eventos exclusivos
     ELITE = 'ELITE', // Máximo nivel de suscripción con todos los beneficios, incluyendo experiencias personalizadas y prioridad en todo
+    SIN_SUSCRIPCION = 'SIN_SUSCRIPCION', // Sin suscripción
 }

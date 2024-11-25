@@ -1,10 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { Cerveza } from 'src/cervezas/entities/cerveza.entity';
 import { IsNotEmpty, IsOptional, IsDate, ValidateNested, IsEnum } from 'class-validator';
-import { Type } from 'class-transformer';
-import { estadoPedidos } from 'src/enum/estado-pedidos';
-import { CreateDireccioneDto } from 'src/Datos_Envio/dto/create-direccione.dto';
-import { Direccione } from 'src/Datos_Envio/entities/direccione.entity';
 import { CreatePedidoDto } from './create-pedido.dto';
 import { IsEmail, IsNumber, IsArray } from 'class-validator';
 import { CreatePedidoCervezaDto } from './create-pedido-cervezas.dto';

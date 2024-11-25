@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pedido } from './entities/pedido.entity';
@@ -109,17 +109,17 @@ export class PedidoService {
     // Buscar el pedido por ID
     const pedido = await this.pedidoRepository.findOne({ where: { id } });
     if (!pedido) {
-      throw new Error('Pedido no encontrado');
+      throw new NotFoundException('Pedido no encontrado');
     }
   
     // Verificar si el estado del pedido permite la modificación
     if (pedido.estado === estadoPedidos.Enviado || pedido.estado === estadoPedidos.Entregado) {
-      throw new Error('No se pueden modificar pedidos que ya han sido enviados o entregados');
+      throw new ForbiddenException('No se pueden modificar pedidos que ya han sido enviados o entregados');
     }
   
     // Si el estado es "Pagado", no permitir la modificación de cervezas
     if (pedido.estado === estadoPedidos.Pagado && updatePedidoDto.cervezas) {
-      throw new Error('No se pueden modificar las cervezas de un pedido pagado');
+      throw new ForbiddenException('No se pueden modificar las cervezas de un pedido pagado');
     }
   
     // Si el estado es "Creado" o "Aceptado", se pueden modificar los campos permitidos
@@ -127,7 +127,7 @@ export class PedidoService {
       if (updatePedidoDto.id_direccion) {
         const nuevaDireccion = await this.direccionRepository.findOne({ where: { id: updatePedidoDto.id_direccion } });
         if (!nuevaDireccion) {
-          throw new Error('Dirección no encontrada');
+          throw new NotFoundException('Dirección no encontrada');
         }
         pedido.direccion_entrega = nuevaDireccion;
       }
@@ -145,7 +145,7 @@ export class PedidoService {
           updatePedidoDto.cervezas.map(async (item) => {
             const cerveza = await this.cervezaRepository.findOne({ where: { id: item.id_cerveza } });
             if (!cerveza) {
-              throw new Error(`Cerveza con id ${item.id_cerveza} no encontrada`);
+              throw new NotFoundException(`Cerveza con id ${item.id_cerveza} no encontrada`);
             }
             const pedidoCerveza = this.pedidoCervezaRepository.create({
               id_pedido: pedido.id,
@@ -165,7 +165,7 @@ export class PedidoService {
         // Aquí deberías actualizar el teléfono en el objeto de datos de envío, si es necesario
       }
     } else {
-      throw new Error('No se puede modificar un pedido con este estado');
+      throw new ForbiddenException('No se puede modificar un pedido con este estado');
     }
   
     // Guardar el pedido actualizado

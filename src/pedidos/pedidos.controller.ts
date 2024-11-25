@@ -5,9 +5,9 @@ import { Pedido } from './entities/pedido.entity';
 import { Get, Param, Patch, Delete, Query } from '@nestjs/common';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { estadoPedidos } from 'src/enum/estado-pedidos';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { UsuariosService } from 'src/usuarios/usuarios.service';
+import { BadRequestException } from '@nestjs/common';
 
 
 
@@ -91,10 +91,19 @@ export class PedidosController {
     return await this.pedidosService.updatePedido(id, updatePedidoDto);
   }
 //=======================================================================================================
-  @ApiResponse({ status: 200, description: 'Pedido eliminado correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede eliminar el pedido' })
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pedidosService.remove(+id);
+@ApiResponse({ status: 200, description: 'Pedido eliminado correctamente' })
+@ApiResponse({ status: 404, description: 'Pedido no encontrado' })
+@ApiResponse({ status: 500, description: 'Error interno del servidor' })
+@Delete(':id')
+async remove(@Param('id') id: string): Promise<{ message: string }> {
+  const pedidoId = parseInt(id, 10);
+
+  if (isNaN(pedidoId)) {
+    throw new BadRequestException('El ID proporcionado no es válido.');
   }
+
+  await this.pedidosService.remove(pedidoId);
+
+  return { message: 'Pedido eliminado correctamente' };
+}
 }

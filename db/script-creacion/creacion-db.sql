@@ -134,10 +134,12 @@ CREATE TABLE Pedido (
 );
 
 CREATE TABLE Pedido_Cerveza (
-    id_pedido INT,  -- Cambiar de id_carrito a id_pedido
+    id_pedido INT,  
     id_cerveza INT,
     cantidad INT,
-    PRIMARY KEY (id_pedido, id_cerveza)  -- La clave primaria debe ser id_pedido y id_cerveza
+    PRIMARY KEY (id_pedido, id_cerveza),
+    FOREIGN KEY (id_pedido) REFERENCES Pedido(id) ON DELETE CASCADE, -- Agregado ON DELETE CASCADE
+    FOREIGN KEY (id_cerveza) REFERENCES Cerveza(id)
 );
 
 CREATE TABLE Carrito (
@@ -194,11 +196,6 @@ ADD FOREIGN KEY (rut_usuario) REFERENCES Usuario(rut);
 ALTER TABLE Pedido
 ADD FOREIGN KEY (rut_comprador) REFERENCES Usuario(rut),
 ADD FOREIGN KEY (direccion_entrega) REFERENCES Datos_Envio(id);
-
--- Cambiar la clave foránea de 'Pedido_Cerveza' para referenciar 'Pedido'
-ALTER TABLE Pedido_Cerveza
-ADD FOREIGN KEY (id_pedido) REFERENCES Pedido(id),  -- Cambia para referenciar la tabla Pedido
-ADD FOREIGN KEY (id_cerveza) REFERENCES Cerveza(id);
 
 ALTER TABLE Promocion_Suscripcion
 ADD FOREIGN KEY (id_suscripcion) REFERENCES Suscripcion(id),

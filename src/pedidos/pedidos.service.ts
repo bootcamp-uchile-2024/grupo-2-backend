@@ -10,6 +10,7 @@ import { estadoPedidos } from 'src/enum/estado-pedidos';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { Usuario } from 'src/usuarios/entities/usuario.entity';
 import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
+import { InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class PedidoService {
@@ -206,6 +207,17 @@ async findAll(filters?: { rut_comprador?: string; id?: number; estado?: string }
 //=======================================================================================================
   // Método para eliminar un pedido
   async remove(id: number): Promise<void> {
-    await this.pedidoRepository.delete(id);
+    const pedido = await this.pedidoRepository.findOne({ where: { id } });
+  
+    if (!pedido) {
+      throw new NotFoundException(`No se encontró el pedido con ID ${id}.`);
+    }
+  
+    try {
+      await this.pedidoRepository.delete(id);
+    } catch (error) {
+      console.error('Error al eliminar el pedido:', error);
+      throw new InternalServerErrorException('Ocurrió un error al eliminar el pedido.');
+    }
   }
 }

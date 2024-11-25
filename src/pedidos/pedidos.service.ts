@@ -174,10 +174,23 @@ export class PedidoService {
   }
   
 //=======================================================================================================
-  // Método para obtener todos los pedidos
-  async findAll(): Promise<Pedido[]> {
-    return this.pedidoRepository.find();
+async findAll(filters?: { rut_comprador?: string; id?: number; estado?: string }): Promise<Pedido[]> {
+  const where: any = {};
+
+  if (filters?.rut_comprador) {
+    where.rut_comprador = filters.rut_comprador;
   }
+
+  if (filters?.id) {
+    where.id = filters.id;
+  }
+
+  if (filters?.estado) {
+    where.estado = filters.estado;
+  }
+
+  return this.pedidoRepository.find({ where });
+}
 //=======================================================================================================
   // Método para obtener un pedido específico
   async findOne(id: number): Promise<Pedido> {

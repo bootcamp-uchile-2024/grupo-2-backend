@@ -5,6 +5,7 @@ import { Pedido } from './entities/pedido.entity';
 import { Get, Param, Patch, Delete, Query } from '@nestjs/common';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { estadoPedidos } from 'src/enum/estado-pedidos';
 
 @Controller('pedidos')
 @ApiTags('Pedidos')
@@ -21,12 +22,21 @@ export class PedidosController {
   }
   //=======================================================================================================
   @Get()
-  @ApiResponse({ status: 200, description: 'Pedidos encontrados' })
-  @ApiResponse({ status: 404, description: 'No existen Pedidos en la Base de Datos' })
-  @ApiQuery({ name: 'idUsuario', required: false, description: 'ID del Usuario' })
-  findAll(@Query('idUsuario') idUsuario?: string) {
-    const id = idUsuario ? parseInt(idUsuario, 10) : undefined;
-    return this.pedidosService.findAll();
+  @ApiQuery({ name: 'rut_comprador', required: false, type: String, description: 'RUT del comprador' })
+  @ApiQuery({ name: 'id', required: false, type: Number, description: 'ID del pedido' })
+  @ApiQuery({ name: 'estado', required: false, type: String, description: 'Estado del pedido', enum: estadoPedidos })
+  async getAllPedidos(
+    @Query('rut_comprador') rut_comprador?: string,
+    @Query('id') id?: number,
+    @Query('estado') estado?: string,
+  ): Promise<Pedido[]> {
+    const filters = {
+      rut_comprador,
+      id: id ? Number(id) : undefined,
+      estado,
+    };
+
+    return this.pedidosService.findAll(filters);
   }
 
   //=======================================================================================================

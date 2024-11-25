@@ -44,24 +44,5 @@ export class CreatePedidoDto {
     @ApiProperty({ example: '987654321', required: false, description: 'Teléfono del comprador' })
     public telefono_comprador?: string;
 
-    // Dirección de entrega completa
-    @IsOptional()
-    @ApiProperty({
-        description: 'Detalles completos de la dirección de entrega',
-        type: Object,
-        example: {
-            calle: "Los Encinos",
-            numero: 307,
-            departamento: "503 B",
-            id_comuna: "Puente Alto",
-            codigo_Postal: "2980909"
-        }
-    })
-    public direccion_entrega?: {
-        calle: string;
-        numero: number;
-        departamento?: string;
-        id_comuna: string;
-        codigo_Postal: string;
-    };
+    
 }

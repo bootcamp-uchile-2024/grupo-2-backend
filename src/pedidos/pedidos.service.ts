@@ -42,6 +42,7 @@ export class PedidoService {
       throw new Error('Dirección no encontrada');
     }
     console.log("======2=====");
+    
 
     // Si el usuario no está suscrito, solicitamos el correo y teléfono
     let datosEnvio;
@@ -78,6 +79,7 @@ export class PedidoService {
     const pedido = this.pedidoRepository.create({
       rut_comprador: createPedidoDto.rut_comprador,
       estado: estadoPedidos.Creado, // Estado inicial 'Creado'
+      fecha_ingreso: createPedidoDto.fecha_ingreso || new Date(),
       fecha_entrega: createPedidoDto.fecha_entrega,
       direccion_entrega: direccion, // Solo asociamos la dirección
     });

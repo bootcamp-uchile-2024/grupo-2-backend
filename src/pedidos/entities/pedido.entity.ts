@@ -13,7 +13,7 @@ export class Pedido {
     @Column()
     public estado: estadoPedidos;
 
-    @Column()
+    @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     public fecha_ingreso: Date;
 
     @Column()

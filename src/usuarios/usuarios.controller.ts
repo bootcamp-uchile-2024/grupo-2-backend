@@ -36,8 +36,8 @@ export class UsuariosController {
   
   @ApiResponse({ status: 200, description: 'Usuario editado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede editar el usuario' })
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
+  @Patch(':rut')
+  update(@Param('rut') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
     return this.usuariosService.update(id, updateUsuarioDto);
   }
 

@@ -3,6 +3,7 @@ import { Type } from "class-transformer";
 import { IsDate, IsEmail, IsNotEmpty, IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { estadoPedidos } from "src/enum/estado-pedidos";
 import { CreatePedidoCervezaDto } from "src/pedidos/dto/create-pedido-cervezas.dto";
+import { ApiHideProperty } from "@nestjs/swagger";
 
 export class CreatePedidoDto {
     @IsNotEmpty({ message: 'El RUT del comprador es requerido' })
@@ -22,6 +23,11 @@ export class CreatePedidoDto {
     @IsEnum(estadoPedidos, { message: 'Estado debe ser uno de los valores permitidos' })
     @ApiProperty({ example: 'Creado', description: 'Estado del pedido', enum: estadoPedidos })
     public estado: estadoPedidos;
+
+    @Type(() => Date)
+    @IsDate({ message: 'La fecha de entrega debe ser válida' })
+    @ApiHideProperty()
+    public fecha_ingreso: Date = new Date();
 
     @Type(() => Date)
     @IsDate({ message: 'La fecha de entrega debe ser válida' })

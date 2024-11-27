@@ -3,6 +3,7 @@ import { DireccionesService } from './direcciones.service';
 import { CreateDireccioneDto } from './dto/create-direccione.dto';
 import { UpdateDireccioneDto } from './dto/update-direccione.dto';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Query } from '@nestjs/common';
 
 @Controller('direcciones')
 @ApiTags('Direcciones')
@@ -13,7 +14,9 @@ export class DireccionesController {
   @ApiResponse({ status: 404, description: 'No se creo la Direccion' })
   @Post()
   @ApiBody({ type: CreateDireccioneDto })
-  create(@Body() createDireccioneDto: CreateDireccioneDto) {
+  create(
+    @Body() createDireccioneDto: CreateDireccioneDto,  // El rut_usuario ya está en el DTO
+  ) {
     return this.direccionesService.create(createDireccioneDto);
   }
 

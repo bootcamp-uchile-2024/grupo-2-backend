@@ -21,9 +21,8 @@ export class CreateDireccioneDto {
 
     @IsNotEmpty({ message: 'La comuna de la dirección es requerida' })
     @IsString({ message: 'La comuna de la dirección debe ser un texto' })
-    @IsEnum(Comuna, { message: 'La comuna de la dirección no es válida' })
-    @ApiProperty({ default: 'Puente Alto', description: 'Comuna de la dirección', enum: Comuna })
-    public id_comuna: Comuna;
+    @ApiProperty({ default: 'PuenteAlto', description: 'Comuna de la dirección'})
+    public id_comuna: string;
 
     @IsOptional()
     @IsString({ message: 'El código postal de la dirección debe ser un texto de 7 dígitos' })
@@ -35,13 +34,16 @@ export class CreateDireccioneDto {
     @IsString()
     @Length(9, 10, { message: 'El rut del usuario debe tener entre 9 y 10 caracteres' })
     @Matches(/^\d{1,8}-[0-9Kk]{1}$/, { message: 'El RUT no tiene un formato válido.' })
+    @ApiProperty({ default: '12345678-9', description: 'sin puntos, sólo con guion' })
     public rut_usuario: string;
 
-    @IsNotEmpty({message: 'El correo telefono'})
+    @ApiProperty({ default: '925362514', description: 'Número de teléfono del usuario asociado a la direccion' })
+    @IsNotEmpty({ message: 'El correo telefono' })
     public telefono: string;
 
-    @IsNotEmpty({message: 'El correo electrónico es requerido'})
+    @ApiProperty({ default: 'asb@acv.cl', description: 'Correo electrónico del usuario asociado a la dirección' })
+    @IsNotEmpty({ message: 'El correo electrónico es requerido' })
     public correo_electronico: string;
-    
+
 }
 

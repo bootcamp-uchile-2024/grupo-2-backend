@@ -17,7 +17,7 @@ import { Cerveza } from './cervezas/entities/cerveza.entity';
 import { Carrito } from './carrito/entities/carrito.entity';
 import { Pedido } from './pedidos/entities/pedido.entity';
 import { Pedido_Cerveza } from './pedidos/entities/pedido_cervezas.entity';
-import { Comuna } from './Comunas/comunas.entity';
+import { Comunas } from './Comunas/comunas.entity';
 import { Region } from './Region/regiones.entity';
 import { TipoCerveza } from './tipos_cerveza/tipos-cervezas.entity';
 import { Amargor } from './Amargor/amargor.entity';
@@ -46,7 +46,7 @@ import { Direccione } from './Datos_Envio/entities/direccione.entity';
       username: 'root',
       password: 'clave123',
       database: 'Cervezario',
-      entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comuna, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione]
+      entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comunas, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione]
       })
     ,EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],

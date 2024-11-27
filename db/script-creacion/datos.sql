@@ -50,7 +50,7 @@ INSERT INTO Comuna (id, nombre, id_region) VALUES
     ('Copiapo', 'Copiapó', 'AT'),
     ('Caldera', 'Caldera', 'AT'),
     ('TierraAmarilla', 'Tierra Amarilla', 'AT'),
-    ('Chañaral', 'Chañaral', 'AT'),
+    ('Chanaral', 'Chañaral', 'AT'),
     ('DiegoDeAlmagro', 'Diego de Almagro', 'AT'),
     ('Vallenar', 'Vallenar', 'AT'),
     ('AltoDelCarmen', 'Alto del Carmen', 'AT'),

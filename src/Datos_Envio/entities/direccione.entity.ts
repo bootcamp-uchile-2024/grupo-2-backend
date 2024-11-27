@@ -1,6 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Comunas } from "src/Comunas/comunas.entity";
 import { Comuna } from "src/enum/comunas";
 import { Column, Entity, PrimaryColumn } from "typeorm";
+import { JoinColumn, ManyToOne } from "typeorm";
+
 
 @Entity('Datos_Envio')
 export class Direccione {
@@ -20,10 +23,6 @@ export class Direccione {
     public departamento?: string;
 
     @Column()
-    @ApiProperty({ default: 'Ciudad dirección' })
-    public id_comuna: Comuna;
-
-    @Column()
     @ApiProperty({ default: 'Código postal dirección' })
     public codigo_Postal: string;
 
@@ -38,6 +37,12 @@ export class Direccione {
     @Column()
     @ApiProperty({ default: 'abc@asd.cl' })
     public correo_electronico: string;
+
+    @ManyToOne(() => Comunas, {nullable: false})
+    @JoinColumn({ name: 'id_comuna' })
+    id_comuna: Comunas;
+    
+
 }
 
 

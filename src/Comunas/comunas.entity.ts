@@ -2,10 +2,10 @@ import { Region } from "src/Region/regiones.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 
 @Entity({name: "Comuna"})
-export class Comuna{
+export class Comunas{
 
   @PrimaryColumn()
-  public id: number; //autogenerado
+  public id: string;
 
   @Column()
   public nombre: string;

@@ -3,7 +3,9 @@ import { DireccionesService } from './direcciones.service';
 import { CreateDireccioneDto } from './dto/create-direccione.dto';
 import { UpdateDireccioneDto } from './dto/update-direccione.dto';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Query } from '@nestjs/common';
+import { Direccione } from './entities/direccione.entity';
+import { ApiParam } from '@nestjs/swagger';
+
 
 @Controller('direcciones')
 @ApiTags('Direcciones')
@@ -19,27 +21,29 @@ export class DireccionesController {
   ) {
     return this.direccionesService.create(createDireccioneDto);
   }
+//================================================================================================
+@ApiResponse({ status: 200, description: 'Direcciones encontradas', type: [Direccione] })
+@ApiResponse({ status: 404, description: 'No se encontraron direcciones para el usuario' })
+@Get('usuario/:rut_usuario')
+async findByRutUsuario(
+  @Param('rut_usuario') rut_usuario: string,  // Obtener el rut_usuario de los parámetros de la URL
+) {
+  return this.direccionesService.findByRutUsuario(rut_usuario);
+}
+//================================================================================================
 
-  @ApiResponse({ status: 200, description: 'Direcciones encontradas' })
-  @ApiResponse({ status: 404, description: 'No se encuentra ninguna direccion' })
-  @Get()
-  findAll() {
-    return this.direccionesService.findAll();
-  }
-
-  @ApiResponse({ status: 200, description: 'Direccion encontrada' })
-  @ApiResponse({ status: 404, description: 'No se encuentra la direccion' })
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.direccionesService.findOne(+id);
-  }
-
-  @ApiResponse({ status: 200, description: 'Direcciones editada correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede editar la direccion' })
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDireccioneDto: UpdateDireccioneDto) {
-    return this.direccionesService.update(+id, updateDireccioneDto);
-  }
+@ApiResponse({ status: 200, description: 'Dirección actualizada con éxito' })
+@ApiResponse({ status: 404, description: 'No se encontró la dirección o usuario' })
+//@ApiParam({ name: 'RUT', description: 'RUT del usuario', example: '12345678-9' }) // Muestra "RUT" en Swagger
+@ApiBody({ type: UpdateDireccioneDto }) // Define el DTO para los datos a actualizar
+@Patch('usuario/:rut_usuario') // Ruta para actualizar una dirección, pasando el rut_usuario
+async updateDireccion(
+  @Param('rut_usuario') rut_usuario: string, // Recibe el rut_usuario
+  @Body() updateDireccioneDto: UpdateDireccioneDto, // Datos para actualizar
+) {
+  return this.direccionesService.updateByRutUsuario(rut_usuario, updateDireccioneDto); // Llamada al servicio con rut_usuario
+}
+//================================================================================================
 
   @ApiResponse({ status: 200, description: 'Direcciones eliminada correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede eliminar la direccion' })

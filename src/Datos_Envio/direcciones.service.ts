@@ -43,28 +43,51 @@ async create(createDireccioneDto: CreateDireccioneDto) {
   return await this.direccioneRepository.save(nuevaDireccion);
 }
 //================================================================================================
-  async findAll() {
-    return await this.direccioneRepository.find();
+async findByRutUsuario(rut_usuario: string) {
+  // Verificar si el usuario existe
+  const usuario = await this.usuarioRepository.findOneBy({ rut: rut_usuario });
+  if (!usuario) {
+    throw new NotFoundException(`El usuario con RUT ${rut_usuario} no existe.`);
   }
 
-  async findOne(id: number) {
-    const direccion = await this.direccioneRepository.findOneBy({ id });
-    if (!direccion) {
-      throw new NotFoundException(`La dirección con ID ${id} no existe.`);
-    }
-    return direccion;
+  // Obtener las direcciones asociadas al usuario
+  const direcciones = await this.direccioneRepository.find({
+    where: { rut_usuario },  // Filtrar por el RUT del usuario
+  });
+
+  if (!direcciones || direcciones.length === 0) {
+    throw new NotFoundException(`No se encontraron direcciones para el usuario con RUT ${rut_usuario}.`);
   }
 
-  async update(id: number, updateDireccioneDto: UpdateDireccioneDto) {
-    const direccion = await this.direccioneRepository.findOneBy({ id });
-    if (!direccion) {
-      throw new NotFoundException(`La dirección con ID ${id} no existe.`);
-    }
+  return direcciones;
+}
+//================================================================================================
 
+async updateByRutUsuario(rut_usuario: string, updateDireccioneDto: UpdateDireccioneDto) {
+  // Buscar al usuario por su rut
+  const usuario = await this.usuarioRepository.findOne({ where: { rut: rut_usuario } });
+
+  if (!usuario) {
+    throw new NotFoundException(`Usuario con RUT ${rut_usuario} no encontrado`);
+  }
+
+  // Obtener todas las direcciones asociadas al usuario
+  const direcciones = await this.direccioneRepository.find({ where: { rut_usuario: usuario.rut } });
+
+  if (direcciones.length === 0) {
+    throw new NotFoundException(`No se encontraron direcciones para el usuario con RUT ${rut_usuario}`);
+  }
+
+  // Actualizar las direcciones encontradas
+  for (const direccion of direcciones) {
+    // Asignar los nuevos valores de updateDireccioneDto a la dirección
     Object.assign(direccion, updateDireccioneDto);
-    return await this.direccioneRepository.save(direccion);
+    await this.direccioneRepository.save(direccion); // Guardar la dirección actualizada
   }
 
+  return direcciones;  // Retorna las direcciones actualizadas
+}
+//================================================================================================
   async remove(id: number) {
     const direccion = await this.direccioneRepository.findOneBy({ id });
     if (!direccion) {

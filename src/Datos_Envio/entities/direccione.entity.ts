@@ -11,19 +11,19 @@ export class Direccione {
     public id: number;
 
     @Column()
-    @ApiProperty({ default: 'Calle dirección' })
+    @ApiProperty({ default: 'Seminario' })
     public calle: string;
 
     @Column()
-    @ApiProperty({ default: 'Número dirección' })
+    @ApiProperty({ default: '10352' })
     public numero: number;
 
     @Column()
-    @ApiProperty({ default: 'Numero de departamento dirección' })
+    @ApiProperty({ default: '502' })
     public departamento?: string;
 
     @Column()
-    @ApiProperty({ default: 'Código postal dirección' })
+    @ApiProperty({ default: '2568888' })
     public codigo_Postal: string;
 
     @Column()

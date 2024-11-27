@@ -22,6 +22,14 @@ export class DireccionesController {
     return this.direccionesService.create(createDireccioneDto);
   }
 //================================================================================================
+@ApiResponse({ status: 200, description: 'Estado de la dirección cambiado correctamente' })
+@ApiResponse({ status: 404, description: 'Dirección no encontrada' })
+@Patch(':id/cambiar-estado')
+async cambiarEstado(@Param('id') id: number) {
+  return this.direccionesService.cambiarEstadoDireccion(id);
+}
+
+//================================================================================================
 @ApiResponse({ status: 200, description: 'Direcciones encontradas', type: [Direccione] })
 @ApiResponse({ status: 404, description: 'No se encontraron direcciones para el usuario' })
 @Get('usuario/:rut_usuario')

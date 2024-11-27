@@ -21,25 +21,22 @@ export class DireccionesService {
 async create(createDireccioneDto: CreateDireccioneDto) {
   const { rut_usuario, id_comuna } = createDireccioneDto;
 
-  // Verificar si el usuario existe
   const usuario = await this.usuarioRepository.findOneBy({ rut: rut_usuario });
   if (!usuario) {
     throw new NotFoundException(`El usuario con RUT ${rut_usuario} no existe.`);
   }
 
-  // Verificar si la comuna existe
   const comuna = await this.comunaRepository.findOne({ where: { id: id_comuna } });
   if (!comuna) {
     throw new NotFoundException(`La comuna con ID ${id_comuna} no existe.`);
   }
 
-  // Crear el objeto Direccione, asignando la comuna como un objeto
   const nuevaDireccion = this.direccioneRepository.create({
     ...createDireccioneDto,
-    id_comuna: comuna,  // Asignar la entidad Comuna completa
+    estado: 'activo', // Asignar el valor por defecto para el estado
+    id_comuna: comuna,
   });
 
-  // Guardar la nueva dirección
   return await this.direccioneRepository.save(nuevaDireccion);
 }
 //================================================================================================
@@ -100,4 +97,17 @@ async updateByRutUsuario(rut_usuario: string, updateDireccioneDto: UpdateDirecci
   await this.direccioneRepository.delete(id);
   return { message: `Dirección con ID ${id} eliminada correctamente` };
 }*/
+//================================================================================================
+async cambiarEstadoDireccion(id: number): Promise<Direccione> {
+  const direccion = await this.direccioneRepository.findOne({ where: { id } });
+
+  if (!direccion) {
+    throw new NotFoundException(`La dirección con ID ${id} no existe.`);
+  }
+
+  // Alternar el estado entre 'activa' e 'inactiva'
+  direccion.estado = direccion.estado === 'activa' ? 'inactiva' : 'activa';
+
+  return await this.direccioneRepository.save(direccion);
+}
 }

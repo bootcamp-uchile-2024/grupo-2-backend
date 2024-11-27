@@ -464,17 +464,17 @@ INSERT INTO Usuario (rut, nombre, apellido, contrasena, edad, tipo_suscripcion) 
 ('15975348-6', 'Luis', 'Torres', 'contraseña9', 45, 'PLATINUM'),
 ('75395124-0', 'Elena', 'Vásquez', 'contraseña10', 38, 'ELITE');
 
-INSERT INTO Datos_Envio (calle, numero, departamento, id_comuna, codigo_postal, rut_usuario, telefono, correo_electronico) VALUES
-('Av. Libertador', '123', 'A', 'Aisen', '1234567', '12345678-9', '987654321', 'carlos.perez@example.com'),
-('Calle Los Cerezos', '456', 'B', 'Angol', '2345678', '98765432-1', '912345678', 'laura.gomez@example.com'),
-('Calle 5 de Abril', '789', '', 'Curico', '3456789', '45678912-3', '987123456', 'martin.lopez@example.com'),
-('Calle San Martín', '321', 'C', 'Dalcahue', '4567890', '32165498-7', '998877665', 'sofia.martinez@example.com'),
-('Calle del Sol', '654', 'D', 'LaReina', '5678901', '14725836-9', '945678123', 'pedro.fernandez@example.com'),
-('Calle del Río', '987', '', 'LaReina', '6789012', '96385274-1', '951753852', 'ana.ramirez@example.com'),
-('Calle de la Paz', '159', 'E', 'EstacionCentral', '7890123', '25896314-5', '789456123', 'jorge.santiago@example.com'),
-('Calle de los Olmos', '753', '', 'Curico', '8901234', '78945612-3', '123456789', 'claudia.rojas@example.com'),
-('Calle del Viento', '258', 'F', 'EstacionCentral', '9012345', '15975348-6', '456123789', 'luis.torres@example.com'),
-('Calle de la Luna', '147', '', 'Providencia', '0123456', '75395124-0', '321987654', 'elena.vasquez@example.com');
+INSERT INTO Datos_Envio (calle, numero, departamento, id_comuna, codigo_postal, rut_usuario, telefono, correo_electronico, estado) VALUES
+('Av. Libertador', '123', 'A', 'Aisen', '1234567', '12345678-9', '987654321', 'carlos.perez@example.com','activa'),
+('Calle Los Cerezos', '456', 'B', 'Angol', '2345678', '98765432-1', '912345678', 'laura.gomez@example.com','activa'),
+('Calle 5 de Abril', '789', '', 'Curico', '3456789', '45678912-3', '987123456', 'martin.lopez@example.com','activa'),
+('Calle San Martín', '321', 'C', 'Dalcahue', '4567890', '32165498-7', '998877665', 'sofia.martinez@example.com','activa'),
+('Calle del Sol', '654', 'D', 'LaReina', '5678901', '14725836-9', '945678123', 'pedro.fernandez@example.com','activa'),
+('Calle del Río', '987', '', 'LaReina', '6789012', '96385274-1', '951753852', 'ana.ramirez@example.com','activa'),
+('Calle de la Paz', '159', 'E', 'EstacionCentral', '7890123', '25896314-5', '789456123', 'jorge.santiago@example.com','activa'),
+('Calle de los Olmos', '753', '', 'Curico', '8901234', '78945612-3', '123456789', 'claudia.rojas@example.com','activa'),
+('Calle del Viento', '258', 'F', 'EstacionCentral', '9012345', '15975348-6', '456123789', 'luis.torres@example.com','activa'),
+('Calle de la Luna', '147', '', 'Providencia', '0123456', '75395124-0', '321987654', 'elena.vasquez@example.com','activa');
 
 INSERT INTO Pedido (estado, fecha_ingreso, fecha_entrega, rut_comprador, direccion_entrega) VALUES
 ('Aceptado', '2024-10-01', '2024-10-05', '12345678-9', 1),

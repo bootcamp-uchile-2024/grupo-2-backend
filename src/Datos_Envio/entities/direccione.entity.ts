@@ -3,11 +3,12 @@ import { Comunas } from "src/Comunas/comunas.entity";
 import { Comuna } from "src/enum/comunas";
 import { Column, Entity, PrimaryColumn } from "typeorm";
 import { JoinColumn, ManyToOne } from "typeorm";
+import { PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('Datos_Envio')
 export class Direccione {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     public id: number;
 
     @Column()
@@ -37,6 +38,12 @@ export class Direccione {
     @Column()
     @ApiProperty({ default: 'abc@asd.cl' })
     public correo_electronico: string;
+
+    @Column({ default: 'activa' }) // Estado por defecto
+    @ApiProperty({ default: 'activa', description: 'Estado de la dirección: activa/inactiva' })
+    public estado: string;
+
+   
 
     @ManyToOne(() => Comunas, {nullable: false})
     @JoinColumn({ name: 'id_comuna' })

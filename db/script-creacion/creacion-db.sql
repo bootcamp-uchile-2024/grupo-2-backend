@@ -121,7 +121,8 @@ CREATE TABLE Datos_Envio (
     codigo_postal VARCHAR(7),
     rut_usuario VARCHAR(12),
     telefono VARCHAR(15),
-    correo_electronico VARCHAR(100)
+    correo_electronico VARCHAR(100),
+    estado VARCHAR(100)
 );
 
 CREATE TABLE Pedido (

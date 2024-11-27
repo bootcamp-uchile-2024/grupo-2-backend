@@ -88,13 +88,16 @@ async updateByRutUsuario(rut_usuario: string, updateDireccioneDto: UpdateDirecci
   return direcciones;  // Retorna las direcciones actualizadas
 }
 //================================================================================================
-  async remove(id: number) {
-    const direccion = await this.direccioneRepository.findOneBy({ id });
-    if (!direccion) {
-      throw new NotFoundException(`La dirección con ID ${id} no existe.`);
-    }
+/*async remove(id: number) {
+  // Buscar la dirección por id
+  const direccion = await this.direccioneRepository.findOne({ where: { id } });
 
-    await this.direccioneRepository.delete(id);
-    return { message: `Dirección con ID ${id} eliminada correctamente.` };
+  if (!direccion) {
+    throw new NotFoundException(`La dirección con ID ${id} no fue encontrada`);
   }
+
+  // Eliminar la dirección
+  await this.direccioneRepository.delete(id);
+  return { message: `Dirección con ID ${id} eliminada correctamente` };
+}*/
 }

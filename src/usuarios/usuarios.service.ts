@@ -60,7 +60,7 @@ export class UsuariosService {
     const respuesta = resultado.map((entidad) => UsuarioMapper.entityToDto(entidad));
     return respuesta;
   }
-
+//=======================================================================================================
 
   async findOne(id: string): Promise<SalidaUsuarioDto> {
     const usuario = await this.usuariosRepository.findOneBy({ rut: id });
@@ -71,7 +71,7 @@ export class UsuariosService {
       throw new HttpException('El rut ingresado no tiene usuario creado', HttpStatus.BAD_REQUEST);
     }
   }
-
+//=======================================================================================================
   async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
     const existe = await this.usuariosRepository.existsBy({ rut: id })
     if (existe) {

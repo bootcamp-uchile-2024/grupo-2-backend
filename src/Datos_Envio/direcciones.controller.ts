@@ -44,11 +44,12 @@ async updateDireccion(
   return this.direccionesService.updateByRutUsuario(rut_usuario, updateDireccioneDto); // Llamada al servicio con rut_usuario
 }
 //================================================================================================
-
-  @ApiResponse({ status: 200, description: 'Direcciones eliminada correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede eliminar la direccion' })
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.direccionesService.remove(+id);
-  }
+/*
+@ApiResponse({ status: 200, description: 'Dirección eliminada correctamente' })
+@ApiResponse({ status: 404, description: 'Dirección no encontrada' })
+@ApiParam({ name: 'id', description: 'ID de la dirección' })
+@Delete(':id') // Ruta para eliminar una dirección por ID
+async remove(@Param('id') id: number) {
+  return this.direccionesService.remove(id); // Llamamos al servicio para eliminar la dirección
+}*/
 }

@@ -9,6 +9,7 @@ import { Proveedor } from 'src/Proveedores/entities/proveedores.entity';
 import { Amargor } from 'src/Amargor/amargor.entity';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
 import { getCerveza } from './dto/create-cerveza.dto copy';
+import { promises as FS} from 'fs';
 
 
 @Injectable()
@@ -140,5 +141,56 @@ export class CervezasService {
     }
   }
 
+  async cargarImagenCerveza(id: number, file: Express.Multer.File): Promise<string> {
+    const ruta = './imagenes-cervezas'
+    const extension = file.originalname.split('.')[1];
+    const ruta_imagen = `${ruta}/${id}.${extension}`;
+
+    try{
+      await FS.writeFile(ruta_imagen, file.buffer);
+      await this.CervezaRepository.update(id, {imagen: ruta_imagen});
+    }catch {
+      throw new HttpException('La imagen no pudo ser cargada', HttpStatus.BAD_REQUEST);
+    };
+
+    return '';
+  }
+
+  async actualizarImagenCerveza(id: number, file: Express.Multer.File): Promise<string> {
+    const ruta = './imagenes-cervezas'
+    const extension = file.originalname.split('.')[1];
+    const nueva_ruta_imagen = `${ruta}/${id}.${extension}`;
+    const cerveza = await this.CervezaRepository.findOneBy({id: id});
+    if(cerveza){
+      const ruta_imagen = cerveza.imagen;
+      try{
+        await FS.rm(ruta_imagen);
+        await FS.writeFile(nueva_ruta_imagen, file.buffer);
+        await this.CervezaRepository.update(id, {imagen: nueva_ruta_imagen});
+      }catch {
+        throw new HttpException('La imagen no pudo ser actualizada', HttpStatus.BAD_REQUEST);
+      }
+    }else{
+      throw new HttpException('El id de cerveza ingresado no existe', HttpStatus.BAD_REQUEST);
+    }
+    return '';
+  }
+
+  async eliminarImagenCerveza(id: number): Promise<string> {
+    const ruta = './imagenes-cervezas'
+    const cerveza = await this.CervezaRepository.findOneBy({id: id});
+    if(cerveza){
+      const ruta_imagen = cerveza.imagen;
+      try{
+        await FS.rm(ruta_imagen);
+        await this.CervezaRepository.update(id, {imagen: null});
+      }catch {
+        throw new HttpException('La imagen no pudo ser eliminada', HttpStatus.BAD_REQUEST);
+      }
+    }else{
+      throw new HttpException('El id de cerveza ingresado no existe', HttpStatus.BAD_REQUEST);
+    }
+    return '';
+  }
 
 }

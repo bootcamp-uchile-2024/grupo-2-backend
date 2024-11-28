@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { CervezasService } from './cervezas.service';
 import { CreateCervezaDto } from './dto/create-cerveza.dto';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
@@ -7,6 +7,7 @@ import { Formato } from 'src/enum/formato';
 import { Region } from 'src/enum/regiones';
 import { IBU } from 'src/enum/amargor';
 import { Comuna } from 'src/enum/comunas';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('cervezas')
 @ApiTags('Cervezas')
@@ -50,6 +51,30 @@ export class CervezasController {
   @ApiResponse({ status: 400, description: 'Cerveza no existe' })
   remove(@Param('id') id: string) {
    return this.cervezasService.remove(+id);
+  }
+
+  @Post(':id/cargarimagen')
+  @ApiResponse({ status: 200, description: 'imagen cargada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no existe' })
+  @UseInterceptors(FilesInterceptor('imagen'))
+  cargarImagenCerveza(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) {
+   return this.cervezasService.cargarImagenCerveza(+id, file);
+  }
+
+  @Post(':id/cargarimagen')
+  @ApiResponse({ status: 200, description: 'imagen actualizada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no existe o no pudo cargarse el archivo' })
+  @UseInterceptors(FilesInterceptor('imagen'))
+  actualizarImagenCerveza(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) {
+   return this.cervezasService.actualizarImagenCerveza(+id, file);
+  }
+
+
+  @Post(':id/eliminarimagen')
+  @ApiResponse({ status: 200, description: 'imagen eliminada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no existe' })
+  eliminarImagenCerveza(@Param('id') id: string) {
+   return this.cervezasService.eliminarImagenCerveza(+id);
   }
 
 

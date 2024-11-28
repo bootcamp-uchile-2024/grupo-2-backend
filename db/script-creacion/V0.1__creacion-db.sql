@@ -1,8 +1,3 @@
-
-CREATE DATABASE IF NOT EXISTS Cervezario;
-
-USE Cervezario;
-
 CREATE TABLE Region (
     id VARCHAR(2) PRIMARY KEY,
     nombre VARCHAR(100)
@@ -139,7 +134,7 @@ CREATE TABLE Pedido_Cerveza (
 
 CREATE TABLE Carrito (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    total_a_pagar DECIMAL(10,0),
+    total_a_pagar DECIMAL(10,0)
 );
 
 CREATE TABLE Promocion_Suscripcion (

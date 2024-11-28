@@ -27,6 +27,7 @@ import { DireccionesModule } from './Datos_Envio/direcciones.module';
 import { Suscripcion } from './suscripciones/entities/suscripcione.entity';
 import { Usuario } from './usuarios/entities/usuario.entity';
 import { Direccione } from './Datos_Envio/entities/direccione.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [ConfigModule.forRoot(
@@ -47,8 +48,12 @@ import { Direccione } from './Datos_Envio/entities/direccione.entity';
       password: 'clave123',
       database: 'Cervezario',
       entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comuna, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione]
-      })
-    ,EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
+      }),
+    ServeStaticModule.forRoot({
+      rootPath: './archivos',
+      serveRoot: '/archivos'
+      }),
+    EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],
   providers: [AppService],
 })

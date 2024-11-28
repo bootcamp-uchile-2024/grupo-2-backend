@@ -1,4 +1,4 @@
-USE Cervezario;
+
 -- Insertar datos en la tabla Región
 INSERT INTO Region (id, nombre) VALUES
 ('AP', 'Región de Arica y Parinacota'),
@@ -487,6 +487,16 @@ INSERT INTO Pedido (estado, fecha_ingreso, fecha_entrega, rut_comprador, direcci
 ('Aceptado', '2024-10-09', '2024-10-13', '15975348-6', 9),
 ('Enviado', '2024-10-10', '2024-10-14', '75395124-0', 10);
 
+INSERT INTO Carrito(total_a_pagar) VALUES
+(12000),
+(20500),
+(17000),
+(14000),
+(32000),
+(52000),
+(18000),
+(35000);
+
 INSERT INTO Pedido_Cerveza (id_carrito, id_cerveza, cantidad) VALUES
 (1,3,5),
 (1,4,3),
@@ -495,7 +505,6 @@ INSERT INTO Pedido_Cerveza (id_carrito, id_cerveza, cantidad) VALUES
 (6,3,9),
 (7,4,3),
 (8,3,5),
-(9,10,3),
 (3,9,5),
 (4,8,15);
 
@@ -509,12 +518,4 @@ INSERT INTO Documento (tipo, comentario) VALUES
 ('boleta', 'texto7'),
 ('boleta', 'texto8');
 
-INSERT INTO Carrito(total_a_pagar) VALUES
-(12000),
-(20500),
-(17000),
-(14000),
-(32000),
-(52000),
-(18000),
-(35000);
+

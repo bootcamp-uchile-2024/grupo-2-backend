@@ -153,7 +153,7 @@ export class CervezasService {
       throw new HttpException('La imagen no pudo ser cargada', HttpStatus.BAD_REQUEST);
     };
 
-    return '';
+    return 'Imagen cargada exitosamente';
   }
 
   async actualizarImagenCerveza(id: number, file: Express.Multer.File): Promise<string> {

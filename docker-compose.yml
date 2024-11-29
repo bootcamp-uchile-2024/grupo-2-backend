@@ -27,4 +27,5 @@ services:
       - ./db/script-creacion:/flyway/sql
     command: -url=jdbc:mysql://db:${DB_PORT}/${DB_NAME}?allowPublicKeyRetrieval=true -user=${DB_USER} -password=${DB_PASS_ROOT} -connectRetries=60 migrate
     depends_on: 
-      - db
+      db:
+        condition: service_started

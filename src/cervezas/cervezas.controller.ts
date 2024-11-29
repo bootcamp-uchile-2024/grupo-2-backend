@@ -1,13 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { CervezasService } from './cervezas.service';
 import { CreateCervezaDto } from './dto/create-cerveza.dto';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Formato } from 'src/enum/formato';
-import { Region } from 'src/enum/regiones';
-import { IBU } from 'src/enum/amargor';
-import { Comuna } from 'src/enum/comunas';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('cervezas')
 @ApiTags('Cervezas')
@@ -56,17 +52,17 @@ export class CervezasController {
   @Post(':id/cargarimagen')
   @ApiResponse({ status: 200, description: 'imagen cargada' })
   @ApiResponse({ status: 400, description: 'Cerveza no existe' })
-  @UseInterceptors(FilesInterceptor('imagen'))
-  cargarImagenCerveza(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) {
-   return this.cervezasService.cargarImagenCerveza(+id, file);
+  @UseInterceptors(FileInterceptor('imagen'))
+  async cargarImagenCerveza(@Param('id') id: string, @UploadedFile() file): Promise<string> {
+    return this.cervezasService.cargarImagenCerveza(+id, file);
   }
 
-  @Post(':id/cargarimagen')
+  @Post(':id/actualizarimagen')
   @ApiResponse({ status: 200, description: 'imagen actualizada' })
   @ApiResponse({ status: 400, description: 'Cerveza no existe o no pudo cargarse el archivo' })
-  @UseInterceptors(FilesInterceptor('imagen'))
-  actualizarImagenCerveza(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) {
-   return this.cervezasService.actualizarImagenCerveza(+id, file);
+  @UseInterceptors(FileInterceptor('imagen'))
+  async actualizarImagenCerveza(@Param('id') id: string, @UploadedFile() file: Express.Multer.File): Promise<string> {
+    return this.cervezasService.actualizarImagenCerveza(+id, file);
   }
 
 
@@ -76,6 +72,4 @@ export class CervezasController {
   eliminarImagenCerveza(@Param('id') id: string) {
    return this.cervezasService.eliminarImagenCerveza(+id);
   }
-
-
 }

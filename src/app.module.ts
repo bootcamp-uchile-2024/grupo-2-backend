@@ -50,8 +50,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comunas, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione]
       }),
     ServeStaticModule.forRoot({
-      rootPath: './archivos',
-      serveRoot: '/archivos'
+      rootPath: './imagenes-cervezas',
+      serveRoot: '/imagenes-cervezas'
       }),
     EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],

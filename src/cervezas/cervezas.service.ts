@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateCervezaDto } from './dto/create-cerveza.dto';
+import { CreateCervezaDto, estado } from './dto/create-cerveza.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { Cerveza } from './entities/cerveza.entity';
@@ -8,7 +8,7 @@ import { TipoCerveza } from 'src/tipos_cerveza/tipos-cervezas.entity';
 import { Proveedor } from 'src/Proveedores/entities/proveedores.entity';
 import { Amargor } from 'src/Amargor/amargor.entity';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
-import { getCerveza } from './dto/create-cerveza.dto copy';
+import { getCerveza } from './dto/getCerveza.dto';
 import { promises as FS} from 'fs';
 
 
@@ -134,6 +134,8 @@ export class CervezasService {
       }
     })
     if(existe){
+      const cerverza = await this.CervezaRepository.findOneBy({id: id})
+      await FS.rm(cerverza.imagen);
       await this.CervezaRepository.delete(id)
       return `Se eliminó la cerveza con ID ${id}`;
     }else{
@@ -191,6 +193,21 @@ export class CervezasService {
       throw new HttpException('El id de cerveza ingresado no existe', HttpStatus.BAD_REQUEST);
     }
     return '';
+  }
+
+  async actualizarEstado(id: number, estado: estado) {
+    const existe = await this.CervezaRepository.exists({
+      where: {
+        id: id
+      }
+    })
+
+    if(existe){
+      const guardar_cerveza = await this.CervezaRepository.update(id, {is_active: estado.is_active});
+      return  `Cerveza actualizada. Estado is_active = ${estado.is_active}`;
+    }else{
+      throw new HttpException('La cerveza que se intenta actualizar no existe', HttpStatus.BAD_REQUEST);
+    }
   }
 
 }

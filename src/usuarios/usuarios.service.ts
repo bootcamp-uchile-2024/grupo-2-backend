@@ -1,8 +1,7 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { SalidaUsuarioDto } from './dto/salida-usuario.dto';
-import { DireccionesService } from 'src/Datos_Envio/direcciones.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Usuario } from './entities/usuario.entity';
@@ -17,8 +16,8 @@ export class UsuariosService {
     @InjectRepository(Direccione) private readonly datosEnvioRepository: Repository<Direccione>,
     @InjectRepository(Pedido) private readonly pedidoRepository: Repository<Pedido>) { }
 
-  async existsByRut(rut: string): Promise<boolean> {
-    const usuario = await this.usuariosRepository.findOne({ where: { rut } });
+  async existsByRut(rut_entrada: string): Promise<boolean> {
+    const usuario = await this.usuariosRepository.findOneBy({rut: rut_entrada});
     return !!usuario;
   }
 

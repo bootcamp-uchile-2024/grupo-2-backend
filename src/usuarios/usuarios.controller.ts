@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request, Response, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -30,9 +30,9 @@ export class UsuariosController {
   
   @ApiResponse({ status: 200, description: 'Usuario encontrado' })
   @ApiResponse({ status: 404, description: 'No se encontró el usuario' })
-  @ApiParam({ name: 'Rut', description: 'RUT del usuario', required: true })
+  @ApiParam({ name: 'rut', description: 'RUT del usuario', required: true })
   @Get(':Rut')
-  findOne(@Param('Rut') id: string) {
+  findOne(@Param('rut') id: string) {
     return this.usuariosService.findOne(id);
   }
   

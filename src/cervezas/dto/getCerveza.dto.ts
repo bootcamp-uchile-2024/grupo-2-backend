@@ -34,5 +34,8 @@ export class getCerveza {
 
     @ApiProperty({ description: 'Imagen de la cerveza' })
     public imagen: string;
+
+    @ApiProperty({ description: 'tipo numérico: 1 para indicar que está activa y 0 para indicar que está inactiva' })
+    public is_active: boolean;
 }
 

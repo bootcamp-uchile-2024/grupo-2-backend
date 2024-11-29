@@ -1,14 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, Matches, Min, Length, IsEnum, IsOptional } from "class-validator";
+import { IsNotEmpty, IsString, Min, IsEnum, IsOptional, Validate } from "class-validator";
 import { TipoSuscripcion } from "src/enum/tipo-suscripcion";
-import {IsCorreoTelefonoRequerido} from 'src/common/validadorTelYCorreoUsuario';
+import { IsCorreoTelefonoRequerido } from 'src/common/validadorTelYCorreoUsuario';
+import { RutValidator } from "../pipe/rutValidation.pipe";
 
 
 export class CreateUsuarioDto {
     @IsNotEmpty({ message: 'El rut del usuario es requerido' })
     @IsString()
-    @Length(9, 10, { message: 'El rut del usuario debe tener entre 9 y 10 caracteres' })
-    @Matches(/^\d{1,8}-[0-9Kk]{1}$/, { message: 'El RUT no tiene un formato válido.' })
+    @Validate(RutValidator)
     @ApiProperty({ default: '12345678-9', description: 'sin puntos, sólo con guion' })
     public rut: string;
 

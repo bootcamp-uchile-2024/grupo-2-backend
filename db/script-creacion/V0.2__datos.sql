@@ -50,7 +50,7 @@ INSERT INTO Comuna (id, nombre, id_region) VALUES
     ('Copiapo', 'Copiapó', 'AT'),
     ('Caldera', 'Caldera', 'AT'),
     ('TierraAmarilla', 'Tierra Amarilla', 'AT'),
-    ('Chañaral', 'Chañaral', 'AT'),
+    ('Chanaral', 'Chañaral', 'AT'),
     ('DiegoDeAlmagro', 'Diego de Almagro', 'AT'),
     ('Vallenar', 'Vallenar', 'AT'),
     ('AltoDelCarmen', 'Alto del Carmen', 'AT'),
@@ -403,7 +403,8 @@ INSERT INTO Suscripcion (tipo_suscripcion, nombre, descripcion, precio, descuent
 ('SILVER', 'Plata Premium', 'Beneficios adicionales, como descuentos exclusivos y acceso anticipado a productos', 20000, 10, 1),
 ('GOLDEN', 'Oro Dorado', 'Acceso a ofertas especiales, envíos gratuitos y contenido exclusivo', 30000, 15, 1),
 ('PLATINUM', 'Platino Exclusivo', 'Beneficios premium, soporte personalizado y acceso a eventos exclusivos', 50000, 20,4),
-('ELITE', 'VIP Élite', 'Máximo nivel de suscripción con todos los beneficios, incluyendo experiencias personalizadas y prioridad en todo', 80000, 25,3);
+('ELITE', 'VIP Élite', 'Máximo nivel de suscripción con todos los beneficios, incluyendo experiencias personalizadas y prioridad en todo', 80000, 25,3),
+('SIN_SUSCRIPCION', 'Sin Suscripción', 'Acceso limitado a características y sin descuentos', 0, 0, 2);
 
 -- Insertar datos en la tabla Categoria
 INSERT INTO Tipo_Cerveza (tipo, nombre, descripcion) VALUES
@@ -463,17 +464,17 @@ INSERT INTO Usuario (rut, nombre, apellido, contrasena, edad, tipo_suscripcion) 
 ('15975348-6', 'Luis', 'Torres', 'contraseña9', 45, 'PLATINUM'),
 ('75395124-0', 'Elena', 'Vásquez', 'contraseña10', 38, 'ELITE');
 
-INSERT INTO Datos_Envio (calle, numero, departamento, id_comuna, codigo_postal, rut_usuario, telefono, correo_electronico) VALUES
-('Av. Libertador', '123', 'A', 'Aisen', '1234567', '12345678-9', '987654321', 'carlos.perez@example.com'),
-('Calle Los Cerezos', '456', 'B', 'Angol', '2345678', '98765432-1', '912345678', 'laura.gomez@example.com'),
-('Calle 5 de Abril', '789', '', 'Curico', '3456789', '45678912-3', '987123456', 'martin.lopez@example.com'),
-('Calle San Martín', '321', 'C', 'Dalcahue', '4567890', '32165498-7', '998877665', 'sofia.martinez@example.com'),
-('Calle del Sol', '654', 'D', 'LaReina', '5678901', '14725836-9', '945678123', 'pedro.fernandez@example.com'),
-('Calle del Río', '987', '', 'LaReina', '6789012', '96385274-1', '951753852', 'ana.ramirez@example.com'),
-('Calle de la Paz', '159', 'E', 'EstacionCentral', '7890123', '25896314-5', '789456123', 'jorge.santiago@example.com'),
-('Calle de los Olmos', '753', '', 'Curico', '8901234', '78945612-3', '123456789', 'claudia.rojas@example.com'),
-('Calle del Viento', '258', 'F', 'EstacionCentral', '9012345', '15975348-6', '456123789', 'luis.torres@example.com'),
-('Calle de la Luna', '147', '', 'Providencia', '0123456', '75395124-0', '321987654', 'elena.vasquez@example.com');
+INSERT INTO Datos_Envio (calle, numero, departamento, id_comuna, codigo_postal, rut_usuario, telefono, correo_electronico, estado) VALUES
+('Av. Libertador', '123', 'A', 'Aisen', '1234567', '12345678-9', '987654321', 'carlos.perez@example.com','activa'),
+('Calle Los Cerezos', '456', 'B', 'Angol', '2345678', '98765432-1', '912345678', 'laura.gomez@example.com','activa'),
+('Calle 5 de Abril', '789', '', 'Curico', '3456789', '45678912-3', '987123456', 'martin.lopez@example.com','activa'),
+('Calle San Martín', '321', 'C', 'Dalcahue', '4567890', '32165498-7', '998877665', 'sofia.martinez@example.com','activa'),
+('Calle del Sol', '654', 'D', 'LaReina', '5678901', '14725836-9', '945678123', 'pedro.fernandez@example.com','activa'),
+('Calle del Río', '987', '', 'LaReina', '6789012', '96385274-1', '951753852', 'ana.ramirez@example.com','activa'),
+('Calle de la Paz', '159', 'E', 'EstacionCentral', '7890123', '25896314-5', '789456123', 'jorge.santiago@example.com','activa'),
+('Calle de los Olmos', '753', '', 'Curico', '8901234', '78945612-3', '123456789', 'claudia.rojas@example.com','activa'),
+('Calle del Viento', '258', 'F', 'EstacionCentral', '9012345', '15975348-6', '456123789', 'luis.torres@example.com','activa'),
+('Calle de la Luna', '147', '', 'Providencia', '0123456', '75395124-0', '321987654', 'elena.vasquez@example.com','activa');
 
 INSERT INTO Pedido (estado, fecha_ingreso, fecha_entrega, rut_comprador, direccion_entrega) VALUES
 ('Aceptado', '2024-10-01', '2024-10-05', '12345678-9', 1),
@@ -486,16 +487,6 @@ INSERT INTO Pedido (estado, fecha_ingreso, fecha_entrega, rut_comprador, direcci
 ('Creado', '2024-10-08', '2024-10-12', '78945612-3', 8),
 ('Aceptado', '2024-10-09', '2024-10-13', '15975348-6', 9),
 ('Enviado', '2024-10-10', '2024-10-14', '75395124-0', 10);
-
-INSERT INTO Carrito(total_a_pagar) VALUES
-(12000),
-(20500),
-(17000),
-(14000),
-(32000),
-(52000),
-(18000),
-(35000);
 
 INSERT INTO Pedido_Cerveza (id_carrito, id_cerveza, cantidad) VALUES
 (1,3,5),
@@ -518,4 +509,12 @@ INSERT INTO Documento (tipo, comentario) VALUES
 ('boleta', 'texto7'),
 ('boleta', 'texto8');
 
-
+INSERT INTO Carrito(total_a_pagar) VALUES
+(12000),
+(20500),
+(17000),
+(14000),
+(32000),
+(52000),
+(18000),
+(35000);

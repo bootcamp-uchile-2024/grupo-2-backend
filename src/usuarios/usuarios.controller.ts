@@ -3,6 +3,7 @@ import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiParam } from '@nestjs/swagger';
 
 @Controller('usuarios')
 @ApiTags('Usuarios')
@@ -29,18 +30,20 @@ export class UsuariosController {
   
   @ApiResponse({ status: 200, description: 'Usuario encontrado' })
   @ApiResponse({ status: 404, description: 'No se encontró el usuario' })
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @ApiParam({ name: 'Rut', description: 'RUT del usuario', required: true })
+  @Get(':Rut')
+  findOne(@Param('Rut') id: string) {
     return this.usuariosService.findOne(id);
   }
   
   @ApiResponse({ status: 200, description: 'Usuario editado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede editar el usuario' })
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
+  @Patch(':rut')
+  update(@Param('rut') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
     return this.usuariosService.update(id, updateUsuarioDto);
   }
 
+  
   /*
   @ApiResponse({ status: 200, description: 'Usuario eliminado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede eliminar el usuario' })

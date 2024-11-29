@@ -1,7 +1,7 @@
 import { UpdateCarritoDto } from "src/carrito/dto/update-carrito.dto";
 import { Pedido_Cerveza } from "../entities/pedido_cervezas.entity";
 
-export class PedidoCervezaMapper{
+export class PedidoMapper{
 
     static dtoToEntityList(id_pedido: number, dto: UpdateCarritoDto): Pedido_Cerveza[]{
         let pedido_cervezas: Pedido_Cerveza[] = [];

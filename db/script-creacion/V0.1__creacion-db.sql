@@ -44,12 +44,14 @@ CREATE TABLE Personaje (
 
 CREATE TABLE Suscripcion (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    tipo_suscripcion VARCHAR(50) UNIQUE,
+    tipo_suscripcion ENUM('BRONZE', 'SILVER', 'GOLDEN', 'PLATINUM', 'ELITE', 'SIN_SUSCRIPCION') NOT NULL,
     nombre VARCHAR(50),
     descripcion TEXT,
     precio DECIMAL(10,0),
     descuento DECIMAL(5,2),
-    tipo_envio INT
+    tipo_envio INT,
+    -- Agregar el índice en la columna tipo_suscripcion
+    INDEX (tipo_suscripcion)
 );
 
 CREATE TABLE Formulario_Preferencias (
@@ -89,7 +91,7 @@ CREATE TABLE Perfil (
     id INT PRIMARY KEY AUTO_INCREMENT,
     id_personaje INT,
     historial_pedido INT,
-    tipo_suscripcion VARCHAR(50),
+    tipo_suscripcion ENUM('BRONZE', 'SILVER', 'GOLDEN', 'PLATINUM', 'ELITE', 'SIN_SUSCRIPCION') NOT NULL,
     id_formulario INT,
     recomendaciones TEXT,
     nivel_usuario VARCHAR(50)
@@ -101,7 +103,9 @@ CREATE TABLE Usuario (
     apellido VARCHAR(100),
     contrasena VARCHAR(100),
     edad INT,
-    tipo_suscripcion VARCHAR(50)
+    tipo_suscripcion ENUM('BRONZE', 'SILVER', 'GOLDEN', 'PLATINUM','ELITE', 'SIN_SUSCRIPCION') NOT NULL,
+    telefono_comprador VARCHAR(15),
+    correo_comprador VARCHAR(100)
 );
 
 CREATE TABLE Datos_Envio (
@@ -113,7 +117,8 @@ CREATE TABLE Datos_Envio (
     codigo_postal VARCHAR(7),
     rut_usuario VARCHAR(12),
     telefono VARCHAR(15),
-    correo_electronico VARCHAR(100)
+    correo_electronico VARCHAR(100),
+    estado VARCHAR(100)
 );
 
 CREATE TABLE Pedido (
@@ -126,10 +131,12 @@ CREATE TABLE Pedido (
 );
 
 CREATE TABLE Pedido_Cerveza (
-    id_carrito INT,
+    id_pedido INT,  
     id_cerveza INT,
     cantidad INT,
-    PRIMARY KEY (id_carrito, id_cerveza)
+    PRIMARY KEY (id_pedido, id_cerveza),
+    FOREIGN KEY (id_pedido) REFERENCES Pedido(id) ON DELETE CASCADE, -- Agregado ON DELETE CASCADE
+    FOREIGN KEY (id_cerveza) REFERENCES Cerveza(id)
 );
 
 CREATE TABLE Carrito (
@@ -186,10 +193,6 @@ ADD FOREIGN KEY (rut_usuario) REFERENCES Usuario(rut);
 ALTER TABLE Pedido
 ADD FOREIGN KEY (rut_comprador) REFERENCES Usuario(rut),
 ADD FOREIGN KEY (direccion_entrega) REFERENCES Datos_Envio(id);
-
-ALTER TABLE Pedido_Cerveza
-ADD FOREIGN KEY (id_carrito) REFERENCES Carrito(id),
-ADD FOREIGN KEY (id_cerveza) REFERENCES Cerveza(id);
 
 ALTER TABLE Promocion_Suscripcion
 ADD FOREIGN KEY (id_suscripcion) REFERENCES Suscripcion(id),

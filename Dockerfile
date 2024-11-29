@@ -7,7 +7,6 @@ COPY tsconfig.json /home/node/nest/tsconfig.json
 COPY tsconfig.build.json /home/node/nest/tsconfig.build.json
 RUN npm install && npm run build
 
-
 FROM node:22-alpine3.19
 USER node
 WORKDIR /home/node/app

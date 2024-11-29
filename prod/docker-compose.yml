@@ -1,13 +1,15 @@
 services:
   cervezario-app-prod:
-    image: kmreyes/cervezarionacional:2.1.1
+    image: kmreyes/cervezarionacional:2.2.1
     env_file:
       - .env
     volumes:
       - ./imagenes-cervezas:/usr/src/app/imagenes-cervezas
     ports:
       - "3000:${NESTJS_PORT}"
-    command: "npm run start:prod"
+    depends_on: 
+      db:
+        condition: service_started
   db:
     image: mysql:${DB_VERSION}
     environment:

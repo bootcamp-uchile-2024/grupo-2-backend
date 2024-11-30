@@ -2,6 +2,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { TipoCerveza } from "src/enum/tipos-cerveza";
 
 export class getCerveza {
+    @ApiProperty({description: 'id de la cerveza' })
+    public id: number;
+    
     @ApiProperty({description: 'Nombre de la cerveza' })
     public nombre: string;
 

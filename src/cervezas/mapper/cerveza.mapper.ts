@@ -19,6 +19,7 @@ export class CervezaMapper{
 
     static entityToDto(entidad: Cerveza): getCerveza{
         const cerveza = new getCerveza();
+        cerveza.id = entidad.id;
         cerveza.nombre = entidad.nombre;
         cerveza.marca = entidad.marca;
         cerveza.descripcion = entidad.descripcion;

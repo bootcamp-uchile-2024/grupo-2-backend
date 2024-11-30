@@ -1,10 +1,10 @@
 services:
   cervezario-app-prod:
-    image: kmreyes/cervezarionacional:2.2.1
+    image: kmreyes/cervezarionacional:2.2.2
     env_file:
       - .env
     volumes:
-      - ./imagenes-cervezas:/usr/src/app/imagenes-cervezas
+      - ./imagenes-cervezas:/home/node/app/imagenes-cervezas
     ports:
       - "3000:${NESTJS_PORT}"
     depends_on: 

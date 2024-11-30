@@ -17,3 +17,6 @@ COPY package.json /home/node/app/package.json
 COPY prod/.env /home/node/app/.env
 RUN npm install --production
 CMD npm run start:prod
+
+
+

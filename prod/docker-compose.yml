@@ -1,6 +1,6 @@
 services:
   cervezario-app-prod:
-    image: kmreyes/cervezarionacional:2.2.2
+    image: kmreyes/cervezarionacional:2.3.2
     env_file:
       - .env
     volumes:

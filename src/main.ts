@@ -45,6 +45,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new CommonInterceptor());
   app.useGlobalFilters(new CommonFilter());
 
-  await app.listen(3000);
+  await app.listen(process.env.NESTJS_PORT);
 }
 bootstrap();

@@ -2,6 +2,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { TipoCerveza } from "src/enum/tipos-cerveza";
 
 export class getCerveza {
+    @ApiProperty({description: 'id de la cerveza' })
+    public id: number;
+    
     @ApiProperty({description: 'Nombre de la cerveza' })
     public nombre: string;
 
@@ -34,5 +37,8 @@ export class getCerveza {
 
     @ApiProperty({ description: 'Imagen de la cerveza' })
     public imagen: string;
+
+    @ApiProperty({ description: 'tipo numérico: 1 para indicar que está activa y 0 para indicar que está inactiva' })
+    public is_active: boolean;
 }
 

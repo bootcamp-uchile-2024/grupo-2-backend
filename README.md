@@ -50,11 +50,6 @@ Para iniciar el proyecto, sigue estos pasos:
    npm install
    ```
 
-4. Crea un archivo .env en la raíz del proyecto para las variables de entorno (si es necesario):
-   ```bash
-   cp .env.example .env
-   ```
-
 ## 3. Configuración
 
 1. Variables principales de Entorno a utilizar en archivo .env anteriormente creado
@@ -69,7 +64,7 @@ Para iniciar el proyecto, sigue estos pasos:
     ```bash
     PORT=3000
     APP_NAME=Cervezario Nacional
-    APP_VERSION=1.0.0
+    APP_VERSION=2.1.1
     LOG_LEVEL=info
     AMBIENTE=desarrollo
     ```
@@ -86,28 +81,18 @@ Para iniciar el proyecto, sigue estos pasos:
 Para ejecutar el proyecto en modo desarrollo, usa el siguiente comando:
 1. Levanta el contenedor de Docker con los servicios necesarios:
    ```bash
-   docker compose up -d db
+   docker compose up -d
    ```
-    Esto levantará el servicio de base de datos
+    Esto levantará todos los servicios definidos en tu archivo `docker-compose.yml` y permitirá que trabajes en tu entorno local. Se utiliza Flyway para la ejecución de los scripts de creación de la base de datos.
+
+2. Dado que el levantamiento se realiza en segundo plano, puedes utilizar el siguiente comando para ver los logs de docker:
+   ```bash
+   docker logs -f
+   ```
     
-2. Establecer la conexión desde herramientas como MySQL Workbench o cualquier cliente de base de datos preferido para realizar configuraciones necesarias.
-   
-3. Ejecuta el scrip de creacion directamente en Workbrench, ubicado en el directorio 
+3. Verifica si los datos estan cargados correctamente en la Base de Datos, en caso que debas cargarlos manualmente debes ejecutar el scrip ubicado en
    ```bash
-     grupo-2-backend/db/script-creacion/creacion-db.sql
-   ```
-4. Una vez establecida la conexión a la base de datos, detén el contenedor de base de datos:
-   ```bash
-   docker-compose down
-    ```
-5. Levanta todos los servicios definidos en el docker-compose.yml en segundo plano para iniciar la aplicación completa:
-    ```bash
-    docker-compose up -d
-     ```
-    Esto levantará todos los servicios definidos en tu archivo `docker-compose.yml` y permitirá que trabajes en tu entorno local.
-6. Verifica si los datos estan cargados correctamente en la Base de Datos, en caso que debas cargarlos manualmente debes    ejecutar el scrip ubicado en
-   ```bash
-     grupo-2-backend/db/script-creacion/datos.sql
+     grupo-2-backend/db/script-creacion
    ```
 
 #### 4.2. Ejecución - Producción
@@ -116,11 +101,11 @@ Para ejecutar el proyecto en modo producción, primero debes cambiar el director
    ```bash
      ./grupo-2-backend/prod
   ``` 
-asegúrate de construir el proyecto:
-```bash
-docker-compose up --build
-```
-Este comando reconstruirá la imagen del contenedor si ha habido cambios en el Dockerfile y levantará el servicio en producción. Asegúrate de que las configuraciones necesarias estén adecuadamente definidas en tu archivo .env para el entorno de producción.
+luego levanta los servicios utilizando el comando:
+   ```bash
+   docker compose up -d
+   ```
+Esto levantará todos los servicios definidos en tu archivo `docker-compose.yml` de producción. Se utiliza Flyway para la ejecución de los scripts de creación de la base de datos y se utiliza una imagen docker precreada de la aplicación desarrollada: kmreyes/cervezarionacional:2.2.2
 
 ## 5. Estructura del Proyecto
 La estructura del proyecto sigue un patrón modular, facilitando la organización del código y la escalabilidad. A continuación, se describen las carpetas más importantes y su propósito:

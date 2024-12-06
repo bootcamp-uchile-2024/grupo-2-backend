@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Formato } from 'src/enum/formato';
 import { IBU } from 'src/enum/amargor';
 import { TipoCerveza } from 'src/enum/tipos-cerveza';
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { createProveedor } from 'src/Proveedores/dto/creacionProveedores.dto';
 
 export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
@@ -65,4 +65,9 @@ export class UpdateCervezaDto extends PartialType(CreateCervezaDto) {
     @IsNotEmpty({message: 'La imagen de la cerveza es requerida'})
     @ApiProperty({ default: 'https://placehold.co/400x600', description: 'Imagen de la cerveza' })
     public imagen: string;
+
+    @IsBoolean()
+    @IsNotEmpty({message: 'El estado de la cerveza es requerida'})
+    @ApiProperty({ default: true, description: 'booleano: true para indicar que está activa y false para indicar que está inactiva' })
+    public is_active: boolean;
 }

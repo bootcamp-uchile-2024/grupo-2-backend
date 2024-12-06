@@ -7,7 +7,6 @@ COPY tsconfig.json /home/node/nest/tsconfig.json
 COPY tsconfig.build.json /home/node/nest/tsconfig.build.json
 RUN npm install && npm run build
 
-
 FROM node:22-alpine3.19
 USER node
 WORKDIR /home/node/app
@@ -18,3 +17,6 @@ COPY package.json /home/node/app/package.json
 COPY prod/.env /home/node/app/.env
 RUN npm install --production
 CMD npm run start:prod
+
+
+

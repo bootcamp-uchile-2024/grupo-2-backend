@@ -1,20 +1,30 @@
 services:
   cervezario-app-prod:
-    image: kmreyes/cervezarionacional:2.1.1
+    image: kmreyes/cervezarionacional:2.2.2
     env_file:
       - .env
+    volumes:
+      - ./imagenes-cervezas:/home/node/app/imagenes-cervezas
     ports:
       - "3000:${NESTJS_PORT}"
-    command: "npm run start:prod"
+    depends_on: 
+      db:
+        condition: service_started
   db:
     image: mysql:${DB_VERSION}
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASS_ROOT}
       MYSQL_DATABASE: ${DB_NAME} 
     volumes:
-      - ./db/script-creacion/creacion-db.sql:/docker-entrypoint-initdb.d/1.sql
-      - ./db/script-creacion/datos.sql:/docker-entrypoint-initdb.d/2.sql
       - ./db/data_prod:/var/lib/mysql
     ports:
       - "3306:${DB_PORT}"
     platform: linux/amd64
+  flyway:
+    image: flyway/flyway:10.20.1-alpine
+    volumes:
+      - ./db/script-creacion:/flyway/sql
+    command: -url=jdbc:mysql://db:${DB_PORT}/${DB_NAME}?allowPublicKeyRetrieval=true -user=${DB_USER} -password=${DB_PASS_ROOT} -connectRetries=60 migrate
+    depends_on: 
+      db:
+        condition: service_started

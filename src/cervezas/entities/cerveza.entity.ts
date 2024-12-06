@@ -43,6 +43,9 @@ export class Cerveza {
   @Column()
   public imagen: string;
 
+  @Column()
+  public is_active: boolean;
+
   @ManyToOne(() => Proveedor)
   @JoinColumn({ name: 'id_proveedor' })
   proveedor: Proveedor;

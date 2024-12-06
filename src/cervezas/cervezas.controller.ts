@@ -1,12 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { CervezasService } from './cervezas.service';
-import { CreateCervezaDto } from './dto/create-cerveza.dto';
+import { CreateCervezaDto, estado } from './dto/create-cerveza.dto';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Formato } from 'src/enum/formato';
-import { Region } from 'src/enum/regiones';
-import { IBU } from 'src/enum/amargor';
-import { Comuna } from 'src/enum/comunas';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('cervezas')
 @ApiTags('Cervezas')
@@ -52,5 +49,34 @@ export class CervezasController {
    return this.cervezasService.remove(+id);
   }
 
+  @Post(':id/cargarimagen')
+  @ApiResponse({ status: 200, description: 'imagen cargada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no existe' })
+  @UseInterceptors(FileInterceptor('imagen'))
+  async cargarImagenCerveza(@Param('id') id: string, @UploadedFile() file): Promise<string> {
+    return this.cervezasService.cargarImagenCerveza(+id, file);
+  }
 
+  @Post(':id/actualizarimagen')
+  @ApiResponse({ status: 200, description: 'imagen actualizada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no existe o no pudo cargarse el archivo' })
+  @UseInterceptors(FileInterceptor('imagen'))
+  async actualizarImagenCerveza(@Param('id') id: string, @UploadedFile() file: Express.Multer.File): Promise<string> {
+    return this.cervezasService.actualizarImagenCerveza(+id, file);
+  }
+
+  @Post(':id/eliminarimagen')
+  @ApiResponse({ status: 200, description: 'imagen eliminada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no existe' })
+  eliminarImagenCerveza(@Param('id') id: string) {
+   return this.cervezasService.eliminarImagenCerveza(+id);
+  }
+
+  @Patch(':id/actualizarestado')
+  @ApiResponse({ status: 200, description: 'Cerveza actualizada' })
+  @ApiResponse({ status: 400, description: 'Cerveza no existe' })
+  actualizarEstado(@Param('id') id: string, @Body() estado: estado) {
+   return this.cervezasService.actualizarEstado(+id, estado);
+  }
+  
 }

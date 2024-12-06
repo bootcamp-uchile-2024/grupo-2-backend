@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Comuna } from "src/Comunas/comunas.entity";
+import { Comunas } from "src/Comunas/comunas.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: "Proveedor"})
@@ -23,8 +23,8 @@ export class Proveedor{
   @Column()
   public correo_electronico: string;
 
-  @ManyToOne(() => Comuna)
+  @ManyToOne(() => Comunas)
   @JoinColumn({ name: 'id_comuna' })
-  comuna: Comuna;
+  comuna: Comunas;
 
 }

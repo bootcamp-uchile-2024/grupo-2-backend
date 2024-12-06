@@ -1,9 +1,11 @@
 # compiled output
+imagenes-cervezas/.
 db/data_dev
 /dist
 /node_modules
 /build
-prod/db
+prod/db/data_prod
+prod/imagenes-cervezas/.
 
 # Logs
 logs

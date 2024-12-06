@@ -1,30 +1,30 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Comunas } from "src/Comunas/comunas.entity";
 import { Comuna } from "src/enum/comunas";
 import { Column, Entity, PrimaryColumn } from "typeorm";
+import { JoinColumn, ManyToOne } from "typeorm";
+import { PrimaryGeneratedColumn } from "typeorm";
+
 
 @Entity('Datos_Envio')
 export class Direccione {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     public id: number;
 
     @Column()
-    @ApiProperty({ default: 'Calle dirección' })
+    @ApiProperty({ default: 'Seminario' })
     public calle: string;
 
     @Column()
-    @ApiProperty({ default: 'Número dirección' })
+    @ApiProperty({ default: '10352' })
     public numero: number;
 
     @Column()
-    @ApiProperty({ default: 'Numero de departamento dirección' })
+    @ApiProperty({ default: '502' })
     public departamento?: string;
 
     @Column()
-    @ApiProperty({ default: 'Ciudad dirección' })
-    public id_comuna: Comuna;
-
-    @Column()
-    @ApiProperty({ default: 'Código postal dirección' })
+    @ApiProperty({ default: '2568888' })
     public codigo_Postal: string;
 
     @Column()
@@ -38,6 +38,18 @@ export class Direccione {
     @Column()
     @ApiProperty({ default: 'abc@asd.cl' })
     public correo_electronico: string;
+
+    @Column({ default: 'activa' }) // Estado por defecto
+    @ApiProperty({ default: 'activa', description: 'Estado de la dirección: activa/inactiva' })
+    public estado: string;
+
+   
+
+    @ManyToOne(() => Comunas, {nullable: false})
+    @JoinColumn({ name: 'id_comuna' })
+    id_comuna: Comunas;
+    
+
 }
 
 

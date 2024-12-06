@@ -1,12 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { IBU } from "src/enum/amargor";
-import { Comuna } from "src/enum/comunas";
 import { Formato } from "src/enum/formato";
-import { Region } from "src/enum/regiones";
 import { TipoCerveza } from "src/enum/tipos-cerveza";
 import { createProveedor } from "src/Proveedores/dto/creacionProveedores.dto";
-import { Proveedor } from "src/Proveedores/entities/proveedores.entity";
 
 
 export class CreateCervezaDto {
@@ -62,9 +59,17 @@ export class CreateCervezaDto {
     @ApiProperty({ default: 'Botella', description: 'Formato de la cerveza', enum: Formato })
     public formato: Formato;
 
-    @IsString({message: 'La imagen de la cerveza debe ser un texto'})
-    @IsNotEmpty({message: 'La imagen de la cerveza es requerida'})
-    @ApiProperty({ default: 'https://placehold.co/400x600', description: 'Imagen de la cerveza' })
-    public imagen: string;
+    @IsBoolean()
+    @IsNotEmpty({message: 'El estado de la cerveza es requerida'})
+    @ApiProperty({ default: true, description: 'booleano: true para indicar que está activa y false para indicar que está inactiva' })
+    public is_active: boolean;
 }
 
+export class estado {
+
+    @IsBoolean()
+    @IsNotEmpty({message: 'El estado de la cerveza es requerida'})
+    @ApiProperty({ default: true, description: 'booleano: true para indicar que está activa y false para indicar que está inactiva' })
+    public is_active: boolean;
+
+}

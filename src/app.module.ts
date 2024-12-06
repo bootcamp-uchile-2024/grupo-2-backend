@@ -17,7 +17,7 @@ import { Cerveza } from './cervezas/entities/cerveza.entity';
 import { Carrito } from './carrito/entities/carrito.entity';
 import { Pedido } from './pedidos/entities/pedido.entity';
 import { Pedido_Cerveza } from './pedidos/entities/pedido_cervezas.entity';
-import { Comuna } from './Comunas/comunas.entity';
+import { Comunas } from './Comunas/comunas.entity';
 import { Region } from './Region/regiones.entity';
 import { TipoCerveza } from './tipos_cerveza/tipos-cervezas.entity';
 import { Amargor } from './Amargor/amargor.entity';
@@ -27,6 +27,7 @@ import { DireccionesModule } from './Datos_Envio/direcciones.module';
 import { Suscripcion } from './suscripciones/entities/suscripcione.entity';
 import { Usuario } from './usuarios/entities/usuario.entity';
 import { Direccione } from './Datos_Envio/entities/direccione.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [ConfigModule.forRoot(
@@ -46,9 +47,13 @@ import { Direccione } from './Datos_Envio/entities/direccione.entity';
       username: 'root',
       password: 'clave123',
       database: 'Cervezario',
-      entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comuna, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione]
-      })
-    ,EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
+      entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comunas, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione]
+      }),
+    ServeStaticModule.forRoot({
+      rootPath: './imagenes-cervezas',
+      serveRoot: '/imagenes-cervezas'
+      }),
+    EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],
   providers: [AppService],
 })

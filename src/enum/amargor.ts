@@ -4,3 +4,9 @@ export enum IBU {
     Notable_40_60_IBU = 'Notable', // Amargor notable, presente en cervezas como las IPAs.
     Alto_60_IBU = 'Alto' // Amargor fuerte, característico de Imperial IPAs y algunas Stouts.
 }
+
+export enum graduacion {
+    Bajo = '1',
+    Medio = '2',
+    Alto = '3',
+}

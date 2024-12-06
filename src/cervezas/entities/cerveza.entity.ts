@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Proveedor } from "src/Proveedores/entities/proveedores.entity";
-import { TipoCerveza } from "src/tipos_cerveza/tipos-cervezas.entity";
-import { Amargor } from "src/Amargor/amargor.entity";
+import { TipoCerveza } from "src/tipos_cerveza/entity/tipos-cervezas.entity";
+import { Amargor } from "src/Amargor/entity/amargor.entity";
 import { Formato } from "src/Formato/Formatos.entity";
 
 @Entity({name: "Cerveza"})
@@ -34,7 +34,7 @@ export class Cerveza {
   @Column({name: 'id_amargor'})
   public id_amargor: string;
   
-  @Column()
+  @Column({ precision: 3, scale: 1 })
   public graduacion: number;
   
   @Column({name: 'id_formato'})

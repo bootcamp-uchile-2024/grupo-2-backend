@@ -14,8 +14,8 @@ export class TipoCerveza{
   public descripcion: string;
 
   @Column()
-  public categoria: string;
+  public categoria_id: number;
 
   @Column()
-  public color: string;
+  public color_id: number;
 }

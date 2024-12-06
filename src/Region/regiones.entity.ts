@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Collection, Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity({name: "Region"})
 export class Region{
@@ -9,4 +9,7 @@ export class Region{
 
   @Column()
   public nombre: string;
+
+  @Column()
+  public zona_id: number;
 }

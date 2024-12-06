@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseInterceptors, UploadedFile, HttpException, HttpStatus } from '@nestjs/common';
 import { CervezasService } from './cervezas.service';
 import { CreateCervezaDto, estado } from './dto/create-cerveza.dto';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
@@ -24,8 +24,19 @@ export class CervezasController {
   @ApiResponse({ status: 404, description: 'No existen Cervezas en la Base de Datos' })
   @ApiQuery({ name: 'pagina', required: true, description: 'Se debe entregar la página en la que se encuentra el usuario' })
   @ApiQuery({ name: 'cantproductos', required: true, description: 'Se debe entregar la cantidad de productos que se quieren ver en la página' })
-  findAll(@Query('pagina') pagina: number, @Query('cantproductos') cantproductos: number) {
-   return this.cervezasService.findAll(pagina, cantproductos);
+  @ApiQuery({ name: 'amargor', required: false, description: 'Se debe entregar la lista de ids de amargor seleccionados' })
+  @ApiQuery({ name: 'estilo', required: false, description: 'Se debe entregar la lista de ids de estilo seleccionados' })
+  @ApiQuery({ name: 'categoria', required: false, description: 'Se debe entregar la lista de ids de categoria seleccionadas' })
+  @ApiQuery({ name: 'grados', required: false, description: 'Se debe entregar el número según el siguiente diccionario: {1: bajo, 2: medio, 3: alto}' })
+  @ApiQuery({ name: 'color', required: false, description: 'Se debe entregar la lista de ids de colores seleccionados' })
+  @ApiQuery({ name: 'origen', required: false, description: 'Se debe entregar la lista de ids de zonas seleccionadas' })  
+  findAll(@Query('pagina') pagina: number, @Query('cantproductos') cantproductos: number, @Query('amargor') f_amargor: string[],
+   @Query('estilo') f_estilo: number[], @Query('categoria') f_categoria: number[], @Query('grados') f_grados: number,
+   @Query('color') f_color: number[], @Query('origen') f_origen: string[]) {
+    if(f_grados && (f_grados<1 || f_grados > 3)){
+      throw new HttpException('Los grados sólo pueden ser 1, 2 o 3 según diccionario', HttpStatus.BAD_REQUEST);
+    };
+    return this.cervezasService.findAll(pagina, cantproductos, f_amargor, f_estilo, f_categoria, f_grados, f_color, f_origen);
   }
   
   @Get(':id')

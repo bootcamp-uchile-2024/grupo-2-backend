@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCervezaDto, estado } from './dto/create-cerveza.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { Any, Between, In, LessThan, Like, MoreThan, Repository } from 'typeorm';
 import { Cerveza } from './entities/cerveza.entity';
 import { CervezaMapper } from './mapper/cerveza.mapper';
-import { TipoCerveza } from 'src/tipos_cerveza/tipos-cervezas.entity';
+import { TipoCerveza } from 'src/tipos_cerveza/entity/tipos-cervezas.entity';
 import { Proveedor } from 'src/Proveedores/entities/proveedores.entity';
-import { Amargor } from 'src/Amargor/amargor.entity';
+import { Amargor } from 'src/Amargor/entity/amargor.entity';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
 import { getCerveza } from './dto/getCerveza.dto';
 import { promises as FS} from 'fs';
@@ -53,8 +53,43 @@ export class CervezasService {
     }
   }
 
-  async findAll(pagina: number, cantproductos: number): Promise <getCerveza[]> {
+  async findAll(pagina: number, cantproductos: number, f_amargor: string[], f_estilo: number[],
+    f_categoria:number[], f_grados: number, f_color: number[], f_origen: string[]): Promise <getCerveza[]>{
+    
     const salto = (pagina - 1) * cantproductos;
+    
+    //configuracion de filtro
+    let where_y: any = {};
+    if(f_amargor){
+      where_y.id_amargor = In(f_amargor);
+    };
+    if(f_grados){
+      if(f_grados == 1){
+        where_y.graduacion = LessThan(5.0);
+      }else if(f_grados == 3){
+        where_y.graduacion = MoreThan(7.0);
+      }else{
+        where_y.graduacion = Between(4.9, 7.1);
+      }
+    };
+    if(f_origen){
+      where_y.proveedor = { comuna:{ region:{zona_id: In(f_origen)} } };
+    };
+    if(f_estilo || f_categoria || f_color){
+      where_y.tipo = [];
+    };
+  
+    if(f_estilo){
+      where_y.tipo.push({id: In(f_estilo)});
+    };
+    if(f_categoria){
+      where_y.tipo.push({categoria_id: In(f_categoria)});
+    };
+    
+    if(f_color){
+      where_y.tipo.push({color_id: In(f_color)});
+    };
+
     const resultado: Cerveza[] = await this.CervezaRepository.find({
       select:{
         id: true,
@@ -65,6 +100,8 @@ export class CervezasService {
         precio: true,
         graduacion: true,
         imagen: true,
+        id_amargor: true,
+        id_tipo: true
       },
       relations:{
         proveedor: true,
@@ -72,12 +109,12 @@ export class CervezasService {
         amargor: true,
         formato: true
       },
+      where: where_y,
       take: cantproductos,
       skip: salto
     });
 
     const resultadoDto = resultado.map((entidad) => CervezaMapper.entityToDto(entidad));
-
     return resultadoDto;
   }
 

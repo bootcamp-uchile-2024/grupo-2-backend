@@ -19,8 +19,8 @@ import { Pedido } from './pedidos/entities/pedido.entity';
 import { Pedido_Cerveza } from './pedidos/entities/pedido_cervezas.entity';
 import { Comunas } from './Comunas/comunas.entity';
 import { Region } from './Region/regiones.entity';
-import { TipoCerveza } from './tipos_cerveza/tipos-cervezas.entity';
-import { Amargor } from './Amargor/amargor.entity';
+import { TipoCerveza } from './tipos_cerveza/entity/tipos-cervezas.entity';
+import { Amargor } from './Amargor/entity/amargor.entity';
 import { Formato } from './Formato/Formatos.entity';
 import { Proveedor } from './Proveedores/entities/proveedores.entity';
 import { DireccionesModule } from './Datos_Envio/direcciones.module';
@@ -28,6 +28,14 @@ import { Suscripcion } from './suscripciones/entities/suscripcione.entity';
 import { Usuario } from './usuarios/entities/usuario.entity';
 import { Direccione } from './Datos_Envio/entities/direccione.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { AmargorModule } from './Amargor/amargor.module';
+import { EstiloModule } from './tipos_cerveza/estilo.module';
+import { CategoriaModule } from './Categoria/categoria.module';
+import { Categoria } from './Categoria/entity/categoria.entity';
+import { ColorModule } from './Color/categoria.module';
+import { Color } from './Color/entity/color.entity';
+import { Zona } from './Zonas/entity/zona.entity';
+import { ZonaModule } from './Zonas/zona.module';
 
 @Module({
   imports: [ConfigModule.forRoot(
@@ -42,18 +50,18 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'db',
-      port: 3306,
+      host: 'localhost',
+      port: 4501,
       username: 'root',
       password: 'clave123',
       database: 'Cervezario',
-      entities: [Cerveza, Carrito, Pedido, Pedido_Cerveza, Comunas, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione]
+      entities: [Cerveza, Categoria, Carrito, Color, Pedido, Pedido_Cerveza, Comunas, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione, Zona]
       }),
     ServeStaticModule.forRoot({
       rootPath: './imagenes-cervezas',
       serveRoot: '/imagenes-cervezas'
       }),
-    EquipoModule, UsuariosModule, CervezasModule, CarritoModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule, TiposPersonajesModule, FormulariosModule],
+    EquipoModule, UsuariosModule, CervezasModule, CarritoModule, AmargorModule, ColorModule, CategoriaModule, EstiloModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule,ZonaModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],
   providers: [AppService],
 })

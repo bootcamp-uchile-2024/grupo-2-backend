@@ -1,27 +1,35 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, Length, Min, Validate } from "class-validator";
-import { RutValidator } from "../pipe/rutValidation.pipe";
+import { IsNotEmpty, IsString, Min } from "class-validator";
 
 //este DTO permite devolver lo usuarios manteniendo la contraseña oculta.
 export class SalidaUsuarioDto {
-    @IsNotEmpty({ message: 'El rut del usuario es requerido' })
     @IsString()
+    @ApiProperty({ example: '12345678-9'}) // === Actualizado ===
     public rut: string;
 
     @IsString({ message: 'El nombre del comprador debe ser un string' })
     @IsNotEmpty({ message: 'El nombre del comprador no puede estar vacío' })
-    @ApiProperty({ default: 'Juan', description: 'Nombre del usuario' }) // === Actualizado ===
+    @ApiProperty({ example: 'Juan', description: 'Nombre del usuario' }) // === Actualizado ===
     public nombre: string;
 
     @IsString({ message: 'El apellido del comprador debe ser un string' })
     @IsNotEmpty({ message: 'El apellido del comprador no puede estar vacío' })
-    @ApiProperty({ default: 'Perez', description: 'Apellido del usuario' }) // === Modificado por mi
+    @ApiProperty({ example: 'Perez', description: 'Apellido del usuario' }) // === Modificado por mi
     public apellido: string;
 
     @Min(18) //validacion para edad, debe ser mayor o igual a 18.
-    @ApiProperty({ default: 25, description: 'Edad', minimum: 18 })
+    @ApiProperty({ example: 25, description: 'Edad', minimum: 18 })
     public edad: number;
 
     @IsString()
     public tipo_suscripcion: string;
+
+    @IsString()
+    @ApiProperty({example:'aaaaa@aaaa.cl'})
+    public correo_comprador?: string;
+
+    @IsString()
+    @ApiProperty({example:'65211449'})
+    public telefono_comprador?: string;
+    
 }

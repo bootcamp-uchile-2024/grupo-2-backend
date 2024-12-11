@@ -37,7 +37,6 @@ export class UsuariosService {
 
       if (Object.values(TipoSuscripcion).includes(createUsuarioDto.tipo_suscripcion as TipoSuscripcion)) {
         usuario.tipo_suscripcion = createUsuarioDto.tipo_suscripcion as TipoSuscripcion;
-
         const usuario_guardado = await this.usuariosRepository.save(usuario);
         return createUsuarioDto;
       } else {
@@ -53,7 +52,9 @@ export class UsuariosService {
         apellido: true,
         edad: true,
         rut: true,
-        tipo_suscripcion: true,
+        correo_comprador: true,
+        telefono_comprador: true,
+        tipo_suscripcion: true
       }
     })
     const respuesta = resultado.map((entidad) => UsuarioMapper.entityToDto(entidad));

@@ -1,7 +1,8 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateUsuarioDto } from './create-usuario.dto';
-import { IsEmail, IsEnum, IsNotEmpty, IsString, Length, Matches, Min, ValidateNested } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, Length, Matches, Min, ValidateNested } from 'class-validator';
 import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
+import { IsCorreoTelefonoRequerido } from 'src/common/validadorTelYCorreoUsuario';
 
 
 export class UpdateUsuarioDto{
@@ -29,5 +30,17 @@ export class UpdateUsuarioDto{
     @IsEnum(TipoSuscripcion)
     @ApiProperty({enum: TipoSuscripcion})
     public tipo_suscripcion: string;
+
+    @IsCorreoTelefonoRequerido('tipo_suscripcion', { message: 'Correo es requerido cuando el tipo de suscripción es SIN_SUSCRIPCION' })
+    @IsString()
+    @IsOptional()
+    @ApiProperty({default:'aaaaa@aaaa.cl'})
+    public correo_comprador?: string;
+
+    @IsCorreoTelefonoRequerido('tipo_suscripcion', { message: 'Teléfono es requerido cuando el tipo de suscripción es SIN_SUSCRIPCION' })
+    @IsString()
+    @IsOptional()
+    @ApiProperty({default:'65211449'})
+    public telefono_comprador?: string;
 
 }

@@ -22,13 +22,20 @@ export class CervezaMapper{
         cerveza.id = entidad.id;
         cerveza.nombre = entidad.nombre;
         cerveza.marca = entidad.marca;
-        cerveza.descripcion = entidad.descripcion;
-        cerveza.graduacion = entidad.graduacion;
-        cerveza.imagen = entidad.imagen;
+        cerveza.id_tipo = entidad.id_tipo;
         cerveza.stock = entidad.stock;
-        cerveza.formato = entidad.formato.id;
+        cerveza.descripcion = entidad.descripcion;
         cerveza.precio = entidad.precio;
+        cerveza.id_proveedor = entidad.id_proveedor;
+        cerveza.id_amargor = entidad.id_amargor;
+        cerveza.graduacion = entidad.graduacion;
+        cerveza.id_formato = entidad.id_formato;
+        cerveza.imagen = entidad.imagen;
         cerveza.is_active = entidad.is_active;
+        cerveza.proveedor = entidad.proveedor;
+        cerveza.formato = entidad.formato;
+        cerveza.tipo = entidad.tipo;
+        cerveza.amargor = entidad.amargor;
         return cerveza;
     }
 }

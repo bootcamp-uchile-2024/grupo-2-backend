@@ -17,7 +17,7 @@ export class Pedido_Cerveza {
 
     @ManyToOne(() => Pedido)
     @JoinColumn({name: 'id_pedido'})
-    carrito: Pedido;
+    Pedido: Pedido;
 
     @OneToOne(() => Cerveza)
     @JoinColumn({name: 'id_cerveza'})

@@ -24,10 +24,10 @@ export class Usuario {
     public tipo_suscripcion: TipoSuscripcion;
     
     @Column()   
-    public correo_comprador?: string;
+    public correo_comprador: string;
     
     @Column()
-    public telefono_comprador?: string;
+    public telefono_comprador: string;
 
     @ManyToOne(() => Suscripcion)
     @JoinColumn({ name: 'tipo_suscripcion' })

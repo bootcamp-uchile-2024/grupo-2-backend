@@ -66,7 +66,7 @@ export class CreateCervezaDto {
 }
 
 export class estado {
-
+    
     @IsBoolean()
     @IsNotEmpty({message: 'El estado de la cerveza es requerida'})
     @ApiProperty({ default: true, description: 'booleano: true para indicar que está activa y false para indicar que está inactiva' })

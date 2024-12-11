@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCervezaDto, estado } from './dto/create-cerveza.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Any, Between, In, LessThan, Like, MoreThan, Repository } from 'typeorm';
+import { Between, In, LessThan, Like, MoreThan, Repository } from 'typeorm';
 import { Cerveza } from './entities/cerveza.entity';
 import { CervezaMapper } from './mapper/cerveza.mapper';
 import { TipoCerveza } from 'src/tipos_cerveza/entity/tipos-cervezas.entity';
@@ -57,7 +57,7 @@ export class CervezasService {
     f_categoria:number[], f_grados: number, f_color: number[], f_origen: string[]): Promise <getCerveza[]>{
     
     const salto = (pagina - 1) * cantproductos;
-    
+
     //configuracion de filtro
     let where_y: any = {};
     if(f_amargor){
@@ -91,18 +91,6 @@ export class CervezasService {
     };
 
     const resultado: Cerveza[] = await this.CervezaRepository.find({
-      select:{
-        id: true,
-        nombre: true,
-        marca: true,
-        stock: true,
-        descripcion: true,
-        precio: true,
-        graduacion: true,
-        imagen: true,
-        id_amargor: true,
-        id_tipo: true
-      },
       relations:{
         proveedor: true,
         tipo: true,
@@ -128,9 +116,9 @@ export class CervezasService {
           amargor: true,
           formato: true
         }
-      })
-
-    return resultado;
+    })
+    const resultadoDto = CervezaMapper.entityToDto(resultado);
+    return resultadoDto;
   }
 
   async update(id: number, updateCervezaDto: UpdateCervezaDto) {

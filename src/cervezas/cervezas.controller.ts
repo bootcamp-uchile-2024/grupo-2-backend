@@ -4,6 +4,7 @@ import { CreateCervezaDto, estado } from './dto/create-cerveza.dto';
 import { UpdateCervezaDto } from './dto/update-cerveza.dto';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { getCerveza } from './dto/getCerveza.dto';
 
 @Controller('cervezas')
 @ApiTags('Cervezas')
@@ -20,7 +21,7 @@ export class CervezasController {
   }
   
   @Get()
-  @ApiResponse({ status: 200, description: 'Cervezas encontradas' })
+  @ApiResponse({ status: 200, description: 'Cervezas encontradas', type: [getCerveza] })
   @ApiResponse({ status: 404, description: 'No existen Cervezas en la Base de Datos' })
   @ApiQuery({ name: 'pagina', required: true, description: 'Se debe entregar la página en la que se encuentra el usuario' })
   @ApiQuery({ name: 'cantproductos', required: true, description: 'Se debe entregar la cantidad de productos que se quieren ver en la página' })
@@ -40,7 +41,7 @@ export class CervezasController {
   }
   
   @Get(':id')
-  @ApiResponse({ status: 200, description: 'Cerveza encontrada' })
+  @ApiResponse({ status: 200, description: 'Cerveza encontrada', type: [getCerveza] })
   @ApiResponse({ status: 400, description: 'Cerveza no encontrada' })
   findOne(@Param('id') id: string) {
    return this.cervezasService.findOne(+id);

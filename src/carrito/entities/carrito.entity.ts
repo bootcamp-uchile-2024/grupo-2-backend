@@ -11,7 +11,7 @@ export class Carrito {
     @Column()
     public total_a_pagar: number;
 
-    @OneToMany(() => Pedido_Cerveza, (p) => p.carrito)
+    @OneToMany(() => Pedido_Cerveza, (p) => p.Pedido)
     pedido_cervezas : Pedido_Cerveza[];
    
 }

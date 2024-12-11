@@ -30,6 +30,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle(name + ` - MODULO ${configService.get('AMBIENTE')} `)
     .setDescription(description)
+    .addBearerAuth()
     .setVersion(version)
     .setContact(author, '-', '-')
     .setLicense(license, '-')
@@ -45,6 +46,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new CommonInterceptor());
   app.useGlobalFilters(new CommonFilter());
 
-  await app.listen(process.env.NESTJS_PORT);
+  await app.listen(process.env.NESTJS_PORT ?? 4500);
 }
 bootstrap();

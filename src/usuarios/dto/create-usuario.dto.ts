@@ -3,6 +3,7 @@ import { IsNotEmpty, IsString, Min, IsEnum, IsOptional, Validate } from "class-v
 import { TipoSuscripcion } from "src/enum/tipo-suscripcion";
 import { IsCorreoTelefonoRequerido } from 'src/common/validadorTelYCorreoUsuario';
 import { RutValidator } from "../pipe/rutValidation.pipe";
+import { Rol } from "src/enum/rol.enum";
 
 
 export class CreateUsuarioDto {
@@ -47,5 +48,9 @@ export class CreateUsuarioDto {
     @IsOptional()
     @ApiProperty({default:'65211449'})
     public telefono_comprador?: string;
+
+    @IsString()
+    @ApiProperty({enum: Rol, default:'user'})
+    public rol: string;
 
 }

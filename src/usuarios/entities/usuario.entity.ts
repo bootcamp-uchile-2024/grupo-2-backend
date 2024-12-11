@@ -2,6 +2,7 @@ import { Column, Entity, PrimaryColumn } from "typeorm";
 import { Suscripcion } from "src/suscripciones/entities/suscripcione.entity";
 import { ManyToOne, JoinColumn } from 'typeorm';
 import { TipoSuscripcion } from "src/enum/tipo-suscripcion";
+import { Rol } from "src/enum/rol.enum";
 
 @Entity({name: 'Usuario'})
 export class Usuario {
@@ -28,6 +29,9 @@ export class Usuario {
     
     @Column()
     public telefono_comprador: string;
+
+    @Column()
+    public rol: string;
 
     @ManyToOne(() => Suscripcion)
     @JoinColumn({ name: 'tipo_suscripcion' })

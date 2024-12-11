@@ -16,6 +16,7 @@ export class UsuarioMapper{
         usuarioDto.telefono_comprador = entidad.telefono_comprador;
         usuarioDto.edad = entidad.edad;
         usuarioDto.tipo_suscripcion = entidad.tipo_suscripcion;
+        usuarioDto.rol = entidad.rol;
       return usuarioDto;
     }
 
@@ -26,6 +27,7 @@ export class UsuarioMapper{
         usuario.correo_comprador = dto.correo_comprador;
         usuario.telefono_comprador = dto.telefono_comprador;
         usuario.edad = dto.edad;
+        usuario.rol = dto.rol;
         usuario.contrasenia = dto.contrasenia;
         if(Object.values(TipoSuscripcion).includes(dto.tipo_suscripcion as TipoSuscripcion)){
             usuario.tipo_suscripcion = dto.tipo_suscripcion as TipoSuscripcion;

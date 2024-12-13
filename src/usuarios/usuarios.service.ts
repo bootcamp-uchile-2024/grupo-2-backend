@@ -34,7 +34,11 @@ export class UsuariosService {
       const usuario = new Usuario();
       usuario.nombre = createUsuarioDto.nombre;
       usuario.apellido = createUsuarioDto.apellido;
-      usuario.contrasenia = createUsuarioDto.contrasenia;
+
+      const modo = 'md5';
+      const hash = createHash(modo).update(createUsuarioDto.contrasenia).digest('hex');
+      usuario.contrasenia = hash;
+
       usuario.edad = createUsuarioDto.edad;
       usuario.rut = createUsuarioDto.rut;
       usuario.correo_comprador = createUsuarioDto.correo_comprador;
@@ -58,6 +62,7 @@ export class UsuariosService {
       }
     }
   }
+  
   async createInvitado(createUsuarioDto: CreateUsuarioInvitadoDto) {
     const existe = await this.usuariosRepository.existsBy({ rut: createUsuarioDto.rut })
     if (!existe) {
@@ -109,19 +114,26 @@ export class UsuariosService {
   }
 //=======================================================================================================
   async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
-    const existe = await this.usuariosRepository.existsBy({ rut: id })
-    if (existe) {
-      const cambios = UsuarioMapper.dtoToEntity(updateUsuarioDto);
-      cambios.rut = id;
-      const guardado = await this.usuariosRepository.update(id, cambios);
-      return updateUsuarioDto;
-    } else {
-      throw new HttpException('El rut ingresado no tiene usuario creado', HttpStatus.BAD_GATEWAY);
+    const existe_usuario = await this.usuariosRepository.findOneBy({ rut: id });
+    const existe_correo = await this.usuariosRepository.findOneBy({ correo_comprador: updateUsuarioDto.correo_comprador});
+
+    if (existe_usuario){
+      if (existe_usuario.correo_comprador == updateUsuarioDto.correo_comprador || !existe_correo){
+        const cambios = UsuarioMapper.dtoToEntity(updateUsuarioDto);
+        cambios.rut = id;
+        const guardado = await this.usuariosRepository.update(id, cambios);
+        return updateUsuarioDto;
+      }else{
+        throw new HttpException('El correo que intena ingresar ya existe en nuestra base de datos', HttpStatus.BAD_GATEWAY);
+      }
+    }else{
+      throw new HttpException('El rut ingresado no existe nuestra base de datos', HttpStatus.BAD_GATEWAY);
     }
   }
+  
 
   async login(credenciales: Credencial): Promise<string> {
-    const usuario = await this.usuariosRepository.findOne({where: {rut: credenciales.rut}});
+    const usuario = await this.usuariosRepository.findOne({where: {correo_comprador: credenciales.correo}});
     const hash = createHash('md5').update(credenciales.password).digest('hex');
     if(usuario.contrasenia == hash){
       const payload = {

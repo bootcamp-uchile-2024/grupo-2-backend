@@ -36,6 +36,7 @@ import { ColorModule } from './Color/categoria.module';
 import { Color } from './Color/entity/color.entity';
 import { Zona } from './Zonas/entity/zona.entity';
 import { ZonaModule } from './Zonas/zona.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [ConfigModule.forRoot(
@@ -50,8 +51,8 @@ import { ZonaModule } from './Zonas/zona.module';
       isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'db',
-      port: 3306,
+      host: 'localhost',
+      port: 4501,
       username: 'root',
       password: 'clave123',
       database: 'Cervezario',
@@ -60,6 +61,13 @@ import { ZonaModule } from './Zonas/zona.module';
     ServeStaticModule.forRoot({
       rootPath: './imagenes-cervezas',
       serveRoot: '/imagenes-cervezas'
+      }),
+    JwtModule.register({
+        global: true,
+        secret: 'clavesimetrica123',
+        signOptions:{
+          expiresIn: '1h'
+        }
       }),
     EquipoModule, UsuariosModule, CervezasModule, CarritoModule, AmargorModule, ColorModule, CategoriaModule, EstiloModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule,ZonaModule, TiposPersonajesModule, FormulariosModule],
   controllers: [AppController],

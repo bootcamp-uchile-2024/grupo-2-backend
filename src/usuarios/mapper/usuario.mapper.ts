@@ -1,10 +1,6 @@
 import { SalidaUsuarioDto } from "../dto/salida-usuario.dto";
 import { Usuario } from "../entities/usuario.entity";
 import { UpdateUsuarioDto } from "../dto/update-usuario.dto";
-import { TipoSuscripcion } from "../../enum/tipo-suscripcion";
-import { HttpException, HttpStatus } from "@nestjs/common";
-
-
 
 export class UsuarioMapper{
     static entityToDto(entidad: Usuario): SalidaUsuarioDto{
@@ -27,14 +23,7 @@ export class UsuarioMapper{
         usuario.correo_comprador = dto.correo_comprador;
         usuario.telefono_comprador = dto.telefono_comprador;
         usuario.edad = dto.edad;
-        usuario.rol = dto.rol;
-        usuario.contrasenia = dto.contrasenia;
-        if(Object.values(TipoSuscripcion).includes(dto.tipo_suscripcion as TipoSuscripcion)){
-            usuario.tipo_suscripcion = dto.tipo_suscripcion as TipoSuscripcion;
-        } else {
-            throw new HttpException('Tipo de suscripción no válido', HttpStatus.BAD_REQUEST);
-        }
-        
+
       return usuario;
     }
 }

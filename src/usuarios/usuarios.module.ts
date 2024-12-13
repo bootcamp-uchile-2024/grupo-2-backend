@@ -12,13 +12,6 @@ import { JwtModule } from '@nestjs/jwt';
   controllers: [UsuariosController],
   providers: [UsuariosService],
   exports: [UsuariosService],
-  imports: [TypeOrmModule.forFeature([Usuario, Suscripcion, Direccione, Pedido]), 
-  JwtModule.register({
-    global: true,
-    secret: 'clavesimetrica123',
-    signOptions:{
-      expiresIn: '1h'
-    }
-  }),],
+  imports: [TypeOrmModule.forFeature([Usuario, Suscripcion, Direccione, Pedido])],
 })
 export class UsuariosModule {}

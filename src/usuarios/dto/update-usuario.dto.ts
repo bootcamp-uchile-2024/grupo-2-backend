@@ -18,19 +18,9 @@ export class UpdateUsuarioDto{
     @ApiProperty({ default: 'Perez', description: 'Apellido del usuario' }) // === Modificado por mi
     public apellido: string;
 
-    @IsString({ message: 'La contraseña del comprador debe ser un string' })
-    @IsNotEmpty({ message: 'La contraseña del comprador no puede estar vacía' })
-    @ApiProperty({ default: '123456', description: 'Contraseña del usuario' }) // === Actualizado ===
-    public contrasenia: string;
-
     @Min(18) //validacion para edad, debe ser mayor o igual a 18.
     @ApiProperty({ default: 25, description: 'Edad', minimum: 18 })
     public edad: number;
-
-    @IsString()
-    @IsEnum(TipoSuscripcion)
-    @ApiProperty({enum: TipoSuscripcion})
-    public tipo_suscripcion: string;
 
     @IsCorreoTelefonoRequerido('tipo_suscripcion', { message: 'Correo es requerido cuando el tipo de suscripción es SIN_SUSCRIPCION' })
     @IsString()
@@ -44,9 +34,6 @@ export class UpdateUsuarioDto{
     @ApiProperty({default:'65211449'})
     public telefono_comprador?: string;
 
-    @IsString()
-    @ApiProperty({enum: Rol, default:'user'})
-    public rol: string;
 
 
 

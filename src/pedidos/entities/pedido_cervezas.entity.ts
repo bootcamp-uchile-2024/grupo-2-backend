@@ -15,6 +15,9 @@ export class Pedido_Cerveza {
     @Column()
     public cantidad: number;
 
+    @Column()
+    public precio: number;
+
     @ManyToOne(() => Pedido)
     @JoinColumn({name: 'id_pedido'})
     Pedido: Pedido;

@@ -10,6 +10,4 @@ export class UpdateCarritoDto {
     @ApiProperty({default: CreatePedidoCervezaDto, type: [CreatePedidoCervezaDto]})
     public items: CreatePedidoCervezaDto[];
 
-    @ApiProperty({description: 'total a pagar actualizado'})
-    public total_a_pagar: number;
 }

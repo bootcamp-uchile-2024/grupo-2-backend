@@ -54,7 +54,7 @@ export class CervezasService {
   }
 
   async findAll(pagina: number, cantproductos: number, f_amargor: string[], f_estilo: number[],
-    f_categoria:number[], f_grados: number, f_color: number[], f_origen: string[]): Promise <getCerveza[]>{
+    f_categoria:number[], f_grados: number, f_color: number[], f_origen: string[], f_buscar: string): Promise <getCerveza[]>{
     
     const salto = (pagina - 1) * cantproductos;
 
@@ -89,6 +89,13 @@ export class CervezasService {
     if(f_color){
       where_y.tipo.push({color_id: In(f_color)});
     };
+
+    if(f_buscar){
+      where_y = [
+        { ...where_y, nombre: Like(`%${f_buscar}%`) },
+        { ...where_y, marca: Like(`%${f_buscar}%`) }
+      ];
+    }
 
     const resultado: Cerveza[] = await this.CervezaRepository.find({
       relations:{
@@ -230,6 +237,27 @@ export class CervezasService {
     if(existe){
       const guardar_cerveza = await this.CervezaRepository.update(id, {is_active: estado.is_active});
       return  `Cerveza actualizada. Estado is_active = ${estado.is_active}`;
+    }else{
+      throw new HttpException('La cerveza que se intenta actualizar no existe', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async actualizarStock(id: number, cantidad: number){
+    const existe = await this.CervezaRepository.exists({
+      where: {
+        id: id
+      }
+    })
+
+    if(existe){
+      const cerveza = await this.CervezaRepository.findOneBy({id: id});
+      let nuevo_stock = cerveza.stock - cantidad;      
+      if(nuevo_stock >= 0){
+        const guardar_cerveza = await this.CervezaRepository.update(id, {stock: nuevo_stock});
+        return  `Cerveza actualizada. Estado stock = ${nuevo_stock}`;
+      }else{
+        throw new HttpException('La cerveza que se intenta actualizar no tiene stock suficiente', HttpStatus.BAD_REQUEST);
+      }
     }else{
       throw new HttpException('La cerveza que se intenta actualizar no existe', HttpStatus.BAD_REQUEST);
     }

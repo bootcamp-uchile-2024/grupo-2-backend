@@ -1,9 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsDate, IsEmail, IsNotEmpty, IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { IsDate, IsEmail, IsNotEmpty, IsOptional, ValidateNested, IsEnum, Validate } from "class-validator";
 import { estadoPedidos } from "src/enum/estado-pedidos";
 import { CreatePedidoCervezaDto } from "src/pedidos/dto/create-pedido-cervezas.dto";
 import { ApiHideProperty } from "@nestjs/swagger";
+import { RutValidator } from "src/usuarios/pipe/rutValidation.pipe";
 
 export class CreatePedidoDto {
     @IsNotEmpty({ message: 'El RUT del comprador es requerido' })
@@ -14,18 +15,16 @@ export class CreatePedidoDto {
     @ApiProperty({ example: 1, description: 'ID de la dirección de entrega seleccionada' })
     public id_direccion: number;
 
-    @ValidateNested({ each: true })
-    @Type(() => CreatePedidoCervezaDto)
-    @IsNotEmpty({ message: 'Debe incluir al menos una cerveza en el pedido' })
-    @ApiProperty({ type: [CreatePedidoCervezaDto], description: 'Lista de cervezas y cantidades asociadas al pedido' })
-    public cervezas: CreatePedidoCervezaDto[];
+    @IsNotEmpty({ message: 'El ID del carrito que se desea pagar es requerido' })
+    @ApiProperty({ example: 1, description: 'El ID del carrito que se desea pagar' })
+    public id_carrito: number;
 
     @IsEnum(estadoPedidos, { message: 'Estado debe ser uno de los valores permitidos' })
     @ApiProperty({ example: 'Creado', description: 'Estado del pedido', enum: estadoPedidos })
     public estado: estadoPedidos;
 
     @Type(() => Date)
-    @IsDate({ message: 'La fecha de entrega debe ser válida' })
+    @IsDate({ message: 'La fecha de ingreso debe ser válida' })
     @ApiHideProperty()
     public fecha_ingreso: Date = new Date();
 
@@ -33,16 +32,5 @@ export class CreatePedidoDto {
     @IsDate({ message: 'La fecha de entrega debe ser válida' })
     @ApiProperty({ example: '2024-12-23', description: 'Fecha de entrega del pedido' })
     public fecha_entrega: Date;
-
-    @IsOptional()
-    @IsEmail({}, { message: 'El correo debe ser válido' })
-    @ApiProperty({ example: 'correo@ejemplo.com', required: false })
-    public correo_comprador?: string;
-    
-
-    @IsOptional()
-    @ApiProperty({ example: '987654321', required: false, description: 'Teléfono del comprador' })
-    public telefono_comprador?: string;
-
     
 }

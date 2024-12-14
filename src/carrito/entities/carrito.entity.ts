@@ -1,6 +1,5 @@
-import { Pedido } from "src/pedidos/entities/pedido.entity";
 import { Pedido_Cerveza } from "src/pedidos/entities/pedido_cervezas.entity";
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'Carrito'})
 export class Carrito {
@@ -9,9 +8,9 @@ export class Carrito {
     public id: number;
 
     @Column()
-    public total_a_pagar: number;
+    public rut_comprador: string;
 
-    @OneToMany(() => Pedido_Cerveza, (p) => p.Pedido)
+    @OneToMany(() => Pedido_Cerveza, (p) => p.carrito)
     pedido_cervezas : Pedido_Cerveza[];
    
 }

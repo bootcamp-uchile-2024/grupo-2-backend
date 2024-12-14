@@ -6,7 +6,7 @@ export class CarritoMapper{
     static entityToDto(entity: Carrito): getCarrito{
         const carrito = new getCarrito();
         carrito.id = entity.id;
-        carrito.total_a_pagar = entity.total_a_pagar;
+        carrito.rut_comprador = entity.rut_comprador;
         carrito.items = entity.pedido_cervezas;
         return carrito;
     }

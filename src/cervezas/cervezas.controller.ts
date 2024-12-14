@@ -30,14 +30,15 @@ export class CervezasController {
   @ApiQuery({ name: 'categoria', required: false, description: 'Se debe entregar la lista de ids de categoria seleccionadas' })
   @ApiQuery({ name: 'grados', required: false, description: 'Se debe entregar el número según el siguiente diccionario: {1: bajo, 2: medio, 3: alto}' })
   @ApiQuery({ name: 'color', required: false, description: 'Se debe entregar la lista de ids de colores seleccionados' })
-  @ApiQuery({ name: 'origen', required: false, description: 'Se debe entregar la lista de ids de zonas seleccionadas' })  
+  @ApiQuery({ name: 'origen', required: false, description: 'Se debe entregar la lista de ids de zonas seleccionadas' })
+  @ApiQuery({ name: 'buscar', required: false, description: 'Se debe entregar el string que se desea buscar coincidencias' })    
   findAll(@Query('pagina') pagina: number, @Query('cantproductos') cantproductos: number, @Query('amargor') f_amargor: string[],
    @Query('estilo') f_estilo: number[], @Query('categoria') f_categoria: number[], @Query('grados') f_grados: number,
-   @Query('color') f_color: number[], @Query('origen') f_origen: string[]) {
+   @Query('color') f_color: number[], @Query('origen') f_origen: string[], @Query('buscar') f_buscar: string) {
     if(f_grados && (f_grados<1 || f_grados > 3)){
       throw new HttpException('Los grados sólo pueden ser 1, 2 o 3 según diccionario', HttpStatus.BAD_REQUEST);
     };
-    return this.cervezasService.findAll(pagina, cantproductos, f_amargor, f_estilo, f_categoria, f_grados, f_color, f_origen);
+    return this.cervezasService.findAll(pagina, cantproductos, f_amargor, f_estilo, f_categoria, f_grados, f_color, f_origen, f_buscar);
   }
   
   @Get(':id')

@@ -31,12 +31,4 @@ export class UpdateDireccioneDto {
     @Matches(/^\d{7}$/, { message: 'El código postal de la dirección debe ser un texto de 7 dígitos' })
     @ApiProperty({ default: '2980909', description: 'Código postal de la dirección' })
     public codigo_Postal: string;
-
-    @ApiProperty({ default: '925362514', description: 'Número de teléfono del usuario asociado a la direccion' })
-    @IsNotEmpty({ message: 'El correo telefono' })
-    public telefono: string;
-
-    @ApiProperty({default: 'asb@acv.cl', description: 'Correo electrónico del usuario asociado a la dirección' })
-    @IsNotEmpty({ message: 'El correo electrónico es requerido' })
-    public correo_electronico: string;
 }

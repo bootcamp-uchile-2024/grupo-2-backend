@@ -1,7 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Comunas } from "src/Comunas/comunas.entity";
-import { Comuna } from "src/enum/comunas";
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 import { JoinColumn, ManyToOne } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm";
 
@@ -31,19 +30,9 @@ export class Direccione {
     @ApiProperty({ default: '11111111-1' })
     public rut_usuario: string;
 
-    @Column()
-    @ApiProperty({ default: '925362514' })
-    public telefono: string;
-
-    @Column()
-    @ApiProperty({ default: 'abc@asd.cl' })
-    public correo_electronico: string;
-
     @Column({ default: 'activa' }) // Estado por defecto
     @ApiProperty({ default: 'activa', description: 'Estado de la dirección: activa/inactiva' })
     public estado: string;
-
-   
 
     @ManyToOne(() => Comunas, {nullable: false})
     @JoinColumn({ name: 'id_comuna' })

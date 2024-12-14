@@ -10,6 +10,6 @@ export class CreatePedidoCervezaDto {
     public cantidad: number;
     @IsNotEmpty()
     @ApiProperty({ default: 3000, description: 'precio al que se está comprando la cerveza' }) // Modificacion hecha por mi
-    public precio: number;
+    public precio_venta: number;
 }
 

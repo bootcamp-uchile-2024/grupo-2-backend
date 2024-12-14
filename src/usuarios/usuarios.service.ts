@@ -80,6 +80,7 @@ export class UsuariosService {
         const usuario_guardado = await this.usuariosRepository.save(usuario);
         return createUsuarioDto;
       }
+      
     }else {
       throw new HttpException('El rut ingresado ya tiene un usuario creado', HttpStatus.BAD_REQUEST);
     }

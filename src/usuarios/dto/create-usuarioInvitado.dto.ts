@@ -35,12 +35,12 @@ export class CreateUsuarioInvitadoDto {
     @IsCorreoTelefonoRequerido('tipo_suscripcion', { message: 'Correo es requerido cuando el tipo de suscripción es SIN_SUSCRIPCION' })
     @IsString()
     @ApiProperty({default:'aaaaa@aaaa.cl'})
-    public correo_comprador?: string;
+    public correo_comprador: string;
 
     @IsCorreoTelefonoRequerido('tipo_suscripcion', { message: 'Teléfono es requerido cuando el tipo de suscripción es SIN_SUSCRIPCION' })
     @IsString()
     @ApiProperty({default:'65211449'})
-    public telefono_comprador?: string;
+    public telefono_comprador: string;
 
     @IsString()
     @ApiProperty({enum: Rol, default:'user'})

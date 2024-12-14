@@ -3,30 +3,17 @@ import { IsNotEmpty, IsOptional, IsDate, ValidateNested, IsEnum } from 'class-va
 import { CreatePedidoDto } from './create-pedido.dto';
 import { IsEmail, IsNumber, IsArray } from 'class-validator';
 import { CreatePedidoCervezaDto } from './create-pedido-cervezas.dto';
+import { estadoPedidos } from 'src/enum/estado-pedidos';
 
-export class UpdatePedidoDto extends PartialType(CreatePedidoDto) {
+export class UpdatePedidoDto {
   
-  @IsOptional()
-  @IsDate()
-  @ApiProperty({ example: '2024-12-23', description: 'Fecha de entrega del pedido', required: false })
-  public fecha_entrega?: Date;
-
   @IsOptional()
   @IsNumber()
   @ApiProperty({ example: 2, description: 'ID de la nueva dirección de entrega', required: false })
   public id_direccion?: number;
 
-  @IsOptional()
-  @IsArray()
-  @ApiProperty({ type: [CreatePedidoCervezaDto], description: 'Lista de cervezas y cantidades', required: false })
-  public cervezas?: CreatePedidoCervezaDto[];
+  @IsEnum(estadoPedidos, { message: 'Estado debe ser uno de los valores permitidos' })
+  @ApiProperty({ example: 'Pagado', description: 'Estado del pedido', enum: estadoPedidos })
+  public estado: string;
 
-  @IsOptional()
-  @IsEmail()
-  @ApiProperty({ example: 'correo@ejemplo.com', description: 'Correo del comprador', required: false })
-  public correo_comprador?: string;
-
-  @IsOptional()
-  @ApiProperty({ example: '987654321', description: 'Teléfono del comprador', required: false })
-  public telefono_comprador?: string;
 }

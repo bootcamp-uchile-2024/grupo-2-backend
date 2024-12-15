@@ -136,7 +136,7 @@ export class UsuariosService {
   async login(credenciales: Credencial): Promise<string> {
     const usuario = await this.usuariosRepository.findOne({where: {correo_comprador: credenciales.correo}});
     const hash = createHash('md5').update(credenciales.password).digest('hex');
-    if(usuario.contrasenia == hash){
+    if(usuario && usuario.contrasenia == hash){
       const payload = {
         rut: usuario.rut,
         email: usuario.correo_comprador,

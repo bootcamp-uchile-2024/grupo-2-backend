@@ -48,3 +48,4 @@ WHERE Pedido.id IN(9,10);
 ALTER TABLE Pedido
 ADD CONSTRAINT fk_id_carrito_pedido
 FOREIGN KEY (id_carrito) REFERENCES Carrito(id);
+

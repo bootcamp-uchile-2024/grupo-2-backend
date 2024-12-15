@@ -90,8 +90,9 @@ export class PedidoService {
     });
     // Guardar el pedido en la base de datos
     const savedPedido = await this.pedidoRepository.save(pedido);
+    const pedido_guardado = await this.pedidoRepository.findOne({where: {id_carrito: createPedidoDto.id_carrito}, relations:{direccion_entrega: true, pedido_cervezas: true }})
 
-    return pedido;
+    return pedido_guardado;
   }
 
   // Método para actualizar un pedido

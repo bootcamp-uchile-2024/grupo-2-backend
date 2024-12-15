@@ -1,6 +1,6 @@
 {
   "name": "cervezario-nacional-backend",
-  "version": "2.5.2",
+  "version": "3.0.0",
   "description": "Esta api describe los endpoints del e-commerce Cervezario Nacional",
   "author": "Andrés Fariña, Karla Reyes",
   "private": true,

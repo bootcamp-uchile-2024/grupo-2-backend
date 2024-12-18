@@ -39,44 +39,80 @@ import { ZonaModule } from './Zonas/zona.module';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [ConfigModule.forRoot(
-    {envFilePath: `.env`,
-      load: [() => ({
-      version: require('../package.json').version,
-      name: require('../package.json').name,
-      description: require('../package.json').description,
-      author: require('../package.json').author,
-      license: require('../package.json').license
-      })],
-      isGlobal: true}),
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: `.env`,
+      load: [
+        () => ({
+          version: require('../package.json').version,
+          name: require('../package.json').name,
+          description: require('../package.json').description,
+          author: require('../package.json').author,
+          license: require('../package.json').license,
+        }),
+      ],
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 4501,
+      host: 'db',
+      port: 3306,
       username: 'root',
       password: 'clave123',
       database: 'Cervezario',
-      entities: [Cerveza, Categoria, Carrito, Color, Pedido, Pedido_Cerveza, Comunas, Region, TipoCerveza, Amargor, Formato, Proveedor, Suscripcion, Usuario, Direccione, Zona]
-      }),
+      entities: [
+        Cerveza,
+        Categoria,
+        Carrito,
+        Color,
+        Pedido,
+        Pedido_Cerveza,
+        Comunas,
+        Region,
+        TipoCerveza,
+        Amargor,
+        Formato,
+        Proveedor,
+        Suscripcion,
+        Usuario,
+        Direccione,
+        Zona,
+      ],
+    }),
     ServeStaticModule.forRoot({
       rootPath: './imagenes-cervezas',
-      serveRoot: '/imagenes-cervezas'
-      }),
+      serveRoot: '/imagenes-cervezas',
+    }),
     JwtModule.register({
-        global: true,
-        secret: 'clavesimetrica123',
-        signOptions:{
-          expiresIn: '1h'
-        }
-      }),
-    EquipoModule, UsuariosModule, CervezasModule, CarritoModule, AmargorModule, ColorModule, CategoriaModule, EstiloModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule,ZonaModule, TiposPersonajesModule, FormulariosModule],
+      global: true,
+      secret: 'clavesimetrica123',
+      signOptions: {
+        expiresIn: '1h',
+      },
+    }),
+    EquipoModule,
+    UsuariosModule,
+    CervezasModule,
+    CarritoModule,
+    AmargorModule,
+    ColorModule,
+    CategoriaModule,
+    EstiloModule,
+    SuscripcionesModule,
+    PedidosModule,
+    PerfilesModule,
+    DireccionesModule,
+    ZonaModule,
+    TiposPersonajesModule,
+    FormulariosModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-  consumer
-  .apply(CommonMiddleware) // MIDDLEWARE A APLICAR
-  .forRoutes('*'); 
+    consumer
+      .apply(CommonMiddleware) // MIDDLEWARE A APLICAR
+      .forRoutes('*');
   }
 }

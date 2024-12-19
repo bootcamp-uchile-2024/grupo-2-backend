@@ -104,8 +104,8 @@ export class UsuariosService {
   }
 //=======================================================================================================
 
-  async findOne(id: string): Promise<SalidaUsuarioDto> {
-    const usuario = await this.usuariosRepository.findOneBy({ rut: id });
+  async findOne(rut: string): Promise<SalidaUsuarioDto> {
+    const usuario = await this.usuariosRepository.findOne({where:{ rut: rut} });
     if (usuario) {
       const respuesta = UsuarioMapper.entityToDto(usuario);
       return respuesta;
@@ -115,8 +115,8 @@ export class UsuariosService {
   }
 //=======================================================================================================
   async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
-    const existe_usuario = await this.usuariosRepository.findOneBy({ rut: id });
-    const existe_correo = await this.usuariosRepository.findOneBy({ correo_comprador: updateUsuarioDto.correo_comprador});
+    const existe_usuario = await this.usuariosRepository.findOne({where:{ rut: id} });
+    const existe_correo = await this.usuariosRepository.findOne({where:{ correo_comprador: updateUsuarioDto.correo_comprador} });
 
     if (existe_usuario){
       if (existe_usuario.correo_comprador == updateUsuarioDto.correo_comprador || !existe_correo){

@@ -52,10 +52,10 @@ export class UsuariosController {
 
   @ApiResponse({ status: 200, description: 'Usuario encontrado' })
   @ApiResponse({ status: 404, description: 'No se encontró el usuario' })
-  @ApiParam({ name: 'rut', description: 'RUT del usuario', required: true })
+  @ApiParam({ name: 'Rut', description: 'RUT del usuario', required: true })
   @Get(':Rut')
-  findOne(@Param('rut') id: string) {
-    return this.usuariosService.findOne(id);
+  findOne(@Param('Rut') rut: string) {
+    return this.usuariosService.findOne(rut);
   }
   
   @ApiResponse({ status: 200, description: 'Usuario editado correctamente' })

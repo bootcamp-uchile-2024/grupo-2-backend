@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, Min } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsString, Min } from "class-validator";
 import { Rol } from "src/enum/rol.enum";
 
 //este DTO permite devolver lo usuarios manteniendo la contraseña oculta.
@@ -36,5 +36,8 @@ export class SalidaUsuarioDto {
     @IsString()
     @ApiProperty({enum: Rol, default:'user'})
     public rol: string;
-    
+
+    @IsBoolean()
+    @ApiProperty({description: 'indica si el usuario está activo o no'})
+    public is_active: boolean;
 }

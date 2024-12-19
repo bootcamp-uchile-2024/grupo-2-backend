@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
-import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { EstadoUsuario, UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { SalidaUsuarioDto } from './dto/salida-usuario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -44,6 +44,7 @@ export class UsuariosService {
       usuario.correo_comprador = createUsuarioDto.correo_comprador;
       usuario.telefono_comprador = createUsuarioDto.telefono_comprador;
       usuario.rol = createUsuarioDto.rol;
+      usuario.is_active = true;
 
       if (Object.values(TipoSuscripcion).includes(createUsuarioDto.tipo_suscripcion as TipoSuscripcion)) {
         usuario.tipo_suscripcion = createUsuarioDto.tipo_suscripcion as TipoSuscripcion;
@@ -74,6 +75,7 @@ export class UsuariosService {
       usuario.correo_comprador = createUsuarioDto.correo_comprador;
       usuario.telefono_comprador = createUsuarioDto.telefono_comprador;
       usuario.rol = createUsuarioDto.rol;
+      usuario.is_active = true;
 
       if (Object.values(TipoSuscripcion).includes(createUsuarioDto.tipo_suscripcion as TipoSuscripcion)) {
         usuario.tipo_suscripcion = createUsuarioDto.tipo_suscripcion as TipoSuscripcion;
@@ -96,7 +98,8 @@ export class UsuariosService {
         correo_comprador: true,
         telefono_comprador: true,
         tipo_suscripcion: true, 
-        rol: true
+        rol: true,
+        is_active: true
       }
     })
     const respuesta = resultado.map((entidad) => UsuarioMapper.entityToDto(entidad));
@@ -160,6 +163,17 @@ export class UsuariosService {
         throw new HttpException('La contraseña actual no es válida', HttpStatus.UNAUTHORIZED);
       }
     
+  }
+
+  async updateIsActive( rut: string, estado: EstadoUsuario): Promise<string> {
+    const usuario = await this.usuariosRepository.findOne({where: {rut: rut}});
+    if(usuario){
+      usuario.is_active = estado.is_active;
+      await this.usuariosRepository.save(usuario);
+      return 'estado actualizado';
+    }else{
+      throw new HttpException('La contraseña actual no es válida', HttpStatus.UNAUTHORIZED);
+    }  
   }
 
   /*

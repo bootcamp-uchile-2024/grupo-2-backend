@@ -32,6 +32,9 @@ export class Usuario {
 
     @Column()
     public rol: string;
+    
+    @Column()
+    public is_active: boolean;
 
     @ManyToOne(() => Suscripcion)
     @JoinColumn({ name: 'tipo_suscripcion' })

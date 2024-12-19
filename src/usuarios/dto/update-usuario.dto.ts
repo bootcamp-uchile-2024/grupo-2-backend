@@ -1,6 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateUsuarioDto } from './create-usuario.dto';
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, Length, Matches, Min, ValidateNested } from 'class-validator';
+import { IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, Length, Matches, Min, ValidateNested } from 'class-validator';
 import { TipoSuscripcion } from 'src/enum/tipo-suscripcion';
 import { IsCorreoTelefonoRequerido } from 'src/common/validadorTelYCorreoUsuario';
 import { Rol } from 'src/enum/rol.enum';
@@ -34,7 +34,11 @@ export class UpdateUsuarioDto{
     @ApiProperty({default:'65211449'})
     public telefono_comprador?: string;
 
+}
 
-
-
+export class EstadoUsuario{
+    @IsBoolean()
+    @IsNotEmpty()
+    @ApiProperty({ default: true, description: 'booleano: true para indicar que está activo y false para indicar que está inactivo' })
+    public is_active: boolean;
 }

@@ -1,13 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, UseGuards, Req } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
-import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { EstadoUsuario, UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiParam } from '@nestjs/swagger';
 import { Credencial } from './dto/credencial.dto';
 import { CreateUsuarioInvitadoDto } from './dto/create-usuarioInvitado.dto';
 import { Contrasena } from './dto/contrasena.dto';
 import { AutorizacionGuard } from 'src/common/autenticacion.guard';
+import { estado } from 'src/cervezas/dto/create-cerveza.dto';
 
 @Controller('usuarios')
 @ApiTags('Usuarios')
@@ -63,6 +64,13 @@ export class UsuariosController {
   @Patch(':rut')
   update(@Param('rut') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
     return this.usuariosService.update(id, updateUsuarioDto);
+  }
+
+  @ApiResponse({ status: 200, description: 'Usuario editado correctamente' })
+  @ApiResponse({ status: 404, description: 'No se puede editar el usuario' })
+  @Patch(':rut/estado')
+  updateEstado(@Param('rut') id: string, @Body() estado: EstadoUsuario) {
+    return this.usuariosService.updateIsActive(id, estado);
   }
 
   

@@ -46,4 +46,6 @@ export class CreateUsuarioInvitadoDto {
     @ApiProperty({enum: Rol, default:'user'})
     public rol: string;
 
+    public is_active: boolean = true;
+
 }

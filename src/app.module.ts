@@ -39,7 +39,6 @@ import { ZonaModule } from './Zonas/zona.module';
 import { JwtModule } from '@nestjs/jwt';
 import { LoggerModule } from './common/logger/logger.module';
 import { LoggerMiddleware } from './common/logger.middleware';
-import { Http } from 'winston/lib/winston/transports';
 import { LoggerService } from './common/logger/logger.service';
 import { ResponseInterceptor } from './common/logger/response.interceptor';
 import { HttpExceptionFilter } from './common/logger/exception.filter';

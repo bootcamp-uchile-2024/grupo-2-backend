@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, Res } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EquipoModule } from './equipo/equipo.module';
@@ -37,9 +37,16 @@ import { Color } from './Color/entity/color.entity';
 import { Zona } from './Zonas/entity/zona.entity';
 import { ZonaModule } from './Zonas/zona.module';
 import { JwtModule } from '@nestjs/jwt';
+import { LoggerModule } from './common/logger/logger.module';
+import { LoggerMiddleware } from './common/logger.middleware';
+import { Http } from 'winston/lib/winston/transports';
+import { LoggerService } from './common/logger/logger.service';
+import { ResponseInterceptor } from './common/logger/response.interceptor';
+import { HttpExceptionFilter } from './common/logger/exception.filter';
 
 @Module({
-  imports: [ConfigModule.forRoot(
+  imports: [LoggerModule,
+    ConfigModule.forRoot(
     {envFilePath: `.env`,
       load: [() => ({
       version: require('../package.json').version,
@@ -51,8 +58,8 @@ import { JwtModule } from '@nestjs/jwt';
       isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'db',
-      port: 3306,
+      host: 'localhost',
+      port: 4501,
       username: 'root',
       password: 'clave123',
       database: 'Cervezario',
@@ -69,14 +76,14 @@ import { JwtModule } from '@nestjs/jwt';
           expiresIn: '1h'
         }
       }),
-    EquipoModule, UsuariosModule, CervezasModule, CarritoModule, AmargorModule, ColorModule, CategoriaModule, EstiloModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule,ZonaModule, TiposPersonajesModule, FormulariosModule],
+    EquipoModule, UsuariosModule, CervezasModule, CarritoModule, AmargorModule, ColorModule, CategoriaModule, EstiloModule, SuscripcionesModule, PedidosModule, PerfilesModule, DireccionesModule,ZonaModule, TiposPersonajesModule, FormulariosModule, LoggerModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,ResponseInterceptor],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
   consumer
-  .apply(CommonMiddleware) // MIDDLEWARE A APLICAR
+  .apply(CommonMiddleware, LoggerMiddleware) 
   .forRoutes('*'); 
-  }
+}
 }

@@ -5,37 +5,62 @@ export class LoggerService {
   private logger: winston.Logger;
 
   constructor() {
-    // Establece el nivel de log en 'verbose' de forma fija (modo desarrollo)
-    const logLevel = (process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production') ? 'info' : 'verbose';
-    
-    // Define el formato de log
+    // Define el nivel de log según el entorno
+    const logLevel = process.env.NODE_ENV === 'production' ? 'info' : 'verbose';
+
+    // Define el formato de log para consola (texto)
     const logFormat = winston.format.printf(({ timestamp, level, context, message }) => {
+      if (level === 'verbose') {
+        return `${timestamp} ${level.toUpperCase()} [${context || 'Application'}] VERBOSE: ${message}`;
+      }
       return `${timestamp} ${level.toUpperCase()} [${context || 'Application'}] ${message}`;
     });
 
+    // Define el transporte para la consola
     const transports: winston.transport[] = [
       new winston.transports.Console({
         format: winston.format.combine(
           winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-          logFormat,
+          logFormat
         ),
       }),
     ];
 
-    // Si estamos en producción, agregar el archivo rotatorio de logs
+    // Agregar transporte para el archivo rotatorio de logs en formato texto (.log)
     transports.push(
       new DailyRotateFile({
-        dirname: './logs', // Directorio donde se guardarán los logs
-        filename: '%DATE%.log', // Nombre del archivo de log
-        datePattern: 'YYYY-MM-DD', // Rotación diaria
-        zippedArchive: true, // Comprime archivos antiguos
-        maxSize: '20m', // Tamaño máximo de cada archivo
-        maxFiles: '14d', // Mantiene logs por 14 días
-      }) as winston.transport // Forzar el tipo a transport
+        dirname: './logs',
+        filename: '%DATE%.log',  // Archivo de texto para logs
+        datePattern: 'YYYY-MM-DD',
+        zippedArchive: true,
+        maxSize: '20m',
+        maxFiles: '14d',
+        format: winston.format.combine(
+          winston.format.timestamp(),
+          logFormat  // Formato de texto para archivo .log
+        ),
+      }) as winston.transport
     );
 
+    // Agregar transporte para el archivo rotatorio de logs en formato JSON (.json)
+    transports.push(
+      new DailyRotateFile({
+        dirname: './logs',
+        filename: '%DATE%.json',  // Archivo en formato JSON
+        datePattern: 'YYYY-MM-DD',
+        zippedArchive: true,
+        maxSize: '20m',
+        maxFiles: '14d',
+        format: winston.format.combine(
+          winston.format.timestamp(),
+          winston.format.json()  // Formato JSON para archivo .json
+        ),
+      }) as winston.transport
+    );
+
+    // Crear el logger con los transportes configurados
     this.logger = winston.createLogger({
-      level: logLevel, // Usamos 'verbose' como nivel fijo
+      level: logLevel, // Nivel de log dinámico
       format: winston.format.combine(
         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
         logFormat
@@ -45,7 +70,7 @@ export class LoggerService {
   }
 
   log(message: string, context?: string) {
-    this.logger.info(message, { context });    
+    this.logger.info(message, { context });
   }
 
   error(message: string, trace?: string, context?: string) {

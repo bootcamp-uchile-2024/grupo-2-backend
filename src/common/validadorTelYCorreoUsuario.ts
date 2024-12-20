@@ -1,6 +1,6 @@
 import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
 
-// Validador personalizado para correo y teléfono
+
 export function IsCorreoTelefonoRequerido(tipoSuscripcionField: string, validationOptions?: ValidationOptions) {
   return function (object: any, propertyName: string) {
     registerDecorator({
@@ -11,9 +11,9 @@ export function IsCorreoTelefonoRequerido(tipoSuscripcionField: string, validati
       options: validationOptions,
       validator: {
         validate(value: any, args: ValidationArguments) {
-          const tipoSuscripcion = args.object[args.constraints[0]]; // Obtener el valor del campo tipo_suscripcion
+          const tipoSuscripcion = args.object[args.constraints[0]]; 
           if (tipoSuscripcion === 'SIN_SUSCRIPCION' && !value) {
-            return false; // Si tipo_suscripcion es 'SIN_SUSCRIPCION' y el valor de correo o teléfono es vacío, no es válido
+            return false; 
           }
           return true;
         },

@@ -1,41 +1,41 @@
 export enum TipoCerveza {
-    // Ales
-    PaleAle = 'Pale Ale', // Sabor balanceado con notas afrutadas y lupuladas.
-    AmericanPaleAle = 'American Pale Ale', // Variante americana de la Pale Ale, más lupulada.
-    IndiaPaleAle = 'India Pale Ale', // Cerveza fuertemente lupulada, con mayor amargor.
-    AmberAle = 'Ambe rAle', // Maltosa y caramelizada, con color ámbar.
-    BrownAle = 'Brown Ale', // Cerveza marrón con sabores a nuez y chocolate.
-    Porter = 'Porter', // Oscura con sabores a chocolate y café.
-    Stout = 'Stout', // Similar a la Porter, más intensa con malta tostada.
-    DryStout = 'DryStout', // Stout seca, con menos dulzura y cuerpo ligero.
-    ImperialStout = 'Imperial Stout', // Stout más fuerte y robusta, alto contenido alcohólico.
+    
+    PaleAle = 'Pale Ale', 
+    AmericanPaleAle = 'American Pale Ale', 
+    IndiaPaleAle = 'India Pale Ale', 
+    AmberAle = 'Ambe rAle', 
+    BrownAle = 'Brown Ale', 
+    Porter = 'Porter', 
+    Stout = 'Stout', 
+    DryStout = 'DryStout', 
+    ImperialStout = 'Imperial Stout', 
 
-    // Lagers
-    Pilsner = 'Pilsner', // Ligera y refrescante con amargor moderado.
-    AmberLager = 'Amber Lager', // Lager más maltosa y caramelizada.
-    DarkLager = 'Dark Lager', // Lager oscura con sabores tostados.
-    Bock = 'Bock', // Lager fuerte, dulce y maltosa, de color oscuro.
+    
+    Pilsner = 'Pilsner', 
+    AmberLager = 'Amber Lager', 
+    DarkLager = 'Dark Lager', 
+    Bock = 'Bock', 
 
-    // Cervezas de Trigo (Wheat Beers)
-    Hefeweizen = 'Hefeweizen', // Turbia con sabores afrutados y especiados.
-    Witbier = 'Witbier', // Cerveza de trigo belga con cáscara de naranja y cilantro.
-    BerlinerWeisse = 'Berliner Weisse', // Ácida y ligera, frecuentemente con jarabes de frutas.
+    
+    Hefeweizen = 'Hefeweizen', 
+    Witbier = 'Witbier', 
+    BerlinerWeisse = 'Berliner Weisse', 
 
-    // Cervezas Lambic y de Fermentación Espontánea
-    Lambic = 'Lambic', // Cerveza belga de fermentación espontánea, a menudo con frutas.
-    Gueuze = 'Gueuze', // Mezcla de Lambics de diferentes edades, ácida y efervescente.
-    Kriek = 'Kriek', // Lambic fermentada con cerezas, sabor afrutado y ácido.
+    
+    Lambic = 'Lambic', 
+    Gueuze = 'Gueuze', 
+    Kriek = 'Kriek', 
 
-    // Cervezas Sazonales y Especiales
-    Saison = 'Saison', // Seca, especiada y refrescante con notas frutales.
-    PumpkinAle = 'Pumpkin Ale', // Cerveza de temporada con calabaza y especias.
-    ChristmasAle = 'Christmas Ale', // Cerveza especiada, típica para las fiestas.
+    
+    Saison = 'Saison', 
+    PumpkinAle = 'Pumpkin Ale', 
+    ChristmasAle = 'Christmas Ale', 
 
-    // Cervezas Ácidas (Sour Beers)
-    Gose = 'Gose', // Cerveza ácida y salada, con sabores cítricos y especias.
-    FlandersRedAle = 'Flanders Red Ale', // Cerveza belga ácida, agria y afrutada.
+    
+    Gose = 'Gose', 
+    FlandersRedAle = 'Flanders Red Ale', 
 
-    // Otros Estilos
-    Barleywine = 'Barleywine', // Cerveza fuerte, maltosa y envejecida en barriles.
-    RyeBeer = 'RyeBeer', // Cerveza con centeno, sabor especiado y seco.
+    
+    Barleywine = 'Barleywine', 
+    RyeBeer = 'RyeBeer', 
 }

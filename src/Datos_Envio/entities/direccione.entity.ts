@@ -30,7 +30,7 @@ export class Direccione {
     @ApiProperty({ default: '11111111-1' })
     public rut_usuario: string;
 
-    @Column({ default: 'activa' }) // Estado por defecto
+    @Column({ default: 'activa' }) 
     @ApiProperty({ default: 'activa', description: 'Estado de la dirección: activa/inactiva' })
     public estado: string;
 

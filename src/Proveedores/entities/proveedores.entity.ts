@@ -6,7 +6,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedC
 export class Proveedor{
 
   @PrimaryGeneratedColumn()
-  public id: number; //autogenerado
+  public id: number; 
 
   @Column()
   public nombre: string;

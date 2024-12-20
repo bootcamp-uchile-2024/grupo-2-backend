@@ -8,7 +8,7 @@ import { Formato } from "src/Formato/Formatos.entity";
 export class Cerveza {
 
   @PrimaryGeneratedColumn()
-  public id: number; //autogenerado
+  public id: number; 
   
   @Column()
   public nombre: string;

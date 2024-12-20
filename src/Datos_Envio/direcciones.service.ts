@@ -17,7 +17,7 @@ export class DireccionesService {
     @InjectRepository(Usuario)
     private readonly usuarioRepository: Repository<Usuario>,
   ) {}
-//================================================================================================
+
 async create(createDireccioneDto: CreateDireccioneDto) {
   const { rut_usuario, id_comuna } = createDireccioneDto;
 
@@ -33,23 +33,23 @@ async create(createDireccioneDto: CreateDireccioneDto) {
 
   const nuevaDireccion = this.direccioneRepository.create({
     ...createDireccioneDto,
-    estado: 'activo', // Asignar el valor por defecto para el estado
+    estado: 'activo', 
     id_comuna: comuna,
   });
 
   return await this.direccioneRepository.save(nuevaDireccion);
 }
-//================================================================================================
+
 async findByRutUsuario(rut_usuario: string) {
-  // Verificar si el usuario existe
+  
   const usuario = await this.usuarioRepository.findOneBy({ rut: rut_usuario });
   if (!usuario) {
     throw new NotFoundException(`El usuario con RUT ${rut_usuario} no existe.`);
   }
 
-  // Obtener las direcciones asociadas al usuario
+  
   const direcciones = await this.direccioneRepository.find({
-    where: { rut_usuario },  // Filtrar por el RUT del usuario
+    where: { rut_usuario },  
   });
 
   if (!direcciones || direcciones.length === 0) {
@@ -58,46 +58,35 @@ async findByRutUsuario(rut_usuario: string) {
 
   return direcciones;
 }
-//================================================================================================
+
 
 async updateByRutUsuario(rut_usuario: string, updateDireccioneDto: UpdateDireccioneDto) {
-  // Buscar al usuario por su rut
+  
   const usuario = await this.usuarioRepository.findOne({ where: { rut: rut_usuario } });
 
   if (!usuario) {
     throw new NotFoundException(`Usuario con RUT ${rut_usuario} no encontrado`);
   }
 
-  // Obtener todas las direcciones asociadas al usuario
+  
   const direcciones = await this.direccioneRepository.find({ where: { rut_usuario: usuario.rut } });
 
   if (direcciones.length === 0) {
     throw new NotFoundException(`No se encontraron direcciones para el usuario con RUT ${rut_usuario}`);
   }
 
-  // Actualizar las direcciones encontradas
+  
   for (const direccion of direcciones) {
-    // Asignar los nuevos valores de updateDireccioneDto a la dirección
+    
     Object.assign(direccion, updateDireccioneDto);
-    await this.direccioneRepository.save(direccion); // Guardar la dirección actualizada
+    await this.direccioneRepository.save(direccion); 
   }
 
-  return direcciones;  // Retorna las direcciones actualizadas
+  return direcciones;  
 }
-//================================================================================================
-/*async remove(id: number) {
-  // Buscar la dirección por id
-  const direccion = await this.direccioneRepository.findOne({ where: { id } });
 
-  if (!direccion) {
-    throw new NotFoundException(`La dirección con ID ${id} no fue encontrada`);
-  }
 
-  // Eliminar la dirección
-  await this.direccioneRepository.delete(id);
-  return { message: `Dirección con ID ${id} eliminada correctamente` };
-}*/
-//================================================================================================
+
 async cambiarEstadoDireccion(id: number): Promise<Direccione> {
   const direccion = await this.direccioneRepository.findOne({ where: { id } });
 
@@ -105,7 +94,7 @@ async cambiarEstadoDireccion(id: number): Promise<Direccione> {
     throw new NotFoundException(`La dirección con ID ${id} no existe.`);
   }
 
-  // Alternar el estado entre 'activa' e 'inactiva'
+  
   direccion.estado = direccion.estado === 'activa' ? 'inactiva' : 'activa';
 
   return await this.direccioneRepository.save(direccion);

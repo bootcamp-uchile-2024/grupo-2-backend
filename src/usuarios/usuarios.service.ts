@@ -27,7 +27,7 @@ export class UsuariosService {
     return !!usuario;
   }
 
-  //=======================================================================================================
+  
   async create(createUsuarioDto: CreateUsuarioDto) {
     const existe = await this.usuariosRepository.existsBy({ rut: createUsuarioDto.rut })
     if (!existe) {
@@ -87,7 +87,7 @@ export class UsuariosService {
       throw new HttpException('El rut ingresado ya tiene un usuario creado', HttpStatus.BAD_REQUEST);
     }
   }
-  //======================================================================================================= 
+  
   async findAll(): Promise<SalidaUsuarioDto[]> {
     const resultado = await this.usuariosRepository.find({
       select: {
@@ -105,7 +105,7 @@ export class UsuariosService {
     const respuesta = resultado.map((entidad) => UsuarioMapper.entityToDto(entidad));
     return respuesta;
   }
-//=======================================================================================================
+
 
   async findOne(rut: string): Promise<SalidaUsuarioDto> {
     const usuario = await this.usuariosRepository.findOne({where:{ rut: rut} });
@@ -116,7 +116,7 @@ export class UsuariosService {
       throw new HttpException('El rut ingresado no tiene usuario creado', HttpStatus.BAD_REQUEST);
     }
   }
-//=======================================================================================================
+
   async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
     const existe_usuario = await this.usuariosRepository.findOne({where:{ rut: id} });
     const existe_correo = await this.usuariosRepository.findOne({where:{ correo_comprador: updateUsuarioDto.correo_comprador} });
@@ -176,22 +176,5 @@ export class UsuariosService {
     }  
   }
 
-  /*
-  async remove(id: string) {
-    const existe = await this.usuariosRepository.existsBy({rut: id});
-    if (existe){
-      const existenDatos = await this.datosEnvioRepository.existsBy({rut_usuario: id});
-      if (existenDatos){
-        const remover_datos = await this.datosEnvioRepository.delete({rut_usuario: id});
-      }
-      const existenPedidos = await this.pedidoRepository.existsBy({rut_comprador: id});
-      if (existenPedidos){
-        const remover_datos = await this.pedidoRepository.delete({rut_comprador: id});
-      }
-      //const removido = await this.usuariosRepository.delete(id);
-      return 'Usuario eliminado';
-    }else{
-      throw new HttpException('El rut ingresado no tiene usuario creado', HttpStatus.BAD_GATEWAY);
-    }
-  }*/
+  
 }

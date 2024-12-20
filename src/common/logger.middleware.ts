@@ -11,7 +11,7 @@ export class LoggerMiddleware implements NestMiddleware {
     const ip = req.ip;
     const userAgent = req.get('User-Agent');
 
-    // Extraer el nombre del módulo o controlador basado en la ruta.
+    
     const context = this.extractContextFromUrl(originalUrl);
 
     this.loggerService.log(
@@ -33,7 +33,7 @@ export class LoggerMiddleware implements NestMiddleware {
   }
 
   private extractContextFromUrl(url: string): string {
-    // Derivar el contexto desde la URL (por ejemplo, el primer segmento después de "/").
+    
     const parts = url.split('/').filter(Boolean);
     return parts.length > 0 ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Application';
   }

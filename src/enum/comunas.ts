@@ -4,7 +4,7 @@ export enum Comuna {
     Putre = 'Putre',
     GeneralLagos = 'General Lagos',
 
-    // Región de Tarapacá
+    
     Iquique = 'Iquique',
     AltoHospicio = 'Alto Hospicio',
     PozoAlmonte = 'Pozo Almonte',
@@ -13,7 +13,7 @@ export enum Comuna {
     Colchane = 'Colchane',
     Pica = 'PICA',
 
-    // Región de Antofagasta
+    
     Antofagasta = 'Antofagasta',
     Mejillones = 'Mejillones',
     SierraGorda = 'Sierra Gorda',
@@ -24,7 +24,7 @@ export enum Comuna {
     Tocopilla = 'Tocopilla',
     Ollague = 'Ollague',
 
-    // Región de Atacama
+    
     Copiapo = 'Copiapó',
     Caldera = 'Caldera',
     TierraAmarilla = 'Tierra Amarilla',
@@ -35,7 +35,7 @@ export enum Comuna {
     Freirina = 'Freirina',
     Huasco = 'Huasco',
 
-    // Región de Coquimbo
+    
     LaSerena = 'La Serena',
     Coquimbo = 'Coquimbo',
     Andacollo = 'Andacollo',
@@ -52,7 +52,7 @@ export enum Comuna {
     Punitaqui = 'Punitaqui',
     RioHurtado = 'Río Hurtado',
 
-    // Región de Valparaíso
+    
     Valparaiso = "Valparaíso",
     Casablanca = "Casablanca",
     Concon = "Concón",
@@ -92,7 +92,7 @@ export enum Comuna {
     Putaendo = "Putaendo",
     SantaMaria = "Santa María",
 
-    // Región Metropolitana
+    
     Santiago = 'Santiago',
     Cerrillos = 'Cerrillos',
     CerroNavia = 'Cerro Navia',
@@ -146,7 +146,7 @@ export enum Comuna {
     PadreHurtado = 'Padre Hurtado',
     Penaflor = 'Peñaflor',
 
-    // Región del Libertador General Bernardo O’Higgins
+    
     Rancagua = 'Rancagua',
     Codegua = 'Codegua',
     Coinco = 'Coinco',
@@ -181,7 +181,7 @@ export enum Comuna {
     Pumanque = 'Pumanque',
     SantaCruz = 'Santa Cruz',
 
-    // Región del Maule
+    
     Talca = "Talca",
     Constitucion = "Constitución",
     Curepto = "Curepto",
@@ -213,7 +213,7 @@ export enum Comuna {
     VillaAlegre = "Villa Alegre",
     YerbasBuenas = "Yerbas Buenas",
 
-    // Región de Ñuble
+    
     Chillan = "Chillán",
     ChillanViejo = "Chillán Viejo",
     Cobquecura = "Cobquecura",
@@ -228,7 +228,7 @@ export enum Comuna {
     Trehuaco = "Treguaco",
     Yungay = "Yungay",
 
-    // Región del Biobío
+    
     Concepcion = 'Concepción',
     Coronel = 'Coronel',
     Chiguayante = 'Chiguayante',
@@ -263,7 +263,7 @@ export enum Comuna {
     Yumbel = 'Yumbel',
     AltoBiobio = 'Alto Biobío',
 
-    // Región de La Araucanía
+    
     Temuco = 'Temuco',
     Carahue = 'Carahue',
     Cunco = 'Cunco',
@@ -297,7 +297,7 @@ export enum Comuna {
     Traiguen = 'Traiguén',
     Victoria = 'Victoria',
 
-    // Región de Los Ríos
+    
     Valdivia = 'Valdivia',
     Corral = 'Corral',
     Futrono = 'Futrono',
@@ -311,7 +311,7 @@ export enum Comuna {
     Pangipulli = 'Panguipulli',
     RioBueno = 'Río Bueno',
 
-    // Región de Los Lagos
+    
     PuertoMontt = 'Puerto Montt',
     Calbuco = 'Calbuco',
     Cochamo = 'Cochamó',
@@ -343,7 +343,7 @@ export enum Comuna {
     Hualaihue = 'Hualaihué',
     Palena = 'Palena',
 
-    // Región de Aysén del General Carlos Ibáñez del Campo
+    
     Coyhaique = 'Coyhaique',
     LagoVerde = 'Lago Verde',
     Aisen = 'Aisén',
@@ -355,7 +355,7 @@ export enum Comuna {
     ChileChico = 'Chile Chico',
     RioIbanez = 'Río Ibáñez',
 
-    // Región de Magallanes y de la Antártica Chilena
+    
     PuntaArenas = 'Punta Arenas',
     LagunaBlanca = 'Laguna Blanca',
     RioVerde = 'Río Verde',

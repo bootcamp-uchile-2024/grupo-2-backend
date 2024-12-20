@@ -19,13 +19,13 @@ import {
       const status = exception.getStatus();
       const message = exception.message;
   
-      // Log the exception
+      
       this.logger.error(
         `Error: ${method} ${originalUrl} - Status: ${status} - Message: ${message}`,
         'ExceptionFilter'
       );
   
-      // Return the response
+      
       response.status(status).json({
         statusCode: status,
         message: message,

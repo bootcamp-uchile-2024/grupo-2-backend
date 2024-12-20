@@ -24,7 +24,7 @@ export class PedidosController {
   }
   
 
-  //=======================================================================================================
+  
   @Get()
   @ApiQuery({ name: 'rut_comprador', required: false, type: String, description: 'RUT del comprador' })
   @ApiQuery({
@@ -37,7 +37,7 @@ export class PedidosController {
     @Query('rut_comprador') rut_comprador?: string,
     @Query('estado') estado?: string,
   ): Promise<Pedido[]> {
-    // Validar la existencia del rut_comprador en la tabla usuario
+    
     if (rut_comprador) {
       const usuarioExiste = await this.usuariosService.existsByRut(rut_comprador);
       if (!usuarioExiste) {
@@ -48,7 +48,7 @@ export class PedidosController {
       }
     }
 
-    // Construir los filtros para la consulta
+    
     const filters = {
       rut_comprador,
       estado,
@@ -57,14 +57,14 @@ export class PedidosController {
     return this.pedidosService.findAll(filters);
   }
 
-  //=======================================================================================================
+  
   @ApiResponse({ status: 200, description: 'Pedido encontrado' })
   @ApiResponse({ status: 404, description: 'No se encuentra el pedido' })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.pedidosService.findOne(+id);
   }
-//=======================================================================================================
+
   @Patch(':id')
   @ApiResponse({ status: 200, description: 'Pedido editado correctamente' })
   @ApiResponse({ status: 404, description: 'No se puede editar el pedido' })
@@ -74,7 +74,7 @@ export class PedidosController {
   ): Promise<Pedido> {
     return await this.pedidosService.updatePedido(id, updatePedidoDto);
   }
-//=======================================================================================================
+
 @ApiResponse({ status: 200, description: 'Pedido eliminado correctamente' })
 @ApiResponse({ status: 404, description: 'Pedido no encontrado' })
 @ApiResponse({ status: 500, description: 'Error interno del servidor' })

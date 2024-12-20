@@ -2,23 +2,23 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsBoolean, IsNotEmpty, IsString, Min } from "class-validator";
 import { Rol } from "src/enum/rol.enum";
 
-//este DTO permite devolver lo usuarios manteniendo la contraseña oculta.
+
 export class SalidaUsuarioDto {
     @IsString()
-    @ApiProperty({ example: '12345678-9'}) // === Actualizado ===
+    @ApiProperty({ example: '12345678-9'}) 
     public rut: string;
 
     @IsString({ message: 'El nombre del comprador debe ser un string' })
     @IsNotEmpty({ message: 'El nombre del comprador no puede estar vacío' })
-    @ApiProperty({ example: 'Juan', description: 'Nombre del usuario' }) // === Actualizado ===
+    @ApiProperty({ example: 'Juan', description: 'Nombre del usuario' }) 
     public nombre: string;
 
     @IsString({ message: 'El apellido del comprador debe ser un string' })
     @IsNotEmpty({ message: 'El apellido del comprador no puede estar vacío' })
-    @ApiProperty({ example: 'Perez', description: 'Apellido del usuario' }) // === Modificado por mi
+    @ApiProperty({ example: 'Perez', description: 'Apellido del usuario' }) 
     public apellido: string;
 
-    @Min(18) //validacion para edad, debe ser mayor o igual a 18.
+    @Min(18) 
     @ApiProperty({ example: 25, description: 'Edad', minimum: 18 })
     public edad: number;
 

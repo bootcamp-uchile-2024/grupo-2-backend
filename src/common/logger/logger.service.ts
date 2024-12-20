@@ -15,7 +15,8 @@ export class LoggerService {
       new winston.transports.Console({
         format: winston.format.combine(
           winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-          logFormat, // Formato para la consola
+          logFormat, 
+          winston.format.colorize(),
         ),
       }),
       new DailyRotateFile({
@@ -27,7 +28,7 @@ export class LoggerService {
         maxFiles: '14d',
         format: winston.format.combine(
           winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-          logFormat, // Formato para los archivos .log
+          logFormat, 
         ),
       }) as winston.transport,
     ];

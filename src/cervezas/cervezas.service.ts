@@ -58,7 +58,7 @@ export class CervezasService {
     
     const salto = (pagina - 1) * cantproductos;
 
-    //configuracion de filtro
+    
     let where_y: any = {};
     if(f_amargor){
       where_y.id_amargor = In(f_amargor);
@@ -138,7 +138,7 @@ export class CervezasService {
     if(existe){
       const entidad = CervezaMapper.dtoToEntity(updateCervezaDto);
       const tipo_id = await this.TipoCervezaRepository.findOneBy({nombre: updateCervezaDto.tipo_cerveza});
-      console.log(entidad);
+    
       entidad.id_tipo = tipo_id.id;
       const amargor = await this.AmargorRepository.findOneBy({nivel: updateCervezaDto.amargor});
       entidad.id_amargor = amargor.id;

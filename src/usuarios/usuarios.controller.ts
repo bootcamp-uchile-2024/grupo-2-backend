@@ -74,11 +74,5 @@ export class UsuariosController {
   }
 
   
-  /*
-  @ApiResponse({ status: 200, description: 'Usuario eliminado correctamente' })
-  @ApiResponse({ status: 404, description: 'No se puede eliminar el usuario' })
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usuariosService.remove(id);
-  }*/
+  
 }

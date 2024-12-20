@@ -15,20 +15,20 @@ export class CreateUsuarioDto {
 
     @IsString({ message: 'El nombre del comprador debe ser un string' })
     @IsNotEmpty({ message: 'El nombre del comprador no puede estar vacío' })
-    @ApiProperty({ default: 'Juan', description: 'Nombre del usuario' }) // === Actualizado ===
+    @ApiProperty({ default: 'Juan', description: 'Nombre del usuario' }) 
     public nombre: string;
 
     @IsString({ message: 'El apellido del comprador debe ser un string' })
     @IsNotEmpty({ message: 'El apellido del comprador no puede estar vacío' })
-    @ApiProperty({ default: 'Perez', description: 'Apellido del usuario' }) // === Modificado por mi
+    @ApiProperty({ default: 'Perez', description: 'Apellido del usuario' }) 
     public apellido: string;
 
     @IsString({ message: 'La contraseña del comprador debe ser un string' })
     @IsNotEmpty({ message: 'La contraseña del comprador no puede estar vacía' })
-    @ApiProperty({ default: '123456', description: 'Contraseña del usuario' }) // === Actualizado ===
+    @ApiProperty({ default: '123456', description: 'Contraseña del usuario' }) 
     public contrasenia: string;
 
-    @Min(18) //validacion para edad, debe ser mayor o igual a 18.
+    @Min(18) 
     @ApiProperty({ default: 25, description: 'Edad', minimum: 18 })
     public edad: number;
 

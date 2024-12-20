@@ -27,9 +27,9 @@ export class PedidoService {
 
   ) { }
 
-  //=======================================================================================================
+  
   async create(createPedidoDto: CreatePedidoDto): Promise<Pedido> {
-    // Verificar si el id_carrito existe en tabla carrito y en tabla pedido
+    
     const carrito = await this.carritoRepository.findOneBy({id: createPedidoDto.id_carrito});
     if (!carrito) {
       throw new HttpException('el ID de carrito ingresado no existe', HttpStatus.BAD_REQUEST)
@@ -39,7 +39,7 @@ export class PedidoService {
         throw new HttpException('ya existe un pedido creado para el ID de carrito ingresado', HttpStatus.BAD_REQUEST)
       }else{
         if(!carrito.rut_comprador){
-          // Verificar si el usuario existe por su rut_comprador
+          
           const usuario = await this.usuarioRepository.findOne({ where: { rut: createPedidoDto.rut_comprador } });
           if (!usuario) {
              throw new HttpException('Se debe crear el usuario antes de crear el pedido', HttpStatus.BAD_REQUEST)
@@ -55,7 +55,7 @@ export class PedidoService {
       }
     };
 
-    // Verificar la dirección de entrega
+    
     const direccion = await this.direccionRepository.findOne({ where: { id: createPedidoDto.id_direccion } });
     if (!direccion) {
       throw new HttpException('Se debe crear la dirección antes de crear el pedido', HttpStatus.BAD_REQUEST)
@@ -65,7 +65,7 @@ export class PedidoService {
       } 
     };
 
-    // Obtener los detalles de las cervezas usando los ids proporcionados
+    
     let total_a_pagar: number = 0;
     const pedido_cervezas = await this.pedidoCervezaRepository.find({ where: { id_carrito: createPedidoDto.id_carrito } });
     if (pedido_cervezas.length == 0) {
@@ -77,38 +77,38 @@ export class PedidoService {
       }
     }
     
-    // Crear el nuevo pedido sin los campos de correo o teléfono, ya que son parte de Datos_Envio
+    
     const pedido = this.pedidoRepository.create({
       rut_comprador: createPedidoDto.rut_comprador,
       total_a_pagar: total_a_pagar,
       id_carrito: createPedidoDto.id_carrito,
-      estado: estadoPedidos.Creado, // Estado inicial 'Creado'
+      estado: estadoPedidos.Creado, 
       fecha_ingreso: createPedidoDto.fecha_ingreso || new Date(),
       fecha_entrega: createPedidoDto.fecha_entrega,
-      direccion_entrega: direccion, // Solo asociamos la dirección,
+      direccion_entrega: direccion, 
       pedido_cervezas: pedido_cervezas
     });
-    // Guardar el pedido en la base de datos
+    
     const savedPedido = await this.pedidoRepository.save(pedido);
     const pedido_guardado = await this.pedidoRepository.findOne({where: {id_carrito: createPedidoDto.id_carrito}, relations:{direccion_entrega: true, pedido_cervezas: true }})
 
     return pedido_guardado;
   }
 
-  // Método para actualizar un pedido
+  
   async updatePedido(id: number, updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
-    // Buscar el pedido por ID
+    
     const pedido = await this.pedidoRepository.findOne({ where: { id } });
     if (!pedido) {
       throw new NotFoundException('Pedido no encontrado');
     }
   
-    // Verificar si el estado del pedido permite la modificación
+    
     if (pedido.estado === estadoPedidos.Enviado || pedido.estado === estadoPedidos.Entregado) {
       throw new ForbiddenException('No se pueden modificar pedidos que ya han sido enviados o entregados');
     }
   
-    // Si el estado es "Creado" o "Aceptado", se pueden modificar los campos permitidos
+    
     if (pedido.estado === estadoPedidos.Creado || pedido.estado === estadoPedidos.Aceptado) {
       if (updatePedidoDto.id_direccion) {
         const nuevaDireccion = await this.direccionRepository.findOne({ where: { id: updatePedidoDto.id_direccion } });
@@ -122,11 +122,11 @@ export class PedidoService {
       throw new ForbiddenException('No se puede modificar un pedido con este estado');
     }
   
-    // Guardar el pedido actualizado
+    
     return this.pedidoRepository.save(pedido);
   }
   
-//=======================================================================================================
+
 async existsById(id: number): Promise<boolean> {
   const pedido = await this.pedidoRepository.findOne({ where: { id } });
   return !!pedido;
@@ -151,8 +151,8 @@ async findAll(filters?: { rut_comprador?: string; id?: number; estado?: string }
       }
    });
 }
-//=======================================================================================================
-  // Método para obtener un pedido específico
+
+  
   async findOne(id: number): Promise<Pedido> {
     const pedido = await this.pedidoRepository.findOne({
       where: { id: id },
@@ -163,8 +163,8 @@ async findAll(filters?: { rut_comprador?: string; id?: number; estado?: string }
     });
     return pedido
   }
-//=======================================================================================================
-  // Método para eliminar un pedido
+
+  
   async remove(id: number): Promise<string> {
     const pedido = await this.pedidoRepository.findOne({ where: { id } });
     if (!pedido) {

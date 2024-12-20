@@ -5,25 +5,22 @@ import { ValidationPipe } from '@nestjs/common';
 import { CommonInterceptor } from './common/common.interceptor';
 import { CommonFilter } from './common/common.filter';
 import { ConfigService } from '@nestjs/config';
-import { HttpExceptionFilter } from 'src/common/logger/exception.filter';  // Importa HttpExceptionFilter correctamente
+import { HttpExceptionFilter } from 'src/common/logger/exception.filter';  
 import { ResponseInterceptor } from 'src/common/logger/response.interceptor';
-import { LoggerService } from 'src/common/logger/logger.service';  // Importa LoggerService correctamente
+import { LoggerService } from 'src/common/logger/logger.service';  
 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService: ConfigService = app.get(ConfigService);
-  console.log('Port:', configService.get('NESTJS_PORT'));
-  console.log('APP Name:', configService.get('APP_NAME'));
-  console.log('App Version:', configService.get('APP_VERSION'));
-  console.log('Entorno:', configService.get('AMBIENTE'));
+  
   const name = configService.get<string>('name');
   const description = configService.get<string>('description');
   const version = configService.get<string>('version');
   const author = configService.get<string>('author');
-  console.log(author);
+  
   const license = configService.get<string>('license');
-  console.log(license);
+  
 
   app.enableCors({
     origin: '*',
@@ -48,7 +45,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new CommonInterceptor());
-  app.useGlobalInterceptors(new ResponseInterceptor(new LoggerService())); // Usa la inyección de dependencias correctamente
+  app.useGlobalInterceptors(new ResponseInterceptor(new LoggerService())); 
   app.useGlobalFilters(new HttpExceptionFilter(new LoggerService()));
   app.useGlobalFilters(new CommonFilter());
 

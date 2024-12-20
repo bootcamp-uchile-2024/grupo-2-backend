@@ -9,28 +9,5 @@ import { ApiTags } from '@nestjs/swagger';
 export class TiposPersonajesController {
   constructor(private readonly tiposPersonajesService: TiposPersonajesService) {}
 
- /* @Post()
-  create(@Body() createTiposPersonajeDto: CreateTiposPersonajeDto) {
-    return this.tiposPersonajesService.create(createTiposPersonajeDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.tiposPersonajesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tiposPersonajesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTiposPersonajeDto: UpdateTiposPersonajeDto) {
-    return this.tiposPersonajesService.update(+id, updateTiposPersonajeDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tiposPersonajesService.remove(+id);
-  } */
+ 
 }

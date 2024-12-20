@@ -20,7 +20,7 @@ export class SuscripcionesService {
         tipo_envio: true
       }
     });
-    console.log(resultado)
+   
     const respuesta = resultado.map((entidad) => SuscripcionMapper.entityToDto(entidad));
     return respuesta;
   }

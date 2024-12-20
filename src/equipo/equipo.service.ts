@@ -12,23 +12,23 @@ export class EquipoService {
 
     constructor() {
         this.personas = [
-            //UX/UI
+            
             new Persona(1, 'Alejandra Pantoja', 'pantoja.ale@gmail.com', 'UxUi', 'Lider'),
             new Persona(2, 'Carolina Deck', 'deckcarolina@gmail.com', 'UxUi', ''),
             new Persona(3, 'Marcela Díaz', 'marcelaalejandradc@gmail.com', 'UxUi', ''),
             new Persona(4, 'Sofía Pérez', 'sofiperezxvii@gmail.com', 'UxUi', ''),
             new Persona(5, 'Paula Vivallos', 'vivallospaula@gmail.com', 'UxUi', ''),
 
-            //Frontend
+            
             new Persona(6, 'Jorge Mulchi', 'jorge.mulchi@gmail.com', 'Frontend', 'Lider'),
             new Persona(7, 'David Manríquez', 'david.mankekez@gmail.com', 'Frontend', ''),
             new Persona(8, 'Carlos Vega', 'calvegh@gmail.com', 'Frontend', ''),
 
-            //Apps móviles:
+            
             new Persona(9, 'Nicolás Núñez', 'jnicolasnunezm@gmail.com', 'AppMobile', 'Lider'),
             new Persona(10, 'Rodrigo Carrasco', 'rodrigo.carrasco.ra@gmail.com', 'AppMobile', ''),
 
-            //Backend
+            
             new Persona(11, 'Cindy da Silva', 'cindyluanadasilva@gmail.com', 'Backend', 'Lider'),
             new Persona(12, 'Andrés Fariña', 'farinavaldivia@gmail.com', 'Backend', ''),
             new Persona(13, 'Karla Reyes', 'karla.reyeslillo7@gmail.com', 'Backend', ''),
@@ -41,21 +41,21 @@ export class EquipoService {
     }
 
 
-    //obtener equipo completo
+    
     obtenerEquipo(): LosMichis[] {
         return this.michis;
 
 
     }
 
-    // Obtener un usuario según subGrupo
+    
     obtenerPorSubGrupo(subGrupo: string): Persona[] {
         const subGrupoLowerCase = subGrupo.toLowerCase();
         return this.personas.filter(persona => persona.subGrupo.toLowerCase() === subGrupoLowerCase);
     }
 
 
-    //listaSubgrupos
+    
 
     listaSubgrupos() {
         return `áreas:  UxUi: Alejandra Pantoja, Carolina Deck, Marcela Díaz, Sofía Pérez, Paula Vivallos.
@@ -64,7 +64,7 @@ export class EquipoService {
                         Backend: Andrés Fariña, Karla Reyes, Esteban Riquelme, Cindy da Silva`;
     }
 
-    //Datos ecommerce
+    
     obtenerDatosGenerales(): string {
       
         return texto;
